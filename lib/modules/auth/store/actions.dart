@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' show required;
 import 'package:redux/redux.dart' show Store;
+
 import 'action_types.dart';
 import '../auth_service.dart';
 import '../models/user.dart';
@@ -118,4 +119,24 @@ class SendPasswordResetEmailSuccessAction {
 class SendPasswordResetEmailFailAction {
   ActionTypes type = ActionTypes.SendPasswordResetEmailFail;
 }
+//endregion
+
+//region Update user
+class UpdateUserAction {}
+
+class UpdateUserSuccessPayload {
+  final User user;
+
+  UpdateUserSuccessPayload(this.user);
+}
+
+class UpdateUserSuccessAction {
+  UpdateUserSuccessPayload payload;
+
+  UpdateUserSuccessAction({@required User user}) {
+    payload = UpdateUserSuccessPayload(user);
+  }
+}
+
+class UpdateUserFailAction {}
 //endregion

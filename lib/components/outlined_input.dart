@@ -5,19 +5,23 @@ class OutlinedInput extends TextField {
   OutlinedInput({
     Key key,
     String labelText,
-    TextInputType keyboardType,
+    String hintText,
+    TextInputType inputType,
     int maxLength,
+    TextEditingController controller,
     List<TextInputFormatter> inputFormatters,
   }) : super(
           key: key,
-          keyboardType: keyboardType,
+          keyboardType: inputType,
           maxLength: maxLength,
+          controller: controller,
           inputFormatters: inputFormatters,
           decoration: InputDecoration(
+            hintText: hintText,
+            labelText: labelText,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            labelText: labelText,
           ),
         );
 }

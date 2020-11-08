@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-import '../../components/large_card.dart';
+import '../../routes.dart';
 import '../../store/state.dart';
+import '../../components/large_card.dart';
 import '../../components/app_bar/app_bar.dart';
 import '../../modules/auth/store/state.dart';
+import '../../modules/auth/components/user_screen/user_payment_info.dart';
 import '../../modules/auth/components/user_screen/user_avatar.dart';
-import '../../modules/auth/components/user_screen/user_payment_info_form.dart';
-import '../../modules/auth/components/user_screen/user_personal_info_form.dart';
+import '../../modules/auth/components/user_screen/user_personal_info.dart';
 
-class UserScreen extends StatelessWidget {
+class UserScreen extends StatefulWidget {
+  @override
+  _UserScreenState createState() => _UserScreenState();
+}
+
+class _UserScreenState extends State<UserScreen> {
   final _textColor = Colors.white;
 
   Widget get loadingUser {
@@ -29,12 +35,35 @@ class UserScreen extends StatelessWidget {
     );
   }
 
+  Widget get editButton {
+    return TextButton.icon(
+      icon: Icon(
+        Icons.edit_rounded,
+        color: Colors.white,
+      ),
+      label: Text(
+        'EDITAR',
+        style: TextStyle(color: Colors.white),
+      ),
+      onPressed: goToEditScreen,
+    );
+  }
+
+  void goToEditScreen() {
+    Navigator.of(context).pushNamed(userEditRoute);
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: MyAppBar(title: ''),
+      appBar: MyAppBar(
+        title: '',
+        actions: [
+          editButton,
+        ],
+      ),
       backgroundColor: theme.primaryColor,
       body: StoreConnector<AppState, AuthState>(
         converter: (store) => store.state.authState,
@@ -44,7 +73,7 @@ class UserScreen extends StatelessWidget {
           if (state.user == null) return noUser;
 
           return ListView(
-            padding: EdgeInsets.all(12),
+            padding: EdgeInsets.symmetric(vertical: 24, horizontal: 12),
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -53,16 +82,16 @@ class UserScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 32),
-              LargeCard(
-                child: UserPersonalInfoForm(),
-              ),
+              LargeCard(child: UserPersonalInfo(user: state.user)),
               SizedBox(height: 16),
-              LargeCard(
-                child: UserPaymentInfoForm(),
-              ),
+              LargeCard(child: UserPaymentInfo()),
             ],
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.edit_rounded),
+        onPressed: goToEditScreen,
       ),
     );
   }

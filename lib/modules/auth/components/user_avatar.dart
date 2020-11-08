@@ -24,10 +24,13 @@ class UserAvatar extends StatelessWidget {
               SizedBox(
                 height: 56,
                 width: 56,
-                child: AsyncAvatar(
-                  imageUrl: user.imgUrl,
-                  backgroundColor: primaryColor,
-                  child: Text(user.name.characters.elementAt(0)),
+                child: Hero(
+                  tag: 'user_img',
+                  child: AsyncAvatar(
+                    imageUrl: user.imageUrl,
+                    backgroundColor: primaryColor,
+                    child: Text(user.name.characters.elementAt(0)),
+                  ),
                 ),
               ),
               SizedBox(width: 8),
@@ -41,7 +44,7 @@ class UserAvatar extends StatelessWidget {
                   ),
                   SizedBox(height: 4),
                   Text(
-                    user.address,
+                    user.address.toString(),
                     style: textTheme.subtitle1.copyWith(color: Colors.black54),
                   ),
                 ],

@@ -118,7 +118,7 @@ class _CartScreenState extends State<CartScreen> {
                         style: textTheme.subtitle2,
                       ),
                       SizedBox(height: 4),
-                      Text(user.address),
+                      Text(user.address.toString()),
                       SizedBox(height: 8),
                     ],
                   );

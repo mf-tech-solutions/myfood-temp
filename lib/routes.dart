@@ -1,16 +1,17 @@
-import 'package:MyFood/screens/auth/user.dart';
 import 'package:flutter/material.dart';
 
 import 'utils.dart';
 import 'constants.dart';
-import 'screens/food/games_screen.dart';
-import 'screens/food/recipes_screen.dart';
-import 'screens/cart/cart.dart';
 import 'screens/home.dart';
 import 'screens/landing.dart';
 import 'screens/menu.dart';
+import 'screens/auth/user.dart';
+import 'screens/auth/user_edit.dart';
 import 'screens/auth/login.dart';
 import 'screens/auth/signup.dart';
+import 'screens/cart/cart.dart';
+import 'screens/food/games_screen.dart';
+import 'screens/food/recipes_screen.dart';
 
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -41,6 +42,9 @@ class Routes {
 
       case userRoute:
         return Utils.pageRouteBuilder(UserScreen());
+
+      case userEditRoute:
+        return Utils.pageRouteBuilder(UserEditScreen());
 
       case landingRoute:
         return MaterialPageRoute(
@@ -81,3 +85,4 @@ const String loginRoute = '/login';
 const String signupRoute = '/signup';
 const String landingRoute = '/landing';
 const String userRoute = '/user';
+const String userEditRoute = '/userEdit';

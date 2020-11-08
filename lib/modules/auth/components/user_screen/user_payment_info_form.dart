@@ -24,24 +24,42 @@ class _UserPaymentInfoFormState extends State<UserPaymentInfoForm> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Método de pagamento'),
-              Icon(Icons.chevron_right),
-            ],
-          ),
-          SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'CPF na nota',
-                    style: TextStyle(fontWeight: FontWeight.w500),
+                    'Método de pagamento',
+                    style: textTheme.subtitle2,
                   ),
-                  Text('000.000.000-00'),
+                  SizedBox(height: 4),
+                  Row(
+                    children: [
+                      Icon(Icons.credit_card_rounded),
+                      SizedBox(width: 4),
+                      Text('Cartão'),
+                    ],
+                  ),
                 ],
               ),
+              SizedBox(
+                height: 32,
+                width: 32,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(32),
+                  onTap: () {},
+                  child: Icon(
+                    Icons.chevron_right_rounded,
+                    color: Colors.black87,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 4),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Incluir CPF na nota'),
               Switch(
                 value: useCpfOnNote,
                 onChanged: (_) => setState(() => useCpfOnNote = !useCpfOnNote),

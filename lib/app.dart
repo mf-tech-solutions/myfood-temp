@@ -24,13 +24,14 @@ class App extends StatelessWidget {
         initialRoute: loginRoute,
         onGenerateRoute: Routes.generateRoute,
         theme: ThemeData(
+          accentColor: Colors.deepOrangeAccent,
+          cursorColor: Colors.deepOrange,
+          indicatorColor: Colors.deepOrange,
           primaryColor: Colors.deepOrange,
           primarySwatch: Colors.deepOrange,
           splashColor: Colors.deepOrangeAccent,
-          indicatorColor: Colors.deepOrange,
           scaffoldBackgroundColor: Constants.scaffoldBackgroundColor,
           visualDensity: VisualDensity.adaptivePlatformDensity,
-          cursorColor: Colors.deepOrange,
           iconTheme: IconThemeData(color: Colors.black87),
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
             selectedItemColor: Colors.deepOrangeAccent,
@@ -41,6 +42,13 @@ class App extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
             splashColor: Colors.deepOrangeAccent,
+          ),
+          cardTheme: CardTheme(
+            margin: const EdgeInsets.all(0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            elevation: 0,
           ),
           textTheme: TextTheme(
             headline5: TextStyle(
@@ -57,13 +65,6 @@ class App extends StatelessWidget {
               fontWeight: FontWeight.w500,
               letterSpacing: 1.25,
             ),
-          ),
-          cardTheme: CardTheme(
-            margin: const EdgeInsets.all(0),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            elevation: 0,
           ),
         ),
         builder: (context, child) => GestureDetector(

@@ -12,19 +12,16 @@ class UserAvatar extends StatelessWidget {
 
   Widget getImageEditButton(Color primaryColor) {
     final double size = 32;
-    final borderRadius = BorderRadius.circular(32);
+    final borderRadius = BorderRadius.circular(size);
 
-    return InkWell(
-      borderRadius: borderRadius,
-      onTap: () {},
-      child: Container(
-        height: size,
-        width: size,
-        decoration: BoxDecoration(
+    return SizedBox(
+      height: size,
+      width: size,
+      child: Material(
+        borderRadius: borderRadius,
+        child: InkWell(
           borderRadius: borderRadius,
-          color: Colors.white,
-        ),
-        child: Center(
+          onTap: () {},
           child: Icon(
             Icons.edit,
             color: primaryColor,
@@ -41,25 +38,17 @@ class UserAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final primaryColor = Theme.of(context).primaryColor;
-
-    return Stack(
-      children: [
-        SizedBox(
-          height: 96,
-          width: 96,
-          child: AsyncAvatar(
-            imageUrl: user.imgUrl,
-            backgroundColor: Colors.white10,
-            child: userNameInitial,
-          ),
+    return SizedBox(
+      height: 96,
+      width: 96,
+      child: Hero(
+        tag: 'user_img',
+        child: AsyncAvatar(
+          imageUrl: user.imageUrl,
+          backgroundColor: Colors.white10,
+          child: userNameInitial,
         ),
-        Positioned(
-          bottom: 0,
-          right: 0,
-          child: getImageEditButton(primaryColor),
-        ),
-      ],
+      ),
     );
   }
 }

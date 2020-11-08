@@ -18,8 +18,8 @@ class AppDrawerHeader extends StatelessWidget {
         TextButton.icon(
           icon: Icon(Icons.exit_to_app_rounded),
           label: Text(AuthResource.signOut.toUpperCase()),
-          onPressed: () {
-            signOut();
+          onPressed: () async {
+            await signOut();
             Navigator.of(context).pushNamedAndRemoveUntil(
               loginRoute,
               (_) => false,
