@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../food/models/product.dart';
-import '../resource.dart';
 
 class ProductCounter extends StatelessWidget {
   final IProduct product;

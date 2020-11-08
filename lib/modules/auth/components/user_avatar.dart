@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:MyFood/components/async_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
