@@ -7,6 +7,13 @@ import 'store/state.dart';
 import 'store/store.dart';
 
 class App extends StatelessWidget {
+  void hideKeyboard(BuildContext context) {
+    FocusScopeNode currentFocus = FocusScope.of(context);
+    if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+      FocusManager.instance.primaryFocus.unfocus();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return StoreProvider<AppState>(
@@ -14,12 +21,16 @@ class App extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'MyFood',
+        initialRoute: loginRoute,
+        onGenerateRoute: Routes.generateRoute,
         theme: ThemeData(
           primaryColor: Colors.deepOrange,
           primarySwatch: Colors.deepOrange,
+          splashColor: Colors.deepOrangeAccent,
+          indicatorColor: Colors.deepOrange,
           scaffoldBackgroundColor: Constants.scaffoldBackgroundColor,
           visualDensity: VisualDensity.adaptivePlatformDensity,
-          splashColor: Colors.deepOrangeAccent,
+          cursorColor: Colors.deepOrange,
           iconTheme: IconThemeData(color: Colors.black87),
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
             selectedItemColor: Colors.deepOrangeAccent,
@@ -55,8 +66,10 @@ class App extends StatelessWidget {
             elevation: 0,
           ),
         ),
-        initialRoute: loginRoute,
-        onGenerateRoute: Routes.generateRoute,
+        builder: (context, child) => GestureDetector(
+          onTap: () => hideKeyboard(context),
+          child: child,
+        ),
       ),
     );
   }

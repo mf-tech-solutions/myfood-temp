@@ -11,7 +11,10 @@ class AppDrawerHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        UserAvatar(),
+        GestureDetector(
+          onTap: () => Navigator.of(context).pushNamed(userRoute),
+          child: UserAvatar(),
+        ),
         TextButton.icon(
           icon: Icon(Icons.exit_to_app_rounded),
           label: Text(AuthResource.signOut.toUpperCase()),

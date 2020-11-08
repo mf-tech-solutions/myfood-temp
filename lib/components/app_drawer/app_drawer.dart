@@ -47,27 +47,8 @@ class AppDrawer extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 24),
+            SizedBox(height: 16),
             Divider(),
-            SizedBox(height: 12),
-            ListTile(
-              title: Text(
-                'Item',
-              ),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Text(
-                'Item',
-              ),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Text(
-                'Item',
-              ),
-              onTap: () {},
-            ),
           ],
         ),
       ),

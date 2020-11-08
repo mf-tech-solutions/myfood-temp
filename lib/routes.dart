@@ -1,3 +1,4 @@
+import 'package:MyFood/screens/auth/user.dart';
 import 'package:flutter/material.dart';
 
 import 'utils.dart';
@@ -38,6 +39,9 @@ class Routes {
           },
         );
 
+      case userRoute:
+        return Utils.pageRouteBuilder(UserScreen());
+
       case landingRoute:
         return MaterialPageRoute(
           builder: (_) => LandingScreen(),
@@ -76,3 +80,4 @@ const String gamesRoute = '/games';
 const String loginRoute = '/login';
 const String signupRoute = '/signup';
 const String landingRoute = '/landing';
+const String userRoute = '/user';
