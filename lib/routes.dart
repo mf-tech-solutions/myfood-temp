@@ -1,3 +1,4 @@
+import 'package:MyFood/screens/food/search_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'utils.dart';
@@ -67,6 +68,9 @@ class Routes {
       case gamesRoute:
         return Utils.pageRouteBuilder(GamesScreen());
 
+      case searchRoute:
+        return Utils.pageRouteBuilder(SearchScreen());
+
       default:
         return MaterialPageRoute(
           builder: (_) => HomeScreen(),
@@ -80,6 +84,7 @@ const String cartRoute = '/cart';
 const String menuRoute = '/menu';
 const String recipesRoute = '/recipes';
 const String gamesRoute = '/games';
+const String searchRoute = '/search';
 
 const String loginRoute = '/login';
 const String signupRoute = '/signup';

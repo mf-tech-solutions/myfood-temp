@@ -53,7 +53,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       this.widget.passwordController.text,
     );
 
-    String validation = validate();
+    validate();
     goToHomeScreen();
   }
 

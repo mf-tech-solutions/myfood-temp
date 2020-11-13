@@ -1,3 +1,4 @@
+import 'package:MyFood/components/alert_dialog.dart';
 import 'package:flutter/material.dart';
 
 import 'constants.dart';
@@ -15,7 +16,7 @@ class Utils {
     return showGeneralDialog(
       context: context,
       barrierDismissible: true,
-      barrierLabel: 'barrier',
+      barrierLabel: 'showContentOnlyDialog',
       transitionDuration: Constants.widgetTransitionDuration,
       pageBuilder: (_, animation1, ___) {
         final tween = Tween<double>(begin: 0, end: 1);
@@ -23,31 +24,24 @@ class Utils {
           curve: Curves.fastOutSlowIn,
           parent: animation1,
         );
+        print(child is AlertDialog);
+        final dialog = child is AlertDialog
+            ? child
+            : MyAlertDialog(
+                actionsPadding: EdgeInsets.zero,
+                contentPadding: EdgeInsets.all(contentPadding ?? 12),
+                insetPadding:
+                    EdgeInsets.symmetric(horizontal: insetPadding ?? 8),
+                backgroundColor:
+                    backgroundColor ?? theme.scaffoldBackgroundColor,
+                content: child,
+              );
 
         return ScaleTransition(
           scale: tween.animate(animation),
           child: GestureDetector(
             onTap: () => Navigator.of(context).pop(),
-            child: Dismissible(
-              key: Key('orderConfirmedDismiss'),
-              direction: DismissDirection.vertical,
-              onDismissed: (_) => Navigator.of(context).pop(),
-              movementDuration: Constants.widgetTransitionDuration,
-              child: AlertDialog(
-                buttonPadding: EdgeInsets.zero,
-                actionsPadding: EdgeInsets.zero,
-                contentPadding: EdgeInsets.all(contentPadding ?? 12),
-                titlePadding: EdgeInsets.zero,
-                insetPadding:
-                    EdgeInsets.symmetric(horizontal: insetPadding ?? 8),
-                backgroundColor:
-                    backgroundColor ?? theme.scaffoldBackgroundColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                content: child,
-              ),
-            ),
+            child: dialog,
           ),
         );
       },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../models/category.dart';
 
 class CategoryCard extends StatelessWidget {
@@ -11,10 +12,15 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = Theme.of(context).textTheme.subtitle1;
     return Container(
       width: 136,
       child: Card(
-        child: Text(category.name),
+        child: Center(
+            child: Text(
+          category.name,
+          style: textStyle,
+        )),
       ),
     );
   }

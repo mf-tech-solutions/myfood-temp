@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../components/large_icon_avatar.dart';
+
 class OrderConfirmedScreen extends StatelessWidget {
   void pop(BuildContext context) {
     Navigator.of(context).pop();
@@ -19,15 +21,8 @@ class OrderConfirmedScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 96,
-              width: 96,
-              child: CircleAvatar(
-                child: Icon(
-                  Icons.check_circle,
-                  size: 36,
-                ),
-              ),
+            LargeIconAvatar(
+              icon: Icons.check_circle,
             ),
             SizedBox(height: 12),
             Text(

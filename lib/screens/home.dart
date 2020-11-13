@@ -35,7 +35,11 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state) => Scaffold(
         body: AnimatedSwitcher(
           transitionBuilder: (child, animation) => transitionBuilder(
-              child, animation, state.currentIndex, state.previousIndex),
+            child,
+            animation,
+            state.currentIndex,
+            state.previousIndex,
+          ),
           duration: Constants.pageTransitionDuration,
           child: IndexedStack(
             key: state.screenKeys[state.currentIndex],

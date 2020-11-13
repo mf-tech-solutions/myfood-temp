@@ -11,4 +11,6 @@ class Constants {
   static Duration get widgetTransitionDuration => Duration(milliseconds: 120);
 
   static Curve get animationCurve => Curves.fastOutSlowIn;
+
+  static BorderRadius get popupBorderRadius => BorderRadius.circular(24);
 }

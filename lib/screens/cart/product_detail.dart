@@ -16,7 +16,7 @@ import '../../store/state.dart';
 class ProductDetailScreen extends StatefulWidget {
   final IProduct product;
 
-  const ProductDetailScreen({
+  ProductDetailScreen({
     Key key,
     @required this.product,
   }) : super(key: key);
@@ -120,7 +120,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           children: [
             ScrollIndicator(),
             SizedBox(height: 24),
-            ProductCard(product: widget.product),
+            Hero(
+              tag: widget.product.hashCode,
+              child: ProductCard(product: widget.product),
+            ),
             SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

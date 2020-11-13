@@ -7,6 +7,8 @@ class MenuScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: AppDrawer());
+    return Scaffold(
+      body: AppDrawer(),
+    );
   }
 }
