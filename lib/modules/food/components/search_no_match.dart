@@ -1,9 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 import '../resource.dart';
-import '../../../constants.dart';
 import '../../../components/large_icon_avatar.dart';
 
 class SearchNoMatch extends StatefulWidget {
