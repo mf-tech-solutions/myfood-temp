@@ -1,4 +1,3 @@
-import 'package:MyFood/constants.dart';
 import 'package:flutter/material.dart';
 
 import 'search_no_match.dart';
@@ -6,6 +5,7 @@ import '../resource.dart';
 import '../models/category.dart';
 import '../models/product.dart';
 import '../models/search_result.dart';
+import '../../../constants.dart';
 import '../../../utils.dart';
 import '../../../components/bottom_sheet_wrapper.dart';
 import '../../../screens/cart/product_detail.dart';
@@ -33,7 +33,9 @@ class _SearchResultViewState extends State<SearchResultView> {
   }
 
   Widget getSearchResultList(
-      List<Category> categories, List<Product> products) {
+    List<Category> categories,
+    List<Product> products,
+  ) {
     return ListView(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       shrinkWrap: true,
