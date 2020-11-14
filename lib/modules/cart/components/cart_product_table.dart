@@ -1,3 +1,4 @@
+import 'package:MyFood/components/bottom_seet_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart' show StoreConnector;
 
@@ -66,8 +67,10 @@ class CartProductTable extends StatelessWidget {
       context: context,
       enableDrag: true,
       isScrollControlled: true,
-      builder: (_) => ProductDetailScreen(
-        product: product,
+      builder: (_) => BottomSheetWrapper(
+        child: ProductDetailScreen(
+          product: product,
+        ),
       ),
     );
   }

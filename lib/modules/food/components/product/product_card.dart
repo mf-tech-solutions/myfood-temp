@@ -1,3 +1,4 @@
+import 'package:MyFood/components/bottom_seet_wrapper.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/product.dart';
@@ -13,8 +14,10 @@ class ProductCard extends StatelessWidget {
       context: context,
       enableDrag: true,
       isScrollControlled: true,
-      builder: (context) => ProductDetailScreen(
-        product: product,
+      builder: (context) => BottomSheetWrapper(
+        child: ProductDetailScreen(
+          product: product,
+        ),
       ),
     );
   }
