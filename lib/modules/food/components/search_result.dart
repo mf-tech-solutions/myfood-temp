@@ -48,10 +48,7 @@ class _SearchResultViewState extends State<SearchResultView> {
         ListView.separated(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
-          itemBuilder: (_, index) => _mapResultItemToWidget(
-            categories[index].name,
-            onTapCallback: () => onCategoryItemTap(categories[index]),
-          ),
+          itemBuilder: (_, index) => _mapCategoryItem(categories[index]),
           separatorBuilder: (_, __) => SizedBox(height: 12),
           itemCount: categories.length,
         ),
@@ -66,10 +63,34 @@ class _SearchResultViewState extends State<SearchResultView> {
           physics: NeverScrollableScrollPhysics(),
           itemBuilder: (_, index) => _mapResultItemToWidget(
             products[index].name,
-            onTapCallback: () => onProductItemTap(products[index]),
+            onTapCallback: () => _onProductItemTap(products[index]),
           ),
           separatorBuilder: (_, __) => SizedBox(height: 12),
           itemCount: products.length,
+        ),
+      ],
+    );
+  }
+
+  Widget _mapCategoryItem(Category category) {
+    final size = 160.0;
+    final borderRadius = BorderRadius.circular(12);
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          width: size,
+          height: size,
+          child: Card(
+            child: InkWell(
+              borderRadius: borderRadius,
+              child: Center(
+                child: Text(category.name),
+              ),
+              onTap: () => _onCategoryItemTap(category),
+            ),
+          ),
         ),
       ],
     );
@@ -89,14 +110,14 @@ class _SearchResultViewState extends State<SearchResultView> {
     );
   }
 
-  void onCategoryItemTap(Category category) {
+  void _onCategoryItemTap(Category category) {
     Utils.showContentOnlyDialog(
       context: context,
       child: CategoryProductsScreen(category: category),
     );
   }
 
-  void onProductItemTap(Product product) {
+  void _onProductItemTap(Product product) {
     showModalBottomSheet(
       context: context,
       enableDrag: true,

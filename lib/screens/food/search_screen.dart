@@ -47,7 +47,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: FoodResource.search),
+      appBar: MyAppBar(title: ''),
       backgroundColor: Theme.of(context).primaryColor,
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 24, horizontal: 12),
