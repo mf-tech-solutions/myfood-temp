@@ -24,24 +24,24 @@ class App extends StatelessWidget {
         initialRoute: loginRoute,
         onGenerateRoute: Routes.generateRoute,
         theme: ThemeData(
-          accentColor: Colors.deepOrangeAccent,
-          cursorColor: Colors.deepOrange,
-          indicatorColor: Colors.deepOrange,
-          primaryColor: Colors.deepOrange,
-          primarySwatch: Colors.deepOrange,
-          splashColor: Colors.deepOrangeAccent,
+          accentColor: Constants.accentColor,
+          cursorColor: Constants.primaryColor,
+          indicatorColor: Constants.primaryColor,
+          primaryColor: Constants.primaryColor,
+          primarySwatch: Constants.primaryColor,
+          splashColor: Constants.accentColor,
           scaffoldBackgroundColor: Constants.scaffoldBackgroundColor,
           visualDensity: VisualDensity.adaptivePlatformDensity,
           iconTheme: IconThemeData(color: Colors.black87),
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
-            selectedItemColor: Colors.deepOrangeAccent,
+            selectedItemColor: Constants.accentColor,
             backgroundColor: Colors.white,
           ),
           buttonTheme: ButtonThemeData(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            splashColor: Colors.deepOrangeAccent,
+            splashColor: Constants.accentColor,
           ),
           cardTheme: CardTheme(
             margin: const EdgeInsets.all(0),

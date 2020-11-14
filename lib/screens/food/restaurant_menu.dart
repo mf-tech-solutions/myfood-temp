@@ -24,15 +24,11 @@ class _RestaurantMenuScreenState extends State<RestaurantMenuScreen> {
   }
 
   Widget get _searchBox {
-    final callback = (String a) {
-      print('search: $a');
-    };
     return Hero(
       tag: 'foodSearchBox',
       child: Material(
         color: Colors.transparent,
         child: SearchBox(
-          searchCallback: callback,
           onTapCallback: goToSearchScreen,
         ),
       ),
