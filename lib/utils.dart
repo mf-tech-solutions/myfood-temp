@@ -24,7 +24,6 @@ class Utils {
           curve: Curves.fastOutSlowIn,
           parent: animation1,
         );
-        print(child is AlertDialog);
         final dialog = child is AlertDialog
             ? child
             : MyAlertDialog(

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Constants {
+  static Color get primaryColor => Colors.pink;
+
+  static Color get accentColor => Colors.pinkAccent[400];
+
   static Color get scaffoldBackgroundColor => Color(0xFFF4F4F4);
 
   static String get loremIpsum =>
