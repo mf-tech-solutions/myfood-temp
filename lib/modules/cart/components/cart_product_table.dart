@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart' show StoreConnector;
 
-import '../../../components/bottom_sheet_wrapper.dart';
 import '../../../screens/cart/product_detail.dart';
 import '../../../store/state.dart';
 import '../../food/models/product.dart';
@@ -67,10 +66,8 @@ class CartProductTable extends StatelessWidget {
       context: context,
       enableDrag: true,
       isScrollControlled: true,
-      builder: (_) => BottomSheetWrapper(
-        child: ProductDetailScreen(
-          product: product,
-        ),
+      builder: (_) => ProductDetailScreen(
+        product: product,
       ),
     );
   }

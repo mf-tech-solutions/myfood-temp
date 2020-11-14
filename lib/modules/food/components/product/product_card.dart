@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../components/bottom_sheet_wrapper.dart';
 import '../../models/product.dart';
 import '../../../../screens/cart/product_detail.dart';
 
@@ -14,10 +13,8 @@ class ProductCard extends StatelessWidget {
       context: context,
       enableDrag: true,
       isScrollControlled: true,
-      builder: (context) => BottomSheetWrapper(
-        child: ProductDetailScreen(
-          product: product,
-        ),
+      builder: (context) => ProductDetailScreen(
+        product: product,
       ),
     );
   }
