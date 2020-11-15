@@ -6,9 +6,27 @@ import '../../resource.dart';
 import '../../models/recipe.dart';
 import '../../store/action_creators.dart';
 import '../../store/state.dart';
+import '../../../../constants.dart';
 import '../../../../store/state.dart';
 
 class RecipeList extends StatelessWidget {
+  Widget getRecipesView(List<Recipe> recipes) {
+    if (recipes.length == 0)
+      return Center(
+        child: Text(
+          FoodResource.emptyRecipeList,
+          style: TextStyle(color: Colors.white),
+        ),
+      );
+
+    return ListView.separated(
+      padding: const EdgeInsets.all(24),
+      itemBuilder: (context, index) => itemBuilder(recipes[index]),
+      separatorBuilder: (context, index) => separatorBuilder(),
+      itemCount: recipes.length,
+    );
+  }
+
   Widget itemBuilder(Recipe recipe) {
     return RecipeListItem(recipe: recipe);
   }
@@ -24,19 +42,19 @@ class RecipeList extends StatelessWidget {
       builder: (_, state) {
         if (state.recipes.length == 0) fetchRecipes();
 
-        if (state.loadingRecipes)
-          return Center(child: CircularProgressIndicator());
+        final loader = Center(
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+          ),
+        );
 
-        final recipes = state.recipes;
-
-        if (recipes.length == 0)
-          return Center(child: Text(FoodResource.emptyRecipeList));
-
-        return ListView.separated(
-          padding: const EdgeInsets.all(24),
-          itemBuilder: (context, index) => itemBuilder(recipes[index]),
-          separatorBuilder: (context, index) => separatorBuilder(),
-          itemCount: recipes.length,
+        return AnimatedCrossFade(
+          firstChild: loader,
+          secondChild: getRecipesView(state.recipes),
+          crossFadeState: state.loadingRecipes
+              ? CrossFadeState.showFirst
+              : CrossFadeState.showSecond,
+          duration: Constants.widgetTransitionDuration,
         );
       },
     );

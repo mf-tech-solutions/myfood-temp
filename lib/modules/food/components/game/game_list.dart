@@ -6,9 +6,27 @@ import '../../resource.dart';
 import '../../models/game.dart';
 import '../../store/action_creators.dart';
 import '../../store/state.dart';
+import '../../../../constants.dart';
 import '../../../../store/state.dart';
 
 class GameList extends StatelessWidget {
+  Widget getGamesView(List<FoodGame> games) {
+    if (games.length == 0)
+      return Center(
+        child: Text(
+          FoodResource.emptyGameList,
+          style: TextStyle(color: Colors.white),
+        ),
+      );
+
+    return ListView.separated(
+      padding: const EdgeInsets.all(24),
+      itemBuilder: (context, index) => itemBuilder(games[index]),
+      separatorBuilder: (context, index) => separatorBuilder(),
+      itemCount: games.length,
+    );
+  }
+
   Widget itemBuilder(FoodGame game) {
     return GameListItem(game: game);
   }
@@ -24,19 +42,19 @@ class GameList extends StatelessWidget {
       builder: (_, state) {
         if (state.games.length == 0) fetchGames();
 
-        if (state.loadingGames)
-          return Center(child: CircularProgressIndicator());
+        final loader = Center(
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+          ),
+        );
 
-        final games = state.games;
-
-        if (games.length == 0)
-          return Center(child: Text(FoodResource.emptyGameList));
-
-        return ListView.separated(
-          padding: const EdgeInsets.all(24),
-          itemBuilder: (context, index) => itemBuilder(games[index]),
-          separatorBuilder: (context, index) => separatorBuilder(),
-          itemCount: games.length,
+        return AnimatedCrossFade(
+          firstChild: loader,
+          secondChild: getGamesView(state.games),
+          crossFadeState: state.loadingGames
+              ? CrossFadeState.showFirst
+              : CrossFadeState.showSecond,
+          duration: Constants.widgetTransitionDuration,
         );
       },
     );
