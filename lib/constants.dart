@@ -7,6 +7,8 @@ class Constants {
 
   static Color get scaffoldBackgroundColor => Color(0xFFF4F4F4);
 
+  static Color get blackTextColor => Colors.black87;
+
   static String get loremIpsum =>
       'Enim nec dui nunc mattis enim ut tellus elementum sagittis vitae et';
 

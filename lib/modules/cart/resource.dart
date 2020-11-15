@@ -1,11 +1,13 @@
 class CartResource {
   static String get cartTitle => 'Carrinho';
 
+  static String get goToCartScreen => 'Ir para o carrinho';
+
   static String get addToCartTitle => 'Adicione items ao carrinho';
 
-  static String get productAmountCounter => 'Quantidade: ';
-
   static String get productAdded => 'Produto adicionado';
+
+  static String get productUpdated => 'Produto atualizado';
 
   static String get removeItemTitle => 'Remover do carrinho';
 
@@ -28,5 +30,7 @@ class CartResource {
   static String get cancel => 'Cancelar';
 
   static String get remove => 'Remover';
+
+  static String get ok => 'OK';
   //endregion
 }

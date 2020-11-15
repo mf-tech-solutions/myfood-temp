@@ -24,7 +24,7 @@ class Utils {
           curve: Curves.fastOutSlowIn,
           parent: animation1,
         );
-        final dialog = child is AlertDialog
+        final dialog = child is MyAlertDialog
             ? child
             : MyAlertDialog(
                 actionsPadding: EdgeInsets.zero,

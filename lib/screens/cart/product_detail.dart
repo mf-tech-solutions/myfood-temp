@@ -1,8 +1,11 @@
+import 'package:MyFood/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
+import '../../utils.dart';
 import '../../components/large_button.dart';
 import '../../components/scroll_indicator.dart';
+import '../../modules/cart/components/product_added.dart';
 import '../../modules/cart/components/product_card.dart';
 import '../../modules/cart/components/product_counter.dart';
 import '../../modules/cart/components/remove_from_cart_dialog.dart';
@@ -11,6 +14,7 @@ import '../../modules/cart/resource.dart';
 import '../../modules/cart/store/actionCreators.dart';
 import '../../modules/cart/store/selectors.dart';
 import '../../modules/food/models/product.dart';
+import '../../modules/navigation/store/actions.dart';
 import '../../store/state.dart';
 
 class ProductDetailScreen extends StatefulWidget {
@@ -27,6 +31,7 @@ class ProductDetailScreen extends StatefulWidget {
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   CartProduct cartProduct;
+  bool isUpdate;
 
   String get totalPrice => cartProduct.totalPrice.toStringAsFixed(2);
 
@@ -37,13 +42,18 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     if (stateCartProduct == null) {
       text = CartResource.confirm;
       if (cartProduct.amount > 0) callback = confirm;
+
+      isUpdate = false;
     } else {
       if (cartProduct.amount == 0) {
         text = CartResource.remove;
         callback = remove;
+
+        isUpdate = false;
       } else {
         text = CartResource.update;
         callback = confirm;
+        isUpdate = true;
       }
     }
 
@@ -82,14 +92,18 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   }
 
   void remove() {
-    showDialog(
+    Utils.showContentOnlyDialog(
       context: context,
-      builder: (context) => RemoveFromCartDialog(
+      child: RemoveFromCartDialog(
         onConfirmHandler: () {
           removeFromCart(widget.product);
           setState(() {
             this.cartProduct = this.cartProduct.copyWith(amount: 0);
           });
+          Navigator.of(context).pop();
+        },
+        onCloseHandler: () {
+          Navigator.of(context).pop();
         },
       ),
     );
@@ -97,10 +111,40 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   void confirm() {
     addProductToCart(this.cartProduct);
-    showDialog(
-      context: this.context,
-      builder: (context) => AlertDialog(
-        content: Text(CartResource.productAdded),
+
+    final okButton = TextButton.icon(
+      icon: Icon(
+        Icons.check_rounded,
+        color: Constants.blackTextColor,
+      ),
+      label: Text(
+        CartResource.ok,
+        style: TextStyle(color: Constants.blackTextColor),
+      ),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+
+    final goToCartButton = RaisedButton.icon(
+      elevation: 0,
+      icon: Icon(Icons.shopping_cart_rounded),
+      label: Text(CartResource.goToCartScreen),
+      onPressed: () {
+        Navigator.of(context).pop(); // closes the dialog
+        Navigator.of(context).pop(); // closes the bottom sheet
+        setCurrentIndex(1);
+      },
+    );
+
+    Utils.showContentOnlyDialog(
+      context: context,
+      child: ProductAddedToCartDialog(
+        isUpdate: isUpdate,
+        actions: [
+          okButton,
+          goToCartButton,
+        ],
       ),
     );
   }
