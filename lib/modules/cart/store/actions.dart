@@ -40,6 +40,10 @@ class RemoveFromCartAction {
 class ClearCartAction {}
 //endregion
 
+//region Deliver option
+class ToggleDeliverOption {}
+//endregion
+
 //region Confirm order
 class ConfirmOrderAction {}
 

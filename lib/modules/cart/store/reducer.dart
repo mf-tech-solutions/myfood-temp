@@ -1,16 +1,18 @@
 import 'package:redux/redux.dart' show TypedReducer, combineReducers;
+
 import 'selectors.dart';
 import 'actions.dart';
 import 'state.dart';
 import '../models/cart_product.dart';
 
 final cartReducer = combineReducers<CartState>([
-  TypedReducer<CartState, AddItemsToCartAction>(_addItemsToCart),
-  TypedReducer<CartState, RemoveFromCartAction>(_removeFromCart),
-  TypedReducer<CartState, ClearCartAction>(_clearCart),
-  TypedReducer<CartState, ConfirmOrderAction>(_confirmOrderStart),
-  TypedReducer<CartState, ConfirmOrderSuccessAction>(_confirmOrderSuccess),
-  TypedReducer<CartState, ConfirmOrderFailAction>(_confirmOrderFail),
+  TypedReducer(_addItemsToCart),
+  TypedReducer(_removeFromCart),
+  TypedReducer(_clearCart),
+  TypedReducer(_toggleDeliverOption),
+  TypedReducer(_confirmOrderStart),
+  TypedReducer(_confirmOrderSuccess),
+  TypedReducer(_confirmOrderFail),
 ]);
 
 CartState _addItemsToCart(CartState state, AddItemsToCartAction action) {
@@ -39,9 +41,17 @@ CartState _removeFromCart(CartState state, RemoveFromCartAction action) {
   return state.copyWith(products: updatedProducts);
 }
 
+//region Clear cart
 CartState _clearCart(CartState state, ClearCartAction action) {
   return state.copyWith(products: []);
 }
+//endregion
+
+//region
+CartState _toggleDeliverOption(CartState state, ToggleDeliverOption action) {
+  return state.copyWith(isDeliver: !state.isDeliver);
+}
+//endregion
 
 //region Confirm order
 CartState _confirmOrderStart(CartState state, ConfirmOrderAction action) {

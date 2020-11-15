@@ -22,6 +22,12 @@ class CartResource {
 
   static String get productTotalPriceTableHeader => 'Preço';
 
+  static String get deliver => 'Entrega';
+
+  static String get withdraw => 'Retirada no local';
+
+  static String get paymentMethod => 'Forma de pagamento';
+
   //region Actions
   static String get confirm => 'Confirmar';
 

@@ -1,7 +1,7 @@
-import 'package:MyFood/components/bottom_seet_wrapper.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/product.dart';
+import '../../../../components/bottom_sheet_wrapper.dart';
 import '../../../../screens/cart/product_detail.dart';
 
 class ProductCard extends StatelessWidget {

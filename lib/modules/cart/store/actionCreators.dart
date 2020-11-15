@@ -16,6 +16,10 @@ void clearCart() {
   AppStore.store.dispatch(ClearCartAction());
 }
 
+void toggleDeliverOption() {
+  AppStore.store.dispatch(ToggleDeliverOption());
+}
+
 Future<void> confirmOrder() async {
   AppStore.store.dispatch(ConfirmOrderAction());
 

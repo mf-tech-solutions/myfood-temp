@@ -1,7 +1,8 @@
-import 'package:MyFood/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
+import '../../constants.dart';
+import '../../routes.dart';
 import '../../utils.dart';
 import '../../components/large_button.dart';
 import '../../components/scroll_indicator.dart';
@@ -131,8 +132,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       icon: Icon(Icons.shopping_cart_rounded),
       label: Text(CartResource.goToCartScreen),
       onPressed: () {
-        Navigator.of(context).pop(); // closes the dialog
-        Navigator.of(context).pop(); // closes the bottom sheet
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          homeRoute,
+          (route) => false,
+        );
         setCurrentIndex(1);
       },
     );

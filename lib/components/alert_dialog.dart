@@ -16,11 +16,14 @@ class MyAlertDialog extends AlertDialog {
           key: key,
           title: title,
           content: content,
+          contentPadding: contentPadding ??
+              const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 24.0),
           actions: actions,
-          insetPadding: EdgeInsets.symmetric(
-            horizontal: 8.0,
-            vertical: 24.0,
-          ),
+          insetPadding: insetPadding ??
+              EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 24.0,
+              ),
           backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
             borderRadius: Constants.popupBorderRadius,

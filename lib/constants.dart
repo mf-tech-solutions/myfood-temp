@@ -5,7 +5,7 @@ class Constants {
 
   static Color get accentColor => Colors.pinkAccent[400];
 
-  static Color get scaffoldBackgroundColor => Color(0xFFF4F4F4);
+  static Color get scaffoldBackgroundColor => Color(0xFFF2F2F2);
 
   static Color get blackTextColor => Colors.black87;
 
