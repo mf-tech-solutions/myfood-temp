@@ -1,4 +1,3 @@
-import 'package:MyFood/screens/food/search_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'utils.dart';
@@ -9,10 +8,12 @@ import 'screens/menu.dart';
 import 'screens/auth/user.dart';
 import 'screens/auth/user_edit.dart';
 import 'screens/auth/login.dart';
+import 'screens/auth/payment_methods.dart';
 import 'screens/auth/signup.dart';
 import 'screens/cart/cart.dart';
 import 'screens/food/games_screen.dart';
 import 'screens/food/recipes_screen.dart';
+import 'screens/food/search_screen.dart';
 
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -71,6 +72,9 @@ class Routes {
       case searchRoute:
         return Utils.pageRouteBuilder(SearchScreen());
 
+      case paymentMethodsRoute:
+        return Utils.pageRouteBuilder(PaymentMethodsScreen());
+
       default:
         return MaterialPageRoute(
           builder: (_) => HomeScreen(),
@@ -85,6 +89,7 @@ const String menuRoute = '/menu';
 const String recipesRoute = '/recipes';
 const String gamesRoute = '/games';
 const String searchRoute = '/search';
+const String paymentMethodsRoute = '/paymentMethods';
 
 const String loginRoute = '/login';
 const String signupRoute = '/signup';

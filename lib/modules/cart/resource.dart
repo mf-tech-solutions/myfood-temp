@@ -22,11 +22,15 @@ class CartResource {
 
   static String get productTotalPriceTableHeader => 'Preço';
 
+  static String get orderTotalValue => 'Total';
+
   static String get deliver => 'Entrega';
+
+  static String get address => 'Endereço';
 
   static String get withdraw => 'Retirada no local';
 
-  static String get paymentMethod => 'Forma de pagamento';
+  static String get payment => 'Pagamento';
 
   //region Actions
   static String get confirm => 'Confirmar';
@@ -36,6 +40,8 @@ class CartResource {
   static String get cancel => 'Cancelar';
 
   static String get remove => 'Remover';
+
+  static String get clear => 'Limpar';
 
   static String get ok => 'OK';
   //endregion

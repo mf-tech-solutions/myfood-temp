@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-import '../../constants.dart';
-import '../../routes.dart';
 import '../../utils.dart';
 import '../../components/large_button.dart';
 import '../../components/scroll_indicator.dart';
@@ -15,7 +13,6 @@ import '../../modules/cart/resource.dart';
 import '../../modules/cart/store/actionCreators.dart';
 import '../../modules/cart/store/selectors.dart';
 import '../../modules/food/models/product.dart';
-import '../../modules/navigation/store/actions.dart';
 import '../../store/state.dart';
 
 class ProductDetailScreen extends StatefulWidget {
@@ -113,42 +110,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   void confirm() {
     addProductToCart(this.cartProduct);
 
-    final okButton = TextButton.icon(
-      icon: Icon(
-        Icons.check_rounded,
-        color: Constants.blackTextColor,
-      ),
-      label: Text(
-        CartResource.ok,
-        style: TextStyle(color: Constants.blackTextColor),
-      ),
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-    );
-
-    final goToCartButton = RaisedButton.icon(
-      elevation: 0,
-      icon: Icon(Icons.shopping_cart_rounded),
-      label: Text(CartResource.goToCartScreen),
-      onPressed: () {
-        Navigator.of(context).pushNamedAndRemoveUntil(
-          homeRoute,
-          (route) => false,
-        );
-        setCurrentIndex(1);
-      },
-    );
-
     Utils.showContentOnlyDialog(
       context: context,
       child: ProductAddedToCartDialog(
+        context: context,
         isUpdate: isUpdate,
-        actions: [
-          okButton,
-          goToCartButton,
-        ],
-      ),
+      ).dialog,
     );
   }
 
@@ -183,10 +150,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   remove: cartProduct != null ? remove : null,
                 ),
                 SizedBox(width: 16),
-                Text(
-                  'Total: R\$ ${this.totalPrice}',
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.headline5,
+                Row(
+                  children: [
+                    Text(
+                      'Total: R\$ ${this.totalPrice}',
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.headline5,
+                    ),
+                  ],
                 ),
               ],
             ),

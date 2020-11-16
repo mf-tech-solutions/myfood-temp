@@ -12,7 +12,7 @@ import '../../modules/cart/store/actionCreators.dart';
 import '../../modules/cart/components/cart_screen/deliver_section.dart';
 import '../../modules/cart/components/cart_screen/cart_product_table.dart';
 import '../../modules/cart/components/cart_screen/empty_card.dart';
-import '../../modules/cart/components/cart_screen/payment_method.dart';
+import '../../modules/cart/components/cart_screen/payment_section.dart';
 import '../../modules/navigation/store/actions.dart';
 
 class CartScreen extends StatefulWidget {
@@ -24,7 +24,7 @@ class _CartScreenState extends State<CartScreen> {
   Widget get clearCartButton {
     return TextButton(
       child: Text(
-        'LIMPAR',
+        CartResource.clear,
         style: TextStyle(color: Colors.white),
       ),
       onPressed: clearCart,
@@ -33,13 +33,17 @@ class _CartScreenState extends State<CartScreen> {
 
   Widget get confirmButton {
     final screenWidth = MediaQuery.of(context).size.width;
+    final padding = 6.0;
 
     return Positioned(
       bottom: 0,
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.symmetric(
+          vertical: 2 * padding,
+          horizontal: padding,
+        ),
         child: SizedBox(
-          width: screenWidth - 32,
+          width: screenWidth - 2 * padding,
           child: LargeButton(
             child: Text(CartResource.confirm.toUpperCase()),
             onPressed: () => confirm(context),
@@ -75,10 +79,7 @@ class _CartScreenState extends State<CartScreen> {
           child: Stack(
             children: [
               ListView(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 24,
-                  horizontal: 12,
-                ),
+                padding: const EdgeInsets.fromLTRB(8, 24, 8, 80),
                 primary: true,
                 scrollDirection: Axis.vertical,
                 children: [
@@ -86,7 +87,7 @@ class _CartScreenState extends State<CartScreen> {
                   SizedBox(height: 16),
                   DeliverSection(),
                   SizedBox(height: 16),
-                  PaymentMethodSection(),
+                  PaymentSection(),
                 ],
               ),
               confirmButton,

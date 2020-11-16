@@ -28,12 +28,7 @@ class DeliverSection extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      titleText.toUpperCase(),
-                      style: textTheme.subtitle1.copyWith(
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+                    Text(titleText, style: textTheme.subtitle1),
                     Switch(
                       activeColor: primaryColor,
                       value: isDeliver,
@@ -44,13 +39,15 @@ class DeliverSection extends StatelessWidget {
                 StoreConnector<AppState, User>(
                   converter: (store) => store.state.authState.user,
                   builder: (_, user) {
+                    if (user == null) return SizedBox(height: 0);
+
                     return AnimatedCrossFade(
                       firstChild: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(height: 8),
                           Text(
-                            'Endereço',
+                            CartResource.address,
                             style: textTheme.subtitle2,
                           ),
                           SizedBox(height: 4),

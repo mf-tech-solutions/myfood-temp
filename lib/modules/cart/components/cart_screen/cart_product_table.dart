@@ -116,9 +116,21 @@ class CartProductTable extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 16),
-              Text(
-                'Total: R\$ ${totalPrice.toStringAsFixed(2)}',
-                style: textTheme.headline5,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      CartResource.orderTotalValue,
+                      style: textTheme.headline6,
+                    ),
+                    Text(
+                      'R\$ ${totalPrice.toStringAsFixed(2)}',
+                      style: textTheme.headline6,
+                    )
+                  ],
+                ),
               )
             ],
           ),
