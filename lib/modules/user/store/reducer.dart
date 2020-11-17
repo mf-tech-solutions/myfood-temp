@@ -3,12 +3,12 @@ import 'package:redux/redux.dart';
 import 'actions.dart';
 import 'state.dart';
 
-final authReducer = combineReducers<AuthState>([
+final authReducer = combineReducers<UserState>([
   TypedReducer(_loginStart),
   TypedReducer(_loginSuccess),
   TypedReducer(_loginFail),
   TypedReducer(_signUpStart),
-  TypedReducer<AuthState, SignUpSuccessAction>(_signUpSuccess),
+  TypedReducer<UserState, SignUpSuccessAction>(_signUpSuccess),
   TypedReducer(_signUpFail),
   TypedReducer(_signOutStart),
   TypedReducer(_signOutSuccess),
@@ -22,75 +22,75 @@ final authReducer = combineReducers<AuthState>([
 ]);
 
 //region Login
-AuthState _loginStart(AuthState state, LoginAction action) {
+UserState _loginStart(UserState state, LoginAction action) {
   return state.copyWith(loading: false);
 }
 
-AuthState _loginSuccess(AuthState state, LoginSuccessAction action) {
+UserState _loginSuccess(UserState state, LoginSuccessAction action) {
   return state.copyWith(user: action.payload.user, loading: false);
 }
 
-AuthState _loginFail(AuthState state, LoginFailAction action) {
+UserState _loginFail(UserState state, LoginFailAction action) {
   return state.copyWith(loading: false);
 }
 //endregion
 
 //region SignUp
-AuthState _signUpStart(AuthState state, SignUpAction action) {
+UserState _signUpStart(UserState state, SignUpAction action) {
   return state.copyWith(loading: false);
 }
 
-AuthState _signUpSuccess(AuthState state, SignUpSuccessAction action) {
+UserState _signUpSuccess(UserState state, SignUpSuccessAction action) {
   return state.copyWith(user: action.payload.user, loading: false);
 }
 
-AuthState _signUpFail(AuthState state, SignUpFailAction action) {
+UserState _signUpFail(UserState state, SignUpFailAction action) {
   return state.copyWith(loading: false);
 }
 //endregion
 
 //region SignOut
-AuthState _signOutStart(AuthState state, SignOutAction action) {
+UserState _signOutStart(UserState state, SignOutAction action) {
   return state.copyWith(loading: false);
 }
 
-AuthState _signOutSuccess(AuthState state, SignOutSuccessAction action) {
-  return AuthState.initial();
+UserState _signOutSuccess(UserState state, SignOutSuccessAction action) {
+  return UserState.initial();
 }
 
-AuthState _signOutFail(AuthState state, SignOutFailAction action) {
+UserState _signOutFail(UserState state, SignOutFailAction action) {
   return state.copyWith(loading: false);
 }
 //endregion
 
 //region SendPasswordResetEmail
-AuthState _sendPasswordResetEmailStart(
-  AuthState state,
+UserState _sendPasswordResetEmailStart(
+  UserState state,
   SendPasswordResetEmailAction action,
 ) =>
     state.copyWith(loading: true);
 
-AuthState _sendPasswordResetEmailSuccess(
-  AuthState state,
+UserState _sendPasswordResetEmailSuccess(
+  UserState state,
   SendPasswordResetEmailSuccessAction action,
 ) =>
     state.copyWith(loading: false);
 
-AuthState _sendPasswordResetEmailFail(
-  AuthState state,
+UserState _sendPasswordResetEmailFail(
+  UserState state,
   SendPasswordResetEmailFailAction action,
 ) =>
     state.copyWith(loading: false);
 //endregion
 
-AuthState _updateUserStart(AuthState state, UpdateUserAction action) {
+UserState _updateUserStart(UserState state, UpdateUserAction action) {
   return state.copyWith(updating: true);
 }
 
-AuthState _updateUserSuccess(AuthState state, UpdateUserSuccessAction action) {
+UserState _updateUserSuccess(UserState state, UpdateUserSuccessAction action) {
   return state.copyWith(user: action.payload.user, updating: false);
 }
 
-AuthState _updateUserFail(AuthState state, UpdateUserFailAction action) {
+UserState _updateUserFail(UserState state, UpdateUserFailAction action) {
   return state.copyWith(updating: false);
 }

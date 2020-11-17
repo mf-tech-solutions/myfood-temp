@@ -6,7 +6,7 @@ import '../modules/user/store/state.dart';
 
 @immutable
 class AppState {
-  final AuthState authState;
+  final UserState authState;
   final FoodState foodState;
   final CartState cartState;
   final NavigationState navigationState;
@@ -19,14 +19,14 @@ class AppState {
   });
 
   factory AppState.initial() => AppState(
-        authState: AuthState.initial(),
+        authState: UserState.initial(),
         foodState: FoodState.initial(),
         cartState: CartState.initial(),
         navigationState: NavigationState.initial(),
       );
 
   AppState copyWith({
-    AuthState authState,
+    UserState authState,
     FoodState foodState,
     CartState cartState,
     NavigationState navigationState,

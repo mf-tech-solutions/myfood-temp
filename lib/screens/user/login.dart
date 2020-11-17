@@ -98,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<AppState, AuthState>(
+    return StoreConnector<AppState, UserState>(
       converter: (store) => store.state.authState,
       builder: (_, state) {
         if (state.loading) {

@@ -3,31 +3,31 @@ import 'package:flutter/material.dart';
 import '../models/user.dart';
 
 @immutable
-class AuthState {
+class UserState {
   final User user;
   final bool loading;
   final bool updating;
 
   get isSignedIn => this.user != null;
 
-  AuthState({
+  UserState({
     @required this.user,
     @required this.loading,
     @required this.updating,
   });
 
-  factory AuthState.initial() => AuthState(
+  factory UserState.initial() => UserState(
         user: null,
         loading: false,
         updating: false,
       );
 
-  AuthState copyWith({
+  UserState copyWith({
     User user,
     bool loading,
     bool updating,
   }) {
-    return AuthState(
+    return UserState(
       user: user ?? this.user,
       loading: loading ?? this.loading,
       updating: updating ?? this.updating,

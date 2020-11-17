@@ -67,7 +67,7 @@ class UserEditScreen extends StatelessWidget {
         title: 'Editar',
       ),
       backgroundColor: theme.primaryColor,
-      body: StoreConnector<AppState, AuthState>(
+      body: StoreConnector<AppState, UserState>(
         converter: (store) => store.state.authState,
         builder: (_, state) {
           fillControllersText(state.user);
