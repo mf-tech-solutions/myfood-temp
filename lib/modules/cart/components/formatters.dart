@@ -6,8 +6,6 @@ class CpfFormatter extends MaskTextInputFormatter {
   }) : super(mask: '###.###.###-##');
 }
 
-class CreditCardLastDigitsFormatter extends MaskTextInputFormatter {
-  CreditCardLastDigitsFormatter(
-    String cardLastDigits,
-  ) : super(mask: '**** ####');
+class UserCardLastDigitsFormatter extends MaskTextInputFormatter {
+  UserCardLastDigitsFormatter() : super(mask: '**** ####');
 }

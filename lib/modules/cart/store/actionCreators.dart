@@ -30,3 +30,15 @@ Future<void> confirmOrder() async {
     AppStore.store.dispatch(ConfirmOrderFailAction());
   }
 }
+
+Future<void> getUserCards() async {
+  AppStore.store.dispatch(GetUserCardsAction());
+
+  try {
+    final userId = AppStore.store.state.authState.user.userId;
+    final cards = await CartService.getUserCards(userId);
+    AppStore.store.dispatch(GetUserCardsSuccessAction(cards));
+  } catch (e) {
+    AppStore.store.dispatch(GetUserCardsFailAction());
+  }
+}

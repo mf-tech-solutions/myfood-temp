@@ -1,3 +1,4 @@
+import 'package:MyFood/modules/cart/models/card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
@@ -36,66 +37,67 @@ class _PaymentSectionState extends State<PaymentSection> {
     return Card(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12),
-        child: StoreConnector<AppState, User>(
-          converter: (store) => store.state.authState.user,
-          builder: (_, user) {
-            if (user == null) return SizedBox(height: 0);
-
-            final paymentMethod = withInkWell(
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            StoreConnector<AppState, UserCard>(
+              converter: (store) => store.state.cartState.cards[0],
+              builder: (_, card) {
+                return withInkWell(
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(Icons.credit_card_rounded),
-                      SizedBox(width: 12),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Row(
                         children: [
-                          Text('Cartão de crédito/débito'),
-                          SizedBox(height: 4),
-                          Text(
-                            '**** 0000',
-                            style: textTheme.subtitle1.copyWith(
-                              color: theme.disabledColor,
-                            ),
+                          Icon(Icons.credit_card_rounded),
+                          SizedBox(width: 12),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Cartão de crédito/débito'),
+                              SizedBox(height: 4),
+                              Text(
+                                '**** 0000',
+                                style: textTheme.subtitle1.copyWith(
+                                  color: theme.disabledColor,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
+                      TextButton(
+                        child: Text('Trocar'),
+                        onPressed: goToPaymentMethodsCreen,
+                      ),
                     ],
                   ),
-                  TextButton(
-                    child: Text('Trocar'),
-                    onPressed: goToPaymentMethodsCreen,
-                  ),
-                ],
-              ),
-              goToPaymentMethodsCreen,
-            );
+                  goToPaymentMethodsCreen,
+                );
+              },
+            ),
+            SizedBox(height: 12),
+            StoreConnector<AppState, User>(
+              converter: (store) => store.state.authState.user,
+              builder: (_, user) {
+                if (user == null) return SizedBox(height: 0);
 
-            final taxNote = withInkWell(
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  UserSocialSecutiryView(user: user),
-                  TextButton(
-                    child: Text('Trocar'),
-                    onPressed: () {},
+                return withInkWell(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      UserSocialSecutiryView(user: user),
+                      TextButton(
+                        child: Text('Trocar'),
+                        onPressed: () {},
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              () {},
-            );
-
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                paymentMethod,
-                SizedBox(height: 12),
-                taxNote,
-              ],
-            );
-          },
+                  () {},
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

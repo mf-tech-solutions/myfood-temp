@@ -1,6 +1,6 @@
-import 'package:MyFood/modules/user/components/payment_methods/card_list.dart';
 import 'package:flutter/material.dart';
 
+import '../../modules/cart/components/payment_methods/card_list.dart';
 import '../../components/large_icon_avatar.dart';
 import '../../components/app_bar/app_bar.dart';
 

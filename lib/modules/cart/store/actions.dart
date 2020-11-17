@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart' show immutable, required;
-import '../../food/models/product.dart';
+
+import '../models/card.dart';
 import '../models/cart_product.dart';
+import '../../food/models/product.dart';
 
 //region Add to cart
 @immutable
@@ -50,4 +52,24 @@ class ConfirmOrderAction {}
 class ConfirmOrderSuccessAction {}
 
 class ConfirmOrderFailAction {}
+//endregion
+
+//region Get user cards
+class GetUserCardsAction {}
+
+class GetUserCardsSuccessPayload {
+  final List<UserCard> cards;
+
+  GetUserCardsSuccessPayload(this.cards);
+}
+
+class GetUserCardsSuccessAction {
+  GetUserCardsSuccessPayload payload;
+
+  GetUserCardsSuccessAction(List<UserCard> cards) {
+    payload = GetUserCardsSuccessPayload(cards);
+  }
+}
+
+class GetUserCardsFailAction {}
 //endregion
