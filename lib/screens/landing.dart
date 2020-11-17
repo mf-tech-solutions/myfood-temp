@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../modules/auth/components/auth_screen_image.dart';
+import '../modules/user/components/auth_screen_image.dart';
 
 class LandingScreen extends StatelessWidget {
   @override

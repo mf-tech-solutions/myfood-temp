@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../components/inputs/text_field.dart';
-import '../auth_resource.dart';
+import '../resource.dart';
 
 class ResetPasswordAlert extends StatelessWidget {
   final emailController = TextEditingController();

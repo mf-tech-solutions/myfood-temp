@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../routes.dart';
 import '../../store/store.dart';
-import '../../modules/auth/auth_resource.dart';
-import '../../modules/auth/store/actions.dart';
-import '../../modules/auth/components/signup/signup_screen_body.dart';
+import '../../modules/user/resource.dart';
+import '../../modules/user/store/actions.dart';
+import '../../modules/user/components/signup/signup_screen_body.dart';
 
 class SignUpScreen extends StatefulWidget {
   final emailController = TextEditingController();

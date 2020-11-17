@@ -1,5 +1,5 @@
 import 'actions.dart';
-import '../auth_service.dart';
+import '../service.dart';
 import '../models/user_dto.dart';
 import '../../../store/store.dart';
 

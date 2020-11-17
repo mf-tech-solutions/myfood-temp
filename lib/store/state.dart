@@ -2,7 +2,7 @@ import 'package:flutter/material.dart' show immutable, required;
 import '../modules/cart/store/state.dart';
 import '../modules/food/store/state.dart';
 import '../modules/navigation/store/state.dart';
-import '../modules/auth/store/state.dart';
+import '../modules/user/store/state.dart';
 
 @immutable
 class AppState {

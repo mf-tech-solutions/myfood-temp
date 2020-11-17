@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../auth_resource.dart';
+import '../../resource.dart';
 
 class HasAccountCheck extends StatelessWidget {
   void onTapHandler(BuildContext context) {

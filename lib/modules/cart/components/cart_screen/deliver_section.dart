@@ -1,9 +1,9 @@
-import 'package:MyFood/modules/cart/resource.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
+import '../../resource.dart';
 import '../../store/actionCreators.dart';
-import '../../../auth/models/user.dart';
+import '../../../user/models/user.dart';
 import '../../../../constants.dart';
 import '../../../../store/state.dart';
 

@@ -1,4 +1,4 @@
-import 'package:MyFood/modules/auth/models/user_dto.dart';
+import 'models/user_dto.dart';
 
 import 'models/address.dart';
 import 'models/user.dart';

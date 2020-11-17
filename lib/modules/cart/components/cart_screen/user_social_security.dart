@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../formatters.dart';
-import '../../../auth/models/user.dart';
+import '../../../user/models/user.dart';
 
 class UserSocialSecutiryView extends StatelessWidget {
   final _formatter = CpfFormatter();

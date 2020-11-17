@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../routes.dart';
-import '../../auth_resource.dart';
+import '../../resource.dart';
 
 class NoAccountCheck extends StatelessWidget {
   NoAccountCheck({

@@ -4,7 +4,7 @@ import 'forgot_password_check.dart';
 import 'no_account_check.dart';
 import '../form_container.dart';
 import '../form_submit_button.dart';
-import '../../auth_resource.dart';
+import '../../resource.dart';
 import '../../../../components/inputs/text_field.dart';
 
 class LoginForm extends StatelessWidget {

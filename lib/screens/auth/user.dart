@@ -5,10 +5,10 @@ import '../../routes.dart';
 import '../../store/state.dart';
 import '../../components/large_card.dart';
 import '../../components/app_bar/app_bar.dart';
-import '../../modules/auth/store/state.dart';
-import '../../modules/auth/components/user_screen/user_payment_info.dart';
-import '../../modules/auth/components/user_screen/user_avatar.dart';
-import '../../modules/auth/components/user_screen/user_personal_info.dart';
+import '../../modules/user/store/state.dart';
+import '../../modules/user/components/user_screen/user_payment_info.dart';
+import '../../modules/user/components/user_screen/user_avatar.dart';
+import '../../modules/user/components/user_screen/user_personal_info.dart';
 
 class UserScreen extends StatefulWidget {
   @override

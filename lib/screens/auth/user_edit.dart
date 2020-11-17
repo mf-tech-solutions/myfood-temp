@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import '../../store/state.dart';
+import '../../modules/user/components/input_formatters.dart';
+import '../../modules/user/components/user_avatar.dart';
+import '../../modules/user/components/user_screen/user_payment_info_form.dart';
+import '../../modules/user/components/user_screen/user_personal_info_form.dart';
+import '../../modules/user/models/user.dart';
+import '../../modules/user/models/user_dto.dart';
+import '../../modules/user/store/action_creators.dart';
+import '../../modules/user/store/state.dart';
 import '../../components/large_button.dart';
 import '../../components/large_card.dart';
 import '../../components/app_bar/app_bar.dart';
-import '../../modules/auth/models/user.dart';
-import '../../modules/auth/models/user_dto.dart';
-import '../../modules/auth/store/action_creators.dart';
-import '../../modules/auth/store/state.dart';
-import '../../modules/auth/components/input_formatters.dart';
-import '../../modules/auth/components/user_screen/user_avatar.dart';
-import '../../modules/auth/components/user_screen/user_personal_info_form.dart';
-import '../../modules/auth/components/user_screen/user_payment_info_form.dart';
 
 class UserEditScreen extends StatelessWidget {
   final nameController = TextEditingController();
@@ -81,7 +81,7 @@ class UserEditScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      UserAvatar(user: state.user),
+                      UserAvatar(),
                     ],
                   ),
                   SizedBox(height: 32),

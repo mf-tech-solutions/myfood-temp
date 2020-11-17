@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'has_account_check.dart';
 import '../form_submit_button.dart';
 import '../form_container.dart';
-import '../../auth_resource.dart';
+import '../../resource.dart';
 import '../../../../components/inputs/text_field.dart';
 
 class SignUpForm extends StatelessWidget {

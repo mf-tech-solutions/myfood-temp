@@ -7,10 +7,10 @@ import '../landing.dart';
 import '../../routes.dart';
 import '../../store/state.dart';
 import '../../store/store.dart';
-import '../../modules/auth/auth_resource.dart';
-import '../../modules/auth/store/state.dart';
-import '../../modules/auth/store/actions.dart';
-import '../../modules/auth/components/login/login_screen_body.dart';
+import '../../modules/user/resource.dart';
+import '../../modules/user/store/state.dart';
+import '../../modules/user/store/actions.dart';
+import '../../modules/user/components/login/login_screen_body.dart';
 
 class LoginScreen extends StatefulWidget {
   final emailController = TextEditingController();

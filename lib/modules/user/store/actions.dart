@@ -2,7 +2,7 @@ import 'package:flutter/material.dart' show required;
 import 'package:redux/redux.dart' show Store;
 
 import 'action_types.dart';
-import '../auth_service.dart';
+import '../service.dart';
 import '../models/user.dart';
 import '../../../store/state.dart';
 import '../../../store/store.dart';

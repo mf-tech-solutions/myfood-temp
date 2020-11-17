@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../routes.dart';
-import '../../modules/auth/auth_resource.dart';
-import '../../modules/auth/store/actions.dart';
-import '../../modules/auth/components/user_avatar.dart';
+import '../../modules/user/resource.dart';
+import '../../modules/user/store/actions.dart';
+import '../../modules/user/components/user_avatar.dart';
 
 class AppDrawerHeader extends StatelessWidget {
   @override

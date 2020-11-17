@@ -1,6 +1,6 @@
 import '../modules/cart/store/reducer.dart';
 import '../modules/food/store/reducer.dart';
-import '../modules/auth/store/reducer.dart';
+import '../modules/user/store/reducer.dart';
 import '../modules/navigation/store/reducer.dart';
 import 'state.dart';
 

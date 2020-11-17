@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 
 import '../../../../routes.dart';
 import 'user_social_security.dart';
-import '../../../auth/models/user.dart';
+import '../../../user/models/user.dart';
 import '../../../../store/state.dart';
 
 class PaymentSection extends StatefulWidget {

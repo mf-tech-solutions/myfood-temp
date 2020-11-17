@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../auth_resource.dart';
+import '../../resource.dart';
 import '../reset_password_alert.dart';
 
 class ForgotPasswordCheck extends StatelessWidget {
