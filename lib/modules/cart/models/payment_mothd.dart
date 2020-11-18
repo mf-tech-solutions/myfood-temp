@@ -1,4 +1,0 @@
-enum PaymentMethod {
-  CARD,
-  MONEY,
-}

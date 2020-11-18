@@ -1,10 +1,12 @@
-import 'package:MyFood/modules/cart/models/card.dart';
+import 'package:MyFood/modules/cart/components/cart_screen/payment_method_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-import '../../../../routes.dart';
 import 'user_social_security.dart';
+import '../../models/payment_method.dart';
 import '../../../user/models/user.dart';
+import '../../../../routes.dart';
+import '../../../../constants.dart';
 import '../../../../store/state.dart';
 
 class PaymentSection extends StatefulWidget {
@@ -25,54 +27,47 @@ class _PaymentSectionState extends State<PaymentSection> {
     );
   }
 
+  Widget get setPaymentMethodButton {
+    return Center(
+      child: TextButton(
+        child: Text('Escolher método de pagamento'),
+        onPressed: goToPaymentMethodsCreen,
+      ),
+    );
+  }
+
+  Widget buildSelectedPaymenthMethodItem(PaymentMethod paymentMethod) {
+    return withInkWell(
+      PaymentMethodView(
+        paymentMethod: paymentMethod,
+        onTapCallback: goToPaymentMethodsCreen,
+      ),
+      goToPaymentMethodsCreen,
+    );
+  }
+
   void goToPaymentMethodsCreen() {
     Navigator.of(context).pushNamed(paymentMethodsRoute);
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
-
     return Card(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            StoreConnector<AppState, UserCard>(
-              converter: (store) => store.state.cartState.cards[0],
-              builder: (_, card) {
-                return withInkWell(
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(Icons.credit_card_rounded),
-                          SizedBox(width: 12),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Cartão de crédito/débito'),
-                              SizedBox(height: 4),
-                              Text(
-                                '**** 0000',
-                                style: textTheme.subtitle1.copyWith(
-                                  color: theme.disabledColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      TextButton(
-                        child: Text('Trocar'),
-                        onPressed: goToPaymentMethodsCreen,
-                      ),
-                    ],
-                  ),
-                  goToPaymentMethodsCreen,
+            StoreConnector<AppState, PaymentMethod>(
+              converter: (store) => store.state.cartState.paymentMethod,
+              builder: (_, paymentMethod) {
+                return AnimatedCrossFade(
+                  firstChild: setPaymentMethodButton,
+                  secondChild: buildSelectedPaymenthMethodItem(paymentMethod),
+                  crossFadeState: paymentMethod == null
+                      ? CrossFadeState.showFirst
+                      : CrossFadeState.showSecond,
+                  duration: Constants.widgetTransitionDuration,
                 );
               },
             ),

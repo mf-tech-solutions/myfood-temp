@@ -16,6 +16,7 @@ final cartReducer = combineReducers<CartState>([
   TypedReducer(_getUserCardsStart),
   TypedReducer(_getUserCardsSuccess),
   TypedReducer(_getUserCardsFail),
+  TypedReducer(_setPaymentMethod)
 ]);
 
 CartState _addItemsToCart(CartState state, AddItemsToCartAction action) {
@@ -82,10 +83,18 @@ CartState _getUserCardsSuccess(
   CartState state,
   GetUserCardsSuccessAction action,
 ) {
-  return state.copyWith(cards: action.payload.cards, loadingCards: false);
+  final cards = action.payload.cards;
+
+  return CartState.noPaymentMethod(
+    state.copyWith(cards: cards, loadingCards: false),
+  );
 }
 
 CartState _getUserCardsFail(CartState state, GetUserCardsFailAction action) {
-  return state.copyWith(loadingCards: false);
+  return CartState.noCards(state);
 }
 //endregion
+
+CartState _setPaymentMethod(CartState state, SetPaymentMethodAction action) {
+  return state.copyWith(paymentMethod: action.payload.paymentMethod);
+}

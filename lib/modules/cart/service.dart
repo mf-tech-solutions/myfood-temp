@@ -16,7 +16,14 @@ class CartService {
 
     final cardAmount = Random().nextInt(5);
     final cardNumbers = _cardNumbers.take(cardAmount).toList();
-    final cards = cardNumbers.map((e) => UserCard(lastDigits: e)).toList();
+    final cards = cardNumbers
+        .map(
+          (e) => UserCard(
+            id: int.parse(e[0]),
+            lastDigits: e,
+          ),
+        )
+        .toList();
 
     return Future.delayed(Duration(milliseconds: 400), () => cards);
   }

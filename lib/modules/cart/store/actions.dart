@@ -1,3 +1,4 @@
+import 'package:MyFood/modules/cart/models/payment_method.dart';
 import 'package:flutter/material.dart' show immutable, required;
 
 import '../models/card.dart';
@@ -72,4 +73,20 @@ class GetUserCardsSuccessAction {
 }
 
 class GetUserCardsFailAction {}
+//endregion
+
+//region Set payment method
+class SetPaymentMethodPayload {
+  PaymentMethod paymentMethod;
+
+  SetPaymentMethodPayload(this.paymentMethod);
+}
+
+class SetPaymentMethodAction {
+  SetPaymentMethodPayload payload;
+
+  SetPaymentMethodAction(PaymentMethod paymentMethod) {
+    payload = SetPaymentMethodPayload(paymentMethod);
+  }
+}
 //endregion

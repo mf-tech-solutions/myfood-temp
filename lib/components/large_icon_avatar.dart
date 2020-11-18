@@ -2,28 +2,45 @@ import 'package:flutter/material.dart';
 
 class LargeIconAvatar extends StatelessWidget {
   final IconData icon;
+  final Widget child;
   final Color backgroundColor;
   final Color foregroundColor;
 
-  const LargeIconAvatar({
+  final double size;
+  static const double _minSize = 96;
+
+  LargeIconAvatar({
     Key key,
-    @required this.icon,
+    this.size = _minSize,
+    this.icon,
+    this.child,
     this.backgroundColor,
     this.foregroundColor,
-  }) : super(key: key);
+  }) : super(key: key) {
+    assert(
+      (icon != null && child == null) || (icon == null && child != null),
+    );
+
+    assert(size >= _minSize);
+  }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 96,
-      width: 96,
+      height: size,
+      width: size,
       child: CircleAvatar(
         backgroundColor: backgroundColor,
         foregroundColor: foregroundColor,
-        child: Icon(
-          icon,
-          size: 36,
-        ),
+        child: icon != null
+            ? Icon(
+                icon,
+                size: 36,
+              )
+            : ClipRRect(
+                borderRadius: BorderRadius.circular(size),
+                child: child,
+              ),
       ),
     );
   }

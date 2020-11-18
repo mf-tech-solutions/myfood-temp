@@ -8,7 +8,7 @@ import 'screens/menu.dart';
 import 'screens/user/user.dart';
 import 'screens/user/user_edit.dart';
 import 'screens/user/login.dart';
-import 'screens/user/payment_methods.dart';
+import 'screens/cart/payment_methods.dart';
 import 'screens/user/signup.dart';
 import 'screens/cart/cart.dart';
 import 'screens/food/games_screen.dart';
