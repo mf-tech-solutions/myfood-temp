@@ -6,6 +6,10 @@ class CpfFormatter extends MaskTextInputFormatter {
   }) : super(mask: '###.###.###-##');
 }
 
+class UserCardFormatter extends MaskTextInputFormatter {
+  UserCardFormatter() : super(mask: '#### #### #### ####');
+}
+
 class UserCardLastDigitsFormatter extends MaskTextInputFormatter {
   UserCardLastDigitsFormatter() : super(mask: '**** ####');
 }

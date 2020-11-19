@@ -5,15 +5,16 @@ import 'constants.dart';
 import 'screens/home.dart';
 import 'screens/landing.dart';
 import 'screens/menu.dart';
-import 'screens/user/user.dart';
-import 'screens/user/user_edit.dart';
-import 'screens/user/login.dart';
-import 'screens/cart/payment_methods.dart';
-import 'screens/user/signup.dart';
+import 'screens/cart/add_user_card.dart';
 import 'screens/cart/cart.dart';
+import 'screens/cart/payment_methods.dart';
 import 'screens/food/games_screen.dart';
 import 'screens/food/recipes_screen.dart';
 import 'screens/food/search_screen.dart';
+import 'screens/user/user.dart';
+import 'screens/user/user_edit.dart';
+import 'screens/user/login.dart';
+import 'screens/user/signup.dart';
 
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -75,6 +76,9 @@ class Routes {
       case paymentMethodsRoute:
         return Utils.pageRouteBuilder(PaymentMethodsScreen());
 
+      case addUserCardRoute:
+        return Utils.pageRouteBuilder(AddUserCardScreen());
+
       default:
         return MaterialPageRoute(
           builder: (_) => HomeScreen(),
@@ -90,6 +94,7 @@ const String recipesRoute = '/recipes';
 const String gamesRoute = '/games';
 const String searchRoute = '/search';
 const String paymentMethodsRoute = '/paymentMethods';
+const String addUserCardRoute = '/addUserCard';
 
 const String loginRoute = '/login';
 const String signupRoute = '/signup';

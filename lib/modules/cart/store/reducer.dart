@@ -16,6 +16,9 @@ final cartReducer = combineReducers<CartState>([
   TypedReducer(_getUserCardsStart),
   TypedReducer(_getUserCardsSuccess),
   TypedReducer(_getUserCardsFail),
+  TypedReducer(_addUserCardStart),
+  TypedReducer(_addUserCardSuccess),
+  TypedReducer(_addUserCardFail),
   TypedReducer(_setPaymentMethod)
 ]);
 
@@ -76,7 +79,10 @@ CartState _confirmOrderFail(CartState state, ConfirmOrderFailAction action) {
 
 //region Get user cards
 CartState _getUserCardsStart(CartState state, GetUserCardsAction action) {
-  return state.copyWith(loadingCards: true);
+  return state.copyWith(
+    loadingCards: true,
+    shouldLoadCards: false,
+  );
 }
 
 CartState _getUserCardsSuccess(
@@ -85,8 +91,9 @@ CartState _getUserCardsSuccess(
 ) {
   final cards = action.payload.cards;
 
-  return CartState.noPaymentMethod(
-    state.copyWith(cards: cards, loadingCards: false),
+  return state.copyWith(
+    cards: cards,
+    loadingCards: false,
   );
 }
 
@@ -94,6 +101,28 @@ CartState _getUserCardsFail(CartState state, GetUserCardsFailAction action) {
   return CartState.noCards(state);
 }
 //endregion
+
+//region Add user card
+CartState _addUserCardStart(CartState state, AddUserCardAction action) {
+  return state;
+}
+
+CartState _addUserCardSuccess(
+  CartState state,
+  AddUserCardSuccessAction action,
+) {
+  final cards = [...state.cards, action.payload.card];
+
+  return state.copyWith(cards: cards);
+}
+
+CartState _addUserCardFail(
+  CartState state,
+  AddUserCardFailAction action,
+) {
+  return state;
+}
+//region
 
 CartState _setPaymentMethod(CartState state, SetPaymentMethodAction action) {
   return state.copyWith(paymentMethod: action.payload.paymentMethod);

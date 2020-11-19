@@ -1,8 +1,9 @@
-import 'package:MyFood/modules/cart/models/payment_method.dart';
+import 'package:MyFood/modules/cart/models/card.dart';
 
 import 'actions.dart';
 import '../service.dart';
 import '../models/cart_product.dart';
+import '../models/payment_method.dart';
 import '../../food/models/product.dart';
 import '../../../store/store.dart';
 
@@ -42,6 +43,17 @@ Future<void> getUserCards() async {
     AppStore.store.dispatch(GetUserCardsSuccessAction(cards));
   } catch (e) {
     AppStore.store.dispatch(GetUserCardsFailAction());
+  }
+}
+
+Future<void> addUserCard(UserCardDto cardDto) async {
+  AppStore.store.dispatch(AddUserCardAction());
+
+  try {
+    final card = await CartService.addUserCard(cardDto);
+    AppStore.store.dispatch(AddUserCardSuccessAction(card));
+  } catch (e) {
+    AppStore.store.dispatch(AddUserCardFailAction());
   }
 }
 

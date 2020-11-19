@@ -47,6 +47,12 @@ class AppDrawer extends StatelessWidget {
           ),
           SizedBox(height: 16),
           Divider(),
+          SizedBox(height: 16),
+          ListTile(
+            title: Text('Métodos de pagamento'),
+            trailing: Icon(Icons.chevron_right_rounded),
+            onTap: () => Navigator.of(context).pushNamed(paymentMethodsRoute),
+          )
         ],
       ),
     );

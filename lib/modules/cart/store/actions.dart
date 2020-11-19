@@ -75,6 +75,26 @@ class GetUserCardsSuccessAction {
 class GetUserCardsFailAction {}
 //endregion
 
+//region Add user card
+class AddUserCardAction {}
+
+class AddUserCardSuccessPayload {
+  final UserCard card;
+
+  AddUserCardSuccessPayload(this.card);
+}
+
+class AddUserCardSuccessAction {
+  AddUserCardSuccessPayload payload;
+
+  AddUserCardSuccessAction(UserCard card) {
+    payload = AddUserCardSuccessPayload(card);
+  }
+}
+
+class AddUserCardFailAction {}
+//endregion
+
 //region Set payment method
 class SetPaymentMethodPayload {
   PaymentMethod paymentMethod;

@@ -11,6 +11,7 @@ class CartState {
 
   final List<UserCard> cards;
   final bool loadingCards;
+  final bool shouldLoadCards;
 
   final PaymentMethod paymentMethod;
 
@@ -20,6 +21,7 @@ class CartState {
     @required this.cards,
     @required this.loadingCards,
     @required this.paymentMethod,
+    @required this.shouldLoadCards,
   });
 
   factory CartState.initial() {
@@ -29,6 +31,7 @@ class CartState {
       cards: [],
       loadingCards: false,
       paymentMethod: null,
+      shouldLoadCards: true,
     );
   }
 
@@ -39,16 +42,7 @@ class CartState {
       cards: [],
       loadingCards: false,
       paymentMethod: null,
-    );
-  }
-
-  factory CartState.noPaymentMethod(CartState currentState) {
-    return CartState(
-      products: currentState.products,
-      isDeliver: currentState.isDeliver,
-      cards: currentState.cards,
-      loadingCards: currentState.loadingCards,
-      paymentMethod: null,
+      shouldLoadCards: false,
     );
   }
 
@@ -57,6 +51,7 @@ class CartState {
     bool isDeliver,
     List<UserCard> cards,
     bool loadingCards,
+    bool shouldLoadCards,
     PaymentMethod paymentMethod,
   }) {
     return CartState(
@@ -65,6 +60,7 @@ class CartState {
       cards: cards ?? this.cards,
       loadingCards: loadingCards ?? this.loadingCards,
       paymentMethod: paymentMethod ?? this.paymentMethod,
+      shouldLoadCards: shouldLoadCards ?? this.shouldLoadCards,
     );
   }
 }

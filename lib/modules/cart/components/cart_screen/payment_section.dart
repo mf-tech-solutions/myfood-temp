@@ -1,7 +1,7 @@
-import 'package:MyFood/modules/cart/components/cart_screen/payment_method_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
+import 'payment_method_view.dart';
 import 'user_social_security.dart';
 import '../../models/payment_method.dart';
 import '../../../user/models/user.dart';

@@ -1,5 +1,4 @@
-import 'package:MyFood/modules/cart/models/card.dart';
-
+import '../models/card.dart';
 import '../models/cart_product.dart';
 import '../models/payment_method.dart';
 import '../models/payment_mothod_type.dart';
@@ -24,6 +23,10 @@ UserCard getCardById({int cardId}) {
     (card) => card.id == cardId,
     orElse: () => null,
   );
+}
+
+bool shouldLoadCards() {
+  return AppStore.store.state.cartState.shouldLoadCards;
 }
 
 PaymentMethod getSelectedPaymentMethod() {
