@@ -122,48 +122,58 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return StoreConnector<AppState, CartProduct>(
       converter: (_) => getCartProductByProductId(widget.product.id),
       builder: (_, cartProduct) {
         final confirmButton = getconfirmButton(cartProduct);
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ScrollIndicator(),
-            SizedBox(height: 24),
-            Hero(
-              tag: widget.product.hashCode,
-              child: ProductCard(product: widget.product),
-            ),
-            SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ProductCounter(
-                  product: widget.product,
-                  amount: this.cartProduct.amount,
-                  add: add,
-                  subtract: subtract,
-                  remove: cartProduct != null ? remove : null,
-                ),
-                SizedBox(width: 16),
-                Row(
-                  children: [
-                    Text(
-                      'Total: R\$ ${this.totalPrice}',
-                      textAlign: TextAlign.center,
-                      style: theme.textTheme.headline5,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            SizedBox(height: 24),
-            confirmButton,
-          ],
+        return ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: screenHeight * 0.5),
+          child: DraggableScrollableSheet(
+            minChildSize: 0.2,
+            maxChildSize: 1,
+            initialChildSize: 1,
+            builder: (_, scrollController) {
+              return ListView(
+                shrinkWrap: true,
+                controller: scrollController,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 24),
+                    child: ScrollIndicator(),
+                  ),
+                  ProductCard(product: widget.product),
+                  SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ProductCounter(
+                        product: widget.product,
+                        amount: this.cartProduct.amount,
+                        add: add,
+                        subtract: subtract,
+                        remove: cartProduct != null ? remove : null,
+                      ),
+                      SizedBox(width: 16),
+                      Row(
+                        children: [
+                          Text(
+                            'Total: R\$ ${this.totalPrice}',
+                            textAlign: TextAlign.center,
+                            style: theme.textTheme.headline5,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 24),
+                  confirmButton,
+                ],
+              );
+            },
+          ),
         );
       },
     );

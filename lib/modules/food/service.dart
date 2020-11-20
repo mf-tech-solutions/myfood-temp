@@ -18,8 +18,21 @@ class FoodService {
     Category(id: 3, name: 'Bebidas', imageUrl: _foodImgUrl),
   ];
 
+  static String getImgUrl(Category category) {
+    switch (category.name) {
+      case 'Almoço':
+        return 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/healthy-recipes-marquee-1577978180.png?crop=0.663xw:0.993xh;0.171xw,0&resize=640:*';
+
+      case 'Carnes':
+        return 'https://www.bamco.com/content/uploads/2019/07/iStock-857308908_red-and-white-meat_970y546.jpg';
+
+      default:
+        return 'https://www.comercialzaffari.com.br/r/w640-h480-c/recipe/148_1.png';
+    }
+  }
+
   static final List<Product> _products = List.generate(
-    Random().nextInt(11) + 9,
+    Random().nextInt(18) + 12,
     (index) {
       final random = Random();
       final category = _categories[random.nextInt(_categories.length)];
@@ -28,6 +41,8 @@ class FoodService {
         categoryId: category.id,
         name: '${category.name} ${index + 1}',
         unitaryPrice: random.nextDouble() * 80,
+        imageUrl: getImgUrl(category),
+        description: Constants.loremIpsum,
       );
     },
   );
@@ -42,7 +57,7 @@ class FoodService {
         (index) => Ingredient(
           id: index,
           name: 'Ingrediente ${index + 1}',
-          amount: Random().nextInt(6) + 1,
+          amount: Random().nextInt(3) + 1,
           measure: 'medida(s)',
         ),
       ),

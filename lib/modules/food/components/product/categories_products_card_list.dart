@@ -25,10 +25,7 @@ class CategoryProductsCardList extends StatelessWidget {
   }) : super(key: key);
 
   Widget itemBuilder(Product product) {
-    return Hero(
-      tag: product.hashCode,
-      child: ProductCard(product: product),
-    );
+    return ProductCard(product: product);
   }
 
   Widget separatorBuilder() {

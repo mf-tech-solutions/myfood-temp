@@ -6,16 +6,15 @@ class ScrollIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dividerColor = Theme.of(context).dividerColor;
-    final size = MediaQuery.of(context).size;
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: size.width * 0.3),
+      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.3),
       child: Container(
         height: height,
-        width: size.width * 0.2,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(height),
           color: dividerColor,
+          borderRadius: BorderRadius.circular(height),
         ),
       ),
     );
