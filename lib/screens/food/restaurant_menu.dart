@@ -77,17 +77,12 @@ class _RestaurantMenuScreenState extends State<RestaurantMenuScreen> {
             child: _searchBox,
           ),
           SizedBox(height: 32),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                FoodResource.categoriesSection,
-                style: Theme.of(context).textTheme.headline5,
-              ),
-              SizedBox(height: 24),
-              CategoriesCardList(),
-            ],
+          Text(
+            FoodResource.categoriesSection,
+            style: Theme.of(context).textTheme.headline5,
           ),
+          SizedBox(height: 24),
+          CategoriesCardList(),
           SizedBox(height: 40),
           StoreConnector<AppState, List<Category>>(
             converter: (store) => store.state.foodState.categories,

@@ -37,15 +37,15 @@ class CategoriesCardList extends StatelessWidget {
         }
 
         final categories = state.categories;
-        return Container(
-          height: 152,
+        return SizedBox(
+          height: 160,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: categories.length,
             shrinkWrap: true,
-            itemBuilder: (context, index) => InkWell(
-              child: CategoryCard(category: categories[index]),
-              onTap: () => openCategoryProductsDialog(
+            itemBuilder: (context, index) => CategoryCard(
+              category: categories[index],
+              onTapCallback: () => openCategoryProductsDialog(
                 context,
                 categories[index],
               ),

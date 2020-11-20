@@ -8,11 +8,14 @@ import 'models/recipe.dart';
 import 'models/product.dart';
 import 'models/category.dart';
 
+final _foodImgUrl =
+    'https://images.unsplash.com/photo-1432139555190-58524dae6a55?ixlib=rb-1.2.1&auto=format&fit=crop&w=1355&q=80';
+
 class FoodService {
   static final _categories = [
-    Category(id: 1, name: 'Almoço'),
-    Category(id: 2, name: 'Carnes'),
-    Category(id: 3, name: 'Bebidas'),
+    Category(id: 1, name: 'Almoço', imageUrl: _foodImgUrl),
+    Category(id: 2, name: 'Carnes', imageUrl: _foodImgUrl),
+    Category(id: 3, name: 'Bebidas', imageUrl: _foodImgUrl),
   ];
 
   static final List<Product> _products = List.generate(
