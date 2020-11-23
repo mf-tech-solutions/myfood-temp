@@ -1,15 +1,16 @@
+import 'package:MyFood/modules/cart/components/product_detail_screen/additionals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import '../../utils.dart';
 import '../../components/large_button.dart';
 import '../../components/scroll_indicator.dart';
+import '../../modules/cart/resource.dart';
+import '../../modules/cart/components/product_detail_screen/product_card.dart';
+import '../../modules/cart/components/product_detail_screen/product_counter.dart';
 import '../../modules/cart/components/product_added.dart';
-import '../../modules/cart/components/product_card.dart';
-import '../../modules/cart/components/product_counter.dart';
 import '../../modules/cart/components/remove_from_cart_dialog.dart';
 import '../../modules/cart/models/cart_product.dart';
-import '../../modules/cart/resource.dart';
 import '../../modules/cart/store/actionCreators.dart';
 import '../../modules/cart/store/selectors.dart';
 import '../../modules/food/models/product.dart';
@@ -130,49 +131,55 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         final confirmButton = getconfirmButton(cartProduct);
 
         return ConstrainedBox(
-          constraints: BoxConstraints(maxHeight: screenHeight * 0.5),
-          child: DraggableScrollableSheet(
-            minChildSize: 0.2,
-            maxChildSize: 1,
-            initialChildSize: 1,
-            builder: (_, scrollController) {
-              return ListView(
-                shrinkWrap: true,
-                controller: scrollController,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 24),
-                    child: ScrollIndicator(),
-                  ),
-                  ProductCard(product: widget.product),
-                  SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ProductCounter(
-                        product: widget.product,
-                        amount: this.cartProduct.amount,
-                        add: add,
-                        subtract: subtract,
-                        remove: cartProduct != null ? remove : null,
+          constraints: BoxConstraints(maxHeight: screenHeight * 0.6),
+          child: Stack(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 24),
+                child: ListView(
+                  children: [
+                    ProductCard(product: widget.product),
+                    SizedBox(height: 32),
+                    if (this.cartProduct.hasAdditionals)
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 32),
+                        child: AdditionalProductsList(
+                          cartProduct: this.cartProduct,
+                        ),
                       ),
-                      SizedBox(width: 16),
-                      Row(
-                        children: [
-                          Text(
-                            'Total: R\$ ${this.totalPrice}',
-                            textAlign: TextAlign.center,
-                            style: theme.textTheme.headline5,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 24),
-                  confirmButton,
-                ],
-              );
-            },
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ProductCounter(
+                          amount: this.cartProduct.amount,
+                          add: add,
+                          subtract: subtract,
+                        ),
+                        SizedBox(width: 16),
+                        Row(
+                          children: [
+                            Text(
+                              'Total: R\$ ${this.totalPrice}',
+                              textAlign: TextAlign.center,
+                              style: theme.textTheme.headline5,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 32),
+                    confirmButton,
+                  ],
+                ),
+              ),
+              Align(
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 24),
+                  child: ScrollIndicator(),
+                ),
+              ),
+            ],
           ),
         );
       },

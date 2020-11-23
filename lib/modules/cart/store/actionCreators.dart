@@ -1,7 +1,6 @@
-import 'package:MyFood/modules/cart/models/card.dart';
-
 import 'actions.dart';
 import '../service.dart';
+import '../models/card.dart';
 import '../models/cart_product.dart';
 import '../models/payment_method.dart';
 import '../../food/models/product.dart';

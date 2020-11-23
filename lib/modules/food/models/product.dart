@@ -7,6 +7,7 @@ class IProduct {
   final double unitaryPrice;
   final String description;
   final String imageUrl;
+  final List<IProduct> additionals;
 
   IProduct({
     @required this.id,
@@ -14,14 +15,16 @@ class IProduct {
     @required this.unitaryPrice,
     @required this.description,
     @required this.imageUrl,
+    this.additionals = const [],
   });
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
         'unitaryPrice': unitaryPrice.toStringAsFixed(2),
-        'description': description,
         'imageUrl': imageUrl,
+        'description': description,
+        'additionals': additionals,
       };
 }
 
@@ -37,11 +40,13 @@ class Product extends IProduct {
     @required double unitaryPrice,
     @required String imageUrl,
     this.description,
+    List<Product> additionals,
   }) : super(
           id: id,
           name: name,
           unitaryPrice: unitaryPrice,
-          description: description,
           imageUrl: imageUrl,
+          description: description,
+          additionals: additionals ?? [],
         );
 }

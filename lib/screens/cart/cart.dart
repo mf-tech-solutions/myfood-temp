@@ -1,13 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart' show StoreConnector;
 
-import 'order_confirmed.dart';
+import '../../routes.dart';
 import '../../constants.dart';
-import '../../utils.dart';
 import '../../store/state.dart';
 import '../../components/app_bar/app_bar.dart';
 import '../../components/large_button.dart';
 import '../../modules/cart/resource.dart';
+import '../../modules/cart/store/state.dart';
 import '../../modules/cart/store/actionCreators.dart';
 import '../../modules/cart/components/cart_screen/deliver_section.dart';
 import '../../modules/cart/components/cart_screen/cart_product_table.dart';
@@ -31,9 +33,11 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  Widget get confirmButton {
+  Widget getConfirmButton(CartState state) {
     final screenWidth = MediaQuery.of(context).size.width;
     final padding = 6.0;
+    final enabled = !state.ordering && state.paymentMethod != null;
+    final text = state.ordering ? CartResource.ordering : CartResource.confirm;
 
     return Positioned(
       bottom: 0,
@@ -45,31 +49,36 @@ class _CartScreenState extends State<CartScreen> {
         child: SizedBox(
           width: screenWidth - 2 * padding,
           child: LargeButton(
-            child: Text(CartResource.confirm.toUpperCase()),
-            onPressed: () => confirm(context),
+            child: Text(text.toUpperCase()),
+            onPressed: enabled ? confirm : null,
           ),
         ),
       ),
     );
   }
 
-  void confirm(BuildContext context) async {
+  void confirm() async {
     await confirmOrder();
-    Utils.showContentOnlyDialog(
-      context: context,
-      child: OrderConfirmedScreen(),
-      contentPadding: 0,
-      insetPadding: 0,
-    );
+    Navigator.of(context).pushNamed(confirmedOrderRoute);
+  }
+
+  void goToConfirmedOrderScreen() {
+    void run() {
+      scheduleMicrotask(
+        () => Navigator.of(context).pushNamed(confirmedOrderRoute),
+      );
+    }
+
+    run();
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return StoreConnector<AppState, int>(
-      converter: (store) => store.state.cartState.products.length,
-      builder: (_, productAmount) {
+    return StoreConnector<AppState, CartState>(
+      converter: (store) => store.state.cartState,
+      builder: (_, state) {
         final emptyCard = EmptyCard(
           onBackToMenuButtonTapHandler: () => setCurrentIndex(0),
         );
@@ -90,10 +99,12 @@ class _CartScreenState extends State<CartScreen> {
                   PaymentSection(),
                 ],
               ),
-              confirmButton,
+              getConfirmButton(state),
             ],
           ),
         );
+
+        final productAmount = state.products.length;
 
         return Scaffold(
           appBar: MyAppBar(

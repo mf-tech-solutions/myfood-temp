@@ -20,7 +20,6 @@ class LargeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: height,
-      width: double.infinity,
       child: RaisedButton(
         elevation: elevation ?? 0,
         shape: RoundedRectangleBorder(

@@ -1,6 +1,7 @@
-import 'package:MyFood/components/price_text.dart';
 import 'package:flutter/material.dart';
-import '../../food/models/product.dart';
+
+import '../../../food/models/product.dart';
+import '../../../../components/price_text.dart';
 
 class ProductCard extends StatelessWidget {
   final IProduct product;

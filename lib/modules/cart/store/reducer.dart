@@ -1,3 +1,4 @@
+import 'package:MyFood/modules/cart/models/order_status.dart';
 import 'package:redux/redux.dart' show TypedReducer, combineReducers;
 
 import 'selectors.dart';
@@ -62,18 +63,27 @@ CartState _toggleDeliverOption(CartState state, ToggleDeliverOption action) {
 
 //region Confirm order
 CartState _confirmOrderStart(CartState state, ConfirmOrderAction action) {
-  return state;
+  return state.copyWith(
+    ordering: true,
+    orderStatus: OrderStatus.preparing,
+  );
 }
 
 CartState _confirmOrderSuccess(
   CartState state,
   ConfirmOrderSuccessAction action,
 ) {
-  return state.copyWith(products: []);
+  return state.copyWith(
+    products: [],
+    ordering: false,
+  );
 }
 
 CartState _confirmOrderFail(CartState state, ConfirmOrderFailAction action) {
-  return state;
+  return state.copyWith(
+    ordering: false,
+    orderStatus: OrderStatus.error,
+  );
 }
 //endregion
 

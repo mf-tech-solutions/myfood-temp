@@ -7,6 +7,8 @@ import 'screens/landing.dart';
 import 'screens/menu.dart';
 import 'screens/cart/add_user_card.dart';
 import 'screens/cart/cart.dart';
+import 'screens/cart/confirmed_order.dart';
+import 'screens/cart/orderStatus.dart';
 import 'screens/cart/payment_methods.dart';
 import 'screens/food/games_screen.dart';
 import 'screens/food/recipes_screen.dart';
@@ -19,10 +21,43 @@ import 'screens/user/signup.dart';
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case addUserCardRoute:
+        return Utils.pageRouteBuilder(AddUserCardScreen());
+
+      case cartRoute:
+        return MaterialPageRoute(
+          builder: (_) => CartScreen(),
+        );
+
+      case confirmedOrderRoute:
+        return Utils.pageRouteBuilder(ConfirmedOrderScreen());
+
+      case gamesRoute:
+        return Utils.pageRouteBuilder(GamesScreen());
+
+      case landingRoute:
+        return MaterialPageRoute(
+          builder: (_) => LandingScreen(),
+        );
+
       case loginRoute:
         return MaterialPageRoute(
           builder: (_) => LoginScreen(),
         );
+
+      case menuRoute:
+        return MaterialPageRoute(
+          builder: (_) => MenuScreen(),
+        );
+
+      case orderStatusRoute:
+        return Utils.pageRouteBuilder(OrderStatusScreen());
+
+      case paymentMethodsRoute:
+        return Utils.pageRouteBuilder(PaymentMethodsScreen());
+
+      case recipesRoute:
+        return Utils.pageRouteBuilder(RecipesScreen());
 
       case signupRoute:
         return PageRouteBuilder(
@@ -43,41 +78,14 @@ class Routes {
           },
         );
 
+      case searchRoute:
+        return Utils.pageRouteBuilder(SearchScreen());
+
       case userRoute:
         return Utils.pageRouteBuilder(UserScreen());
 
       case userEditRoute:
         return Utils.pageRouteBuilder(UserEditScreen());
-
-      case landingRoute:
-        return MaterialPageRoute(
-          builder: (_) => LandingScreen(),
-        );
-
-      case cartRoute:
-        return MaterialPageRoute(
-          builder: (_) => CartScreen(),
-        );
-
-      case menuRoute:
-        return MaterialPageRoute(
-          builder: (_) => MenuScreen(),
-        );
-
-      case recipesRoute:
-        return Utils.pageRouteBuilder(RecipesScreen());
-
-      case gamesRoute:
-        return Utils.pageRouteBuilder(GamesScreen());
-
-      case searchRoute:
-        return Utils.pageRouteBuilder(SearchScreen());
-
-      case paymentMethodsRoute:
-        return Utils.pageRouteBuilder(PaymentMethodsScreen());
-
-      case addUserCardRoute:
-        return Utils.pageRouteBuilder(AddUserCardScreen());
 
       default:
         return MaterialPageRoute(
@@ -87,17 +95,18 @@ class Routes {
   }
 }
 
-const String homeRoute = '/home';
-const String cartRoute = '/cart';
-const String menuRoute = '/menu';
-const String recipesRoute = '/recipes';
-const String gamesRoute = '/games';
-const String searchRoute = '/search';
-const String paymentMethodsRoute = '/paymentMethods';
-const String addUserCardRoute = '/addUserCard';
-
-const String loginRoute = '/login';
-const String signupRoute = '/signup';
-const String landingRoute = '/landing';
-const String userRoute = '/user';
-const String userEditRoute = '/userEdit';
+const String addUserCardRoute = 'addUserCard';
+const String cartRoute = 'cart';
+const String confirmedOrderRoute = 'confirmedOrder';
+const String gamesRoute = 'games';
+const String homeRoute = 'home';
+const String landingRoute = 'landing';
+const String loginRoute = 'login';
+const String menuRoute = 'menu';
+const String orderStatusRoute = 'orderStatus';
+const String paymentMethodsRoute = 'paymentMethods';
+const String recipesRoute = 'recipes';
+const String searchRoute = 'search';
+const String signupRoute = 'signup';
+const String userRoute = 'user';
+const String userEditRoute = 'userEdit';

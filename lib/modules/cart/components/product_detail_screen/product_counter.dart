@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../../food/models/product.dart';
-
 class ProductCounter extends StatelessWidget {
-  final IProduct product;
   final int amount;
 
   final Function add;
   final Function subtract;
-  final Function remove;
 
   const ProductCounter({
     Key key,
-    @required this.product,
     @required this.amount,
     @required this.add,
     @required this.subtract,
-    this.remove,
   }) : super(key: key);
 
   @override
@@ -24,6 +18,7 @@ class ProductCounter extends StatelessWidget {
     final primaryColor = Theme.of(context).primaryColor;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
       children: [
         IconButton(
           icon: Icon(Icons.remove_circle),

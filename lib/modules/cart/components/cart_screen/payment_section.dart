@@ -30,7 +30,7 @@ class _PaymentSectionState extends State<PaymentSection> {
   Widget get setPaymentMethodButton {
     return Center(
       child: TextButton(
-        child: Text('Escolher método de pagamento'),
+        child: Text('Escolha um método de pagamento'),
         onPressed: goToPaymentMethodsCreen,
       ),
     );

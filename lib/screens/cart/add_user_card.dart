@@ -1,15 +1,15 @@
-import 'package:MyFood/components/alert_dialog.dart';
-import 'package:MyFood/modules/cart/components/formatters.dart';
-import 'package:MyFood/modules/cart/models/card.dart';
-import 'package:MyFood/modules/cart/resource.dart';
-import 'package:MyFood/modules/cart/store/actionCreators.dart';
-import 'package:MyFood/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../components/alert_dialog.dart';
 import '../../components/screen_icon_avatar.dart';
 import '../../components/app_bar/app_bar.dart';
-import '../../modules/cart/components/payment_methods/user_card_input.dart';
+import '../../modules/cart/components/payment_methods_screen/user_card_input.dart';
+import '../../modules/cart/components/formatters.dart';
+import '../../modules/cart/models/card.dart';
+import '../../modules/cart/resource.dart';
+import '../../modules/cart/store/actionCreators.dart';
+import '../../utils.dart';
 
 class AddUserCardScreen extends StatelessWidget {
   final _cardNumberController = TextEditingController();

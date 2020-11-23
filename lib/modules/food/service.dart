@@ -32,10 +32,30 @@ class FoodService {
   }
 
   static final List<Product> _products = List.generate(
-    Random().nextInt(18) + 12,
+    Random().nextInt(12) + 12,
     (index) {
       final random = Random();
       final category = _categories[random.nextInt(_categories.length)];
+      final List<Product> additionals = [];
+
+      final hasChildren = random.nextBool();
+      if (hasChildren) {
+        final childrenAmount = random.nextInt(4);
+        for (var i = 0; i < childrenAmount; i++) {
+          final id = random.nextInt(24) + 1000;
+          additionals.add(
+            Product(
+              id: id,
+              name: '${category.name} adicional $id',
+              categoryId: category.id,
+              imageUrl: getImgUrl(category),
+              description: random.nextBool() ? Constants.loremIpsum : null,
+              unitaryPrice: random.nextDouble() * 5,
+            ),
+          );
+        }
+      }
+
       return Product(
         id: index,
         categoryId: category.id,
@@ -43,6 +63,7 @@ class FoodService {
         unitaryPrice: random.nextDouble() * 80,
         imageUrl: getImgUrl(category),
         description: Constants.loremIpsum,
+        additionals: additionals,
       );
     },
   );

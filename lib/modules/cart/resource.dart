@@ -32,6 +32,8 @@ class CartResource {
 
   static String get payment => 'Pagamento';
 
+  static String get ordering => 'Pedido sendo enviado';
+
   //region Actions
   static String get confirm => 'Confirmar';
 
