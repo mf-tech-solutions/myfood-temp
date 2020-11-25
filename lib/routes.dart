@@ -7,8 +7,8 @@ import 'screens/landing.dart';
 import 'screens/menu.dart';
 import 'screens/cart/add_user_card.dart';
 import 'screens/cart/cart.dart';
-import 'screens/cart/confirmed_order.dart';
-import 'screens/cart/orderStatus.dart';
+import 'screens/cart/order_confirmation.dart';
+import 'screens/cart/order_status.dart';
 import 'screens/cart/payment_methods.dart';
 import 'screens/food/games_screen.dart';
 import 'screens/food/recipes_screen.dart';
@@ -29,9 +29,6 @@ class Routes {
           builder: (_) => CartScreen(),
         );
 
-      case confirmedOrderRoute:
-        return Utils.pageRouteBuilder(ConfirmedOrderScreen());
-
       case gamesRoute:
         return Utils.pageRouteBuilder(GamesScreen());
 
@@ -49,6 +46,9 @@ class Routes {
         return MaterialPageRoute(
           builder: (_) => MenuScreen(),
         );
+
+      case orderConfirmationRoute:
+        return Utils.pageRouteBuilder(OrderConfirmationScreen());
 
       case orderStatusRoute:
         return Utils.pageRouteBuilder(OrderStatusScreen());
@@ -97,7 +97,7 @@ class Routes {
 
 const String addUserCardRoute = 'addUserCard';
 const String cartRoute = 'cart';
-const String confirmedOrderRoute = 'confirmedOrder';
+const String orderConfirmationRoute = 'confirmedOrder';
 const String gamesRoute = 'games';
 const String homeRoute = 'home';
 const String landingRoute = 'landing';

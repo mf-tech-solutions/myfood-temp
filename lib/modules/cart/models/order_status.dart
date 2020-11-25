@@ -1,4 +1,7 @@
 enum OrderStatus {
+  created,
+  confirmed,
+  denied,
   preparing,
   delivering,
   delivered,

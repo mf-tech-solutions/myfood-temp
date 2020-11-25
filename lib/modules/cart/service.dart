@@ -1,4 +1,7 @@
+import 'dart:async';
 import 'dart:math';
+
+import 'package:MyFood/modules/cart/models/order_status.dart';
 
 import 'models/card.dart';
 
@@ -37,7 +40,25 @@ class CartService {
     return Future.delayed(Duration(milliseconds: 800), () => card);
   }
 
-  static Future<void> confirmOrder() async {
-    return Future.delayed(Duration(milliseconds: 400), () {});
+  static Stream<OrderStatus> confirmOrder() {
+    var status = OrderStatus.confirmed;
+
+    final controller = StreamController<OrderStatus>();
+    final stream = controller.stream;
+
+    Timer.periodic(Duration(seconds: 3), (timer) {
+      controller.sink.add(status);
+      print(status);
+
+      if (status == OrderStatus.delivered || status == OrderStatus.denied) {
+        controller.close();
+        timer.cancel();
+      } else {
+        status = OrderStatus
+            .values[status.index + (status == OrderStatus.confirmed ? 2 : 1)];
+      }
+    });
+
+    return stream;
   }
 }

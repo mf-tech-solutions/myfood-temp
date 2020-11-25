@@ -1,3 +1,4 @@
+import 'package:MyFood/modules/cart/models/order_status.dart';
 import 'package:MyFood/modules/cart/models/payment_method.dart';
 import 'package:flutter/material.dart' show immutable, required;
 
@@ -50,7 +51,19 @@ class ToggleDeliverOption {}
 //region Confirm order
 class ConfirmOrderAction {}
 
-class ConfirmOrderSuccessAction {}
+class ConfirmOrderSuccessPayload {
+  final OrderStatus orderStatus;
+
+  ConfirmOrderSuccessPayload(this.orderStatus);
+}
+
+class ConfirmOrderSuccessAction {
+  ConfirmOrderSuccessPayload payload;
+
+  ConfirmOrderSuccessAction(OrderStatus orderStatus) {
+    payload = ConfirmOrderSuccessPayload(orderStatus);
+  }
+}
 
 class ConfirmOrderFailAction {}
 //endregion

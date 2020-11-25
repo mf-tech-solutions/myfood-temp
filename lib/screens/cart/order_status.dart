@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../components/app_bar/app_bar.dart';
-import '../../modules/cart/components/order_status.dart';
+import '../../modules/cart/components/order_status_screen_content.dart';
 
 class OrderStatusScreen extends StatelessWidget {
   @override
@@ -16,7 +16,7 @@ class OrderStatusScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            OrderStatusView(),
+            OrderStatusScreenContent(),
           ],
         ),
       ),

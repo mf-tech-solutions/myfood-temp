@@ -22,12 +22,14 @@ void toggleDeliverOption() {
   AppStore.store.dispatch(ToggleDeliverOption());
 }
 
-Future<void> confirmOrder() async {
+void confirmOrder() {
   AppStore.store.dispatch(ConfirmOrderAction());
 
   try {
-    await CartService.confirmOrder();
-    AppStore.store.dispatch(ConfirmOrderSuccessAction());
+    final stream = CartService.confirmOrder();
+    stream.listen((status) {
+      AppStore.store.dispatch(ConfirmOrderSuccessAction(status));
+    });
   } catch (e) {
     AppStore.store.dispatch(ConfirmOrderFailAction());
   }

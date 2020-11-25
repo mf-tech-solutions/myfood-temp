@@ -9,20 +9,16 @@ import '../../store/state.dart';
 import '../../components/app_bar/app_bar.dart';
 import '../../components/large_button.dart';
 import '../../modules/cart/resource.dart';
-import '../../modules/cart/store/state.dart';
 import '../../modules/cart/store/actionCreators.dart';
+import '../../modules/cart/store/state.dart';
+import '../../modules/cart/store/selectors.dart';
 import '../../modules/cart/components/cart_screen/deliver_section.dart';
 import '../../modules/cart/components/cart_screen/cart_product_table.dart';
 import '../../modules/cart/components/cart_screen/empty_card.dart';
 import '../../modules/cart/components/cart_screen/payment_section.dart';
 import '../../modules/navigation/store/actions.dart';
 
-class CartScreen extends StatefulWidget {
-  @override
-  _CartScreenState createState() => _CartScreenState();
-}
-
-class _CartScreenState extends State<CartScreen> {
+class CartScreen extends StatelessWidget {
   Widget get clearCartButton {
     return TextButton(
       child: Text(
@@ -33,7 +29,7 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  Widget getConfirmButton(CartState state) {
+  Widget getConfirmButton(CartState state, BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final padding = 6.0;
     final enabled = !state.ordering && state.paymentMethod != null;
@@ -57,15 +53,12 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  void confirm() async {
-    await confirmOrder();
-    Navigator.of(context).pushNamed(confirmedOrderRoute);
-  }
+  void confirm() => confirmOrder();
 
-  void goToConfirmedOrderScreen() {
+  void goToOrderConfirmationScreen(BuildContext context) {
     void run() {
       scheduleMicrotask(
-        () => Navigator.of(context).pushNamed(confirmedOrderRoute),
+        () => Navigator.of(context).pushNamed(orderConfirmationRoute),
       );
     }
 
@@ -79,6 +72,10 @@ class _CartScreenState extends State<CartScreen> {
     return StoreConnector<AppState, CartState>(
       converter: (store) => store.state.cartState,
       builder: (_, state) {
+        if (shouldGoToOrderScreen()) {
+          goToOrderConfirmationScreen(context);
+        }
+
         final emptyCard = EmptyCard(
           onBackToMenuButtonTapHandler: () => setCurrentIndex(0),
         );
@@ -99,7 +96,7 @@ class _CartScreenState extends State<CartScreen> {
                   PaymentSection(),
                 ],
               ),
-              getConfirmButton(state),
+              getConfirmButton(state, context),
             ],
           ),
         );

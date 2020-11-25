@@ -65,7 +65,7 @@ CartState _toggleDeliverOption(CartState state, ToggleDeliverOption action) {
 CartState _confirmOrderStart(CartState state, ConfirmOrderAction action) {
   return state.copyWith(
     ordering: true,
-    orderStatus: OrderStatus.preparing,
+    orderStatus: OrderStatus.created,
   );
 }
 
@@ -76,6 +76,7 @@ CartState _confirmOrderSuccess(
   return state.copyWith(
     products: [],
     ordering: false,
+    orderStatus: action.payload.orderStatus,
   );
 }
 
