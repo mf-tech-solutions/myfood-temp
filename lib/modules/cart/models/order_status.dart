@@ -1,4 +1,7 @@
 enum OrderStatus {
+  none,
+  error,
+  canceled,
   created,
   confirmed,
   denied,
@@ -6,7 +9,4 @@ enum OrderStatus {
   delivering,
   delivered,
   notDelivered,
-  canceled,
-  error,
-  none,
 }

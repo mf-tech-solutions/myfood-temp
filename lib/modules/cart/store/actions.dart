@@ -1,12 +1,13 @@
-import 'package:MyFood/modules/cart/models/order_status.dart';
-import 'package:MyFood/modules/cart/models/payment_method.dart';
 import 'package:flutter/material.dart' show immutable, required;
 
 import '../models/card.dart';
 import '../models/cart_product.dart';
+import '../models/deliver_info.dart';
+import '../models/order_status.dart';
+import '../models/payment_method.dart';
 import '../../food/models/product.dart';
 
-//region Add to cart
+//#region Add to cart
 @immutable
 class AddItemsToCartPayload {
   final CartProduct product;
@@ -120,6 +121,22 @@ class SetPaymentMethodAction {
 
   SetPaymentMethodAction(PaymentMethod paymentMethod) {
     payload = SetPaymentMethodPayload(paymentMethod);
+  }
+}
+//endregion
+
+//region Set deliver info
+class SetDeliverInfoPayload {
+  final DeliverInfo deliverInfo;
+
+  SetDeliverInfoPayload(this.deliverInfo);
+}
+
+class SetDeliverInfoAction {
+  SetDeliverInfoPayload payload;
+
+  SetDeliverInfoAction(DeliverInfo info) {
+    payload = SetDeliverInfoPayload(info);
   }
 }
 //endregion

@@ -1,10 +1,10 @@
-import 'package:MyFood/modules/cart/models/order_status.dart';
 import 'package:redux/redux.dart' show TypedReducer, combineReducers;
 
-import 'selectors.dart';
 import 'actions.dart';
+import 'selectors.dart';
 import 'state.dart';
 import '../models/cart_product.dart';
+import '../models/order_status.dart';
 
 final cartReducer = combineReducers<CartState>([
   TypedReducer(_addItemsToCart),
@@ -20,6 +20,7 @@ final cartReducer = combineReducers<CartState>([
   TypedReducer(_addUserCardStart),
   TypedReducer(_addUserCardSuccess),
   TypedReducer(_addUserCardFail),
+  TypedReducer(_setDeliverInfo),
   TypedReducer(_setPaymentMethod)
 ]);
 
@@ -134,6 +135,10 @@ CartState _addUserCardFail(
   return state;
 }
 //region
+
+CartState _setDeliverInfo(CartState state, SetDeliverInfoAction action) {
+  return state.copyWith(deliverInfo: action.payload.deliverInfo);
+}
 
 CartState _setPaymentMethod(CartState state, SetPaymentMethodAction action) {
   return state.copyWith(paymentMethod: action.payload.paymentMethod);

@@ -73,7 +73,7 @@ class _PaymentSectionState extends State<PaymentSection> {
             ),
             SizedBox(height: 12),
             StoreConnector<AppState, User>(
-              converter: (store) => store.state.authState.user,
+              converter: (store) => store.state.userState.user,
               builder: (_, user) {
                 if (user == null) return SizedBox(height: 0);
 

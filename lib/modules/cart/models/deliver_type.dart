@@ -1,0 +1,4 @@
+enum DeliverType {
+  deliver,
+  withdrawal,
+}

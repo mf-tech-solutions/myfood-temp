@@ -1,5 +1,6 @@
 import '../models/card.dart';
 import '../models/cart_product.dart';
+import '../models/deliver_info.dart';
 import '../models/order_status.dart';
 import '../models/payment_method.dart';
 import '../models/payment_mothod_type.dart';
@@ -62,7 +63,7 @@ String getOrderStatusText(OrderStatus status) {
       return 'Seu pedido está sendo preparado!';
 
     case OrderStatus.delivering:
-      return 'Seu pedido está saiu para entrega! Por favor aguarde.';
+      return 'Seu pedido está sendo entregue! Por favor aguarde.';
 
     case OrderStatus.delivered:
       return 'Por favor confirme o recebimento do seu pedido.';
@@ -76,4 +77,15 @@ String getOrderStatusText(OrderStatus status) {
     default:
       return 'Não foi possível obter informações sobre seu pedido. Por favor tente novamente mais tarde.';
   }
+}
+
+DeliverInfo getUserAddress() {
+  final state = AppStore.store.state;
+  final user = state.userState.user;
+
+  if (user == null) {
+    return null;
+  }
+
+  return DeliverInfo(address: user.address.toString());
 }

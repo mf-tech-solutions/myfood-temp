@@ -1,7 +1,8 @@
-import 'package:MyFood/modules/cart/components/formatters.dart';
-import 'package:MyFood/modules/cart/models/payment_method.dart';
-import 'package:MyFood/modules/cart/store/selectors.dart';
 import 'package:flutter/material.dart';
+
+import '../formatters.dart';
+import '../../models/payment_method.dart';
+import '../../store/selectors.dart';
 
 class PaymentMethodView extends StatelessWidget {
   final _cardFormatter = UserCardLastDigitsFormatter();

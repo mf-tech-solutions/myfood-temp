@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:MyFood/store/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -18,10 +20,13 @@ class OrderConfirmationScreenContent extends StatelessWidget {
   }) : super(key: key);
 
   dynamic getIconUrl(OrderStatus status) {
-    if (status == OrderStatus.confirmed)
+    if (status == OrderStatus.confirmed) {
       return 'assets/images/order_confirmed.svg';
-    else
+    } else if (status == OrderStatus.denied) {
       return Icons.cancel_rounded;
+    } else if (status != OrderStatus.none) {
+      return 'assets/images/order_confirmed.svg';
+    }
   }
 
   void pop(BuildContext context) {
@@ -29,7 +34,13 @@ class OrderConfirmationScreenContent extends StatelessWidget {
   }
 
   void goToOrderStatusScreen(BuildContext context) {
-    Navigator.of(context).pushReplacementNamed(orderStatusRoute);
+    void run() {
+      scheduleMicrotask(() {
+        Navigator.of(context).pushReplacementNamed(orderStatusRoute);
+      });
+    }
+
+    run();
   }
 
   @override
@@ -40,6 +51,9 @@ class OrderConfirmationScreenContent extends StatelessWidget {
     return StoreConnector<AppState, OrderStatus>(
       converter: (store) => store.state.cartState.orderStatus,
       builder: (_, status) {
+        if (status.index >= OrderStatus.preparing.index)
+          goToOrderStatusScreen(context);
+
         final iconUrl = getIconUrl(status);
         final icon = iconUrl is String
             ? SvgPicture.asset(iconUrl)
