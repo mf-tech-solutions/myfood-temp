@@ -4,11 +4,11 @@ import 'package:flutter/services.dart';
 class OutlinedInput extends TextField {
   OutlinedInput({
     Key key,
+    @required TextEditingController controller,
     String labelText,
     String hintText,
     TextInputType inputType,
     int maxLength,
-    TextEditingController controller,
     List<TextInputFormatter> inputFormatters,
   }) : super(
           key: key,
