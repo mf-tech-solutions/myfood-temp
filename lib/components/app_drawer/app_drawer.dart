@@ -52,7 +52,12 @@ class AppDrawer extends StatelessWidget {
             title: Text('Métodos de pagamento'),
             trailing: Icon(Icons.chevron_right_rounded),
             onTap: () => Navigator.of(context).pushNamed(paymentMethodsRoute),
-          )
+          ),
+          ListTile(
+            title: Text('Endereços'),
+            trailing: Icon(Icons.chevron_right_rounded),
+            onTap: () => Navigator.of(context).pushNamed(userAddressesRoute),
+          ),
         ],
       ),
     );

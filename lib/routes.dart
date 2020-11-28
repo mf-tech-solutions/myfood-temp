@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'utils.dart';
-import 'constants.dart';
 import 'screens/home.dart';
 import 'screens/landing.dart';
 import 'screens/menu.dart';
@@ -13,6 +12,7 @@ import 'screens/cart/payment_methods.dart';
 import 'screens/food/games_screen.dart';
 import 'screens/food/recipes_screen.dart';
 import 'screens/food/search_screen.dart';
+import 'screens/user/addresses.dart';
 import 'screens/user/user.dart';
 import 'screens/user/user_edit.dart';
 import 'screens/user/login.dart';
@@ -60,6 +60,9 @@ class Routes {
       case userRoute:
         return Utils.pageRouteBuilder(UserScreen());
 
+      case userAddressesRoute:
+        return Utils.pageRouteBuilder(UserAddressesScreen());
+
       case userEditRoute:
         return Utils.cupertinoRouteBuilder(UserEditScreen());
 
@@ -83,4 +86,5 @@ const String recipesRoute = 'recipes';
 const String searchRoute = 'search';
 const String signupRoute = 'signup';
 const String userRoute = 'user';
+const String userAddressesRoute = 'userAddresses';
 const String userEditRoute = 'userEdit';

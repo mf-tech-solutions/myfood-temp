@@ -92,8 +92,6 @@ class Utils {
     );
   }
 
-  static PageRouteBuilder bottomNavigationRouteBuilder(Widget nextScreen) {}
-
   static String formatCurrency(double value) {
     return 'R\$ ${value.toStringAsFixed(2)}';
   }
