@@ -22,36 +22,28 @@ class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case addUserCardRoute:
-        return Utils.pageRouteBuilder(AddUserCardScreen());
+        return Utils.cupertinoRouteBuilder(AddUserCardScreen());
 
       case cartRoute:
-        return MaterialPageRoute(
-          builder: (_) => CartScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => CartScreen());
 
       case gamesRoute:
         return Utils.pageRouteBuilder(GamesScreen());
 
       case landingRoute:
-        return MaterialPageRoute(
-          builder: (_) => LandingScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => LandingScreen());
 
       case loginRoute:
-        return MaterialPageRoute(
-          builder: (_) => LoginScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => LoginScreen());
 
       case menuRoute:
-        return MaterialPageRoute(
-          builder: (_) => MenuScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => MenuScreen());
 
       case orderConfirmationRoute:
         return Utils.pageRouteBuilder(OrderConfirmationScreen());
 
       case orderStatusRoute:
-        return Utils.pageRouteBuilder(OrderStatusScreen());
+        return Utils.cupertinoRouteBuilder(OrderStatusScreen());
 
       case paymentMethodsRoute:
         return Utils.pageRouteBuilder(PaymentMethodsScreen());
@@ -60,23 +52,7 @@ class Routes {
         return Utils.pageRouteBuilder(RecipesScreen());
 
       case signupRoute:
-        return PageRouteBuilder(
-          pageBuilder: (_, __, ___) => SignUpScreen(),
-          transitionDuration: Constants.pageTransitionDuration,
-          transitionsBuilder: (_, primaryAnimation, __, child) {
-            final tween = Tween(begin: Offset(1, 0), end: Offset.zero);
-
-            final animation = CurvedAnimation(
-              curve: Constants.animationCurve,
-              parent: primaryAnimation,
-            );
-
-            return SlideTransition(
-              position: animation.drive(tween),
-              child: child,
-            );
-          },
-        );
+        return Utils.cupertinoRouteBuilder(SignUpScreen());
 
       case searchRoute:
         return Utils.pageRouteBuilder(SearchScreen());
@@ -85,12 +61,10 @@ class Routes {
         return Utils.pageRouteBuilder(UserScreen());
 
       case userEditRoute:
-        return Utils.pageRouteBuilder(UserEditScreen());
+        return Utils.cupertinoRouteBuilder(UserEditScreen());
 
       default:
-        return MaterialPageRoute(
-          builder: (_) => HomeScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => HomeScreen());
     }
   }
 }

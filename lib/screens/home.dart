@@ -1,3 +1,4 @@
+import 'package:MyFood/components/app_bar/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart' show StoreConnector;
 
@@ -34,6 +35,14 @@ class HomeScreen extends StatelessWidget {
       converter: (store) => store.state.navigationState,
       builder: (context, state) => Scaffold(
         body: AnimatedSwitcher(
+          layoutBuilder: (currentChild, previousChildren) {
+            return Stack(
+              children: [
+                Scaffold(appBar: MyAppBar(title: '')),
+                currentChild,
+              ],
+            );
+          },
           transitionBuilder: (child, animation) => transitionBuilder(
             child,
             animation,

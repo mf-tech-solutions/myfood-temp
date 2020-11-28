@@ -1,8 +1,8 @@
-import 'package:MyFood/components/app_drawer/drawer_header.dart';
-import 'package:MyFood/routes.dart';
 import 'package:flutter/material.dart';
 
+import 'drawer_header.dart';
 import 'primary_item.dart';
+import '../../routes.dart';
 import '../../modules/food/resource.dart';
 
 class AppDrawer extends StatelessWidget {

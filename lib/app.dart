@@ -24,6 +24,7 @@ class App extends StatelessWidget {
         initialRoute: loginRoute,
         onGenerateRoute: Routes.generateRoute,
         theme: ThemeData(
+          //region Colors
           accentColor: Constants.accentColor,
           cursorColor: Constants.primaryColor,
           indicatorColor: Constants.primaryColor,
@@ -31,12 +32,14 @@ class App extends StatelessWidget {
           primarySwatch: Constants.primarySwatch,
           splashColor: Constants.accentColorLight,
           scaffoldBackgroundColor: Constants.scaffoldBackgroundColor,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          iconTheme: IconThemeData(color: Colors.black87),
+          //endregion
+
+          //region Themes
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
             selectedItemColor: Constants.accentColor,
             backgroundColor: Colors.white,
           ),
+          iconTheme: IconThemeData(color: Colors.black87),
           buttonTheme: ButtonThemeData(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -66,6 +69,9 @@ class App extends StatelessWidget {
               letterSpacing: 1.25,
             ),
           ),
+          //endregion
+
+          visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         builder: (context, child) => GestureDetector(
           onTap: () => hideKeyboard(context),
