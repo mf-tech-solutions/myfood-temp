@@ -1,8 +1,8 @@
-import 'package:MyFood/modules/user/models/address.dart';
 import 'package:flutter/material.dart' show required;
 import 'package:redux/redux.dart' show Store;
 
 import '../service.dart';
+import '../models/address.dart';
 import '../models/user.dart';
 import '../../../store/state.dart';
 import '../../../store/store.dart';
@@ -143,5 +143,56 @@ class GetUserAddressessSuccessAction {
 }
 
 class GetUserAddressessFailAction {}
+//endregion
 
+//region Add user address
+class AddUserAddressAction {}
+
+class AddUserAddressSuccessPayload {
+  final Address address;
+
+  AddUserAddressSuccessPayload(this.address);
+}
+
+class AddUserAddressSuccessAction {
+  AddUserAddressSuccessPayload payload;
+
+  AddUserAddressSuccessAction(Address address) {
+    payload = AddUserAddressSuccessPayload(address);
+  }
+}
+
+class AddUserAddressFailAction {}
+//endregion
+
+//region Set default user address
+class SetDefaultUserAddressPayload {
+  final Address address;
+
+  SetDefaultUserAddressPayload(this.address);
+}
+
+class SetDefaultUserAddressAction {
+  SetDefaultUserAddressPayload payload;
+
+  SetDefaultUserAddressAction(Address address) {
+    payload = SetDefaultUserAddressPayload(address);
+  }
+}
+
+class SetDefaultUserAddressSuccessAction {}
+
+class SetDefaultUserAddressFailPayload {
+  final Address previousAddress;
+
+  SetDefaultUserAddressFailPayload(this.previousAddress);
+}
+
+class SetDefaultUserAddressFailAction {
+  SetDefaultUserAddressFailPayload payload;
+
+  SetDefaultUserAddressFailAction(Address previousAddress) {
+    payload = SetDefaultUserAddressFailPayload(previousAddress);
+  }
+}
 //endregion

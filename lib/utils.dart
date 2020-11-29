@@ -100,7 +100,7 @@ class Utils {
     SnackBarBehavior behavior,
   }) {
     final defaultAction = SnackBarAction(
-      label: 'Fechar',
+      label: 'FECHAR',
       textColor: Colors.white,
       onPressed: scaffold.hideCurrentSnackBar,
     );

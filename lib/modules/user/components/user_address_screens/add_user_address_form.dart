@@ -1,17 +1,25 @@
+import 'package:MyFood/modules/user/components/user_address_screens/added_address_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'address_validator.dart';
+import '../general/input_formatters.dart';
 import '../general/large_button.dart';
+import '../../models/address.dart';
+import '../../store/action_creators.dart';
 import '../../../../utils.dart';
 import '../../../../components/outlined_input.dart';
 
 class AddUserAddressForm extends StatelessWidget {
   final TextEditingController streetController;
   final TextEditingController streetNumberController;
-  final TextEditingController zipCodeController;
   final TextEditingController complementController;
 
-  const AddUserAddressForm({
+  final TextEditingController zipCodeController;
+  final zipCodeFormatter = CepInputFormatter();
+  String get zipCode => zipCodeFormatter.unmaskText(zipCodeController.text);
+
+  AddUserAddressForm({
     Key key,
     @required this.streetController,
     @required this.streetNumberController,
@@ -33,25 +41,37 @@ class AddUserAddressForm extends StatelessWidget {
     );
   }
 
-  void confirm(BuildContext context) {
-    validate(context);
+  void confirm(BuildContext context) async {
+    final validationMessage = validate();
+    if (validationMessage.isNotEmpty) {
+      showInvalidDataSnackBar(
+        context,
+        message: validationMessage,
+      );
+      return;
+    }
+
+    final address = Address(
+      street: streetController.text,
+      number: int.parse(streetNumberController.text),
+      zipcode: zipCode,
+      complement: complementController.text,
+    );
+
+    await addUserAddress(address);
+    Utils.showContentOnlyDialog(
+      context: context,
+      child: AddedUserAddressDialog(context).dialog,
+    );
   }
 
-  void validate(BuildContext context) {
+  String validate() {
     final street = streetController.text;
     final streetNumber = streetNumberController.text;
-    final zipCode = zipCodeController.text;
 
-    if (street.isEmpty) {
-      final message = 'Informe a rua.';
-      showInvalidDataSnackBar(context, message: message);
-    } else if (streetNumber.isEmpty) {
-      final message = 'Informe o número.';
-      showInvalidDataSnackBar(context, message: message);
-    } else if (zipCode.isEmpty) {
-      final message = 'Informe o CEP.';
-      showInvalidDataSnackBar(context, message: message);
-    }
+    final validator = AddressValidator(street, streetNumber, zipCode);
+    validator.validate();
+    return validator.validationMessage;
   }
 
   @override
@@ -61,21 +81,35 @@ class AddUserAddressForm extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.only(bottom: 16),
-          child: OutlinedInput(
-            labelText: 'Rua',
-            controller: streetController,
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(40),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 7,
+                child: OutlinedInput(
+                  capitalization: TextCapitalization.words,
+                  controller: streetController,
+                  enforcedMaxLength: true,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(30),
+                  ],
+                  keyBoardAction: TextInputAction.next,
+                  labelText: 'Rua',
+                ),
+              ),
+              SizedBox(width: 12),
+              Expanded(
+                flex: 3,
+                child: OutlinedInput(
+                  controller: streetNumberController,
+                  inputType: TextInputType.number,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(10),
+                  ],
+                  keyBoardAction: TextInputAction.next,
+                  labelText: 'Número',
+                ),
+              ),
             ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(bottom: 16),
-          child: OutlinedInput(
-            labelText: 'Número',
-            controller: streetNumberController,
-            maxLength: 10,
-            inputType: TextInputType.number,
           ),
         ),
         Padding(
@@ -86,17 +120,28 @@ class AddUserAddressForm extends StatelessWidget {
               Expanded(
                 flex: 4,
                 child: OutlinedInput(
-                  labelText: 'CEP',
                   controller: zipCodeController,
                   inputType: TextInputType.number,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(11),
+                    zipCodeFormatter,
+                  ],
+                  keyBoardAction: TextInputAction.next,
+                  labelText: 'CEP',
                 ),
               ),
               SizedBox(width: 12),
               Expanded(
                 flex: 6,
                 child: OutlinedInput(
-                  labelText: 'Complemento',
+                  capitalization: TextCapitalization.words,
                   controller: complementController,
+                  enforcedMaxLength: true,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(20),
+                  ],
+                  labelText: 'Complemento',
+                  onSubmitted: (_) => confirm(context),
                 ),
               ),
             ],

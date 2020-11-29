@@ -1,27 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+typedef OnSubmitted = void Function(String);
+
 class OutlinedInput extends TextField {
   OutlinedInput({
     Key key,
     @required TextEditingController controller,
-    String labelText,
+    TextCapitalization capitalization,
+    bool enforcedMaxLength = false,
     String hintText,
-    TextInputType inputType,
-    int maxLength,
     List<TextInputFormatter> inputFormatters,
+    TextInputType inputType,
+    TextInputAction keyBoardAction,
+    String labelText,
+    int maxLength,
+    OnSubmitted onSubmitted,
   }) : super(
-          key: key,
-          keyboardType: inputType,
-          maxLength: maxLength,
           controller: controller,
-          inputFormatters: inputFormatters,
           decoration: InputDecoration(
-            hintText: hintText,
-            labelText: labelText,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
             ),
+            hintText: hintText,
+            labelText: labelText,
           ),
+          inputFormatters: inputFormatters,
+          key: key,
+          keyboardType: inputType,
+          maxLength: maxLength,
+          maxLengthEnforced: enforcedMaxLength,
+          textCapitalization: capitalization ?? TextCapitalization.none,
+          textInputAction: keyBoardAction ?? TextInputAction.done,
+          onSubmitted: onSubmitted,
         );
 }

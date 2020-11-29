@@ -6,14 +6,14 @@ class MyListTile extends StatelessWidget {
     vertical: 0,
   );
 
-  final Widget title;
-  final Widget subtitle;
+  final String title;
+  final String subtitle;
   final Widget leading;
   final Widget trailing;
   final EdgeInsets contentPadding;
   final Function onTap;
 
-  const MyListTile({
+  MyListTile({
     Key key,
     @required this.title,
     this.subtitle,
@@ -28,10 +28,10 @@ class MyListTile extends StatelessWidget {
     return ListTile(
       contentPadding: contentPadding ?? _defaultPadding,
       title: Padding(
-        padding: const EdgeInsets.only(bottom: 8),
-        child: title,
+        padding: EdgeInsets.only(bottom: this.subtitle != null ? 8 : 0),
+        child: Text(title),
       ),
-      subtitle: subtitle,
+      subtitle: Text(subtitle),
       leading: leading,
       trailing: trailing,
       onTap: onTap,

@@ -78,4 +78,12 @@ class UserService {
       return addresses;
     });
   }
+
+  static Future<void> addUserAddress() {
+    return Future.delayed(Duration(milliseconds: 600), () => null);
+  }
+
+  static Future<void> setDefaultUserAddress(Address address) {
+    return Future.delayed(Duration(milliseconds: 600), () => null);
+  }
 }

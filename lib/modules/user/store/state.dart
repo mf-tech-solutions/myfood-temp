@@ -1,6 +1,6 @@
-import 'package:MyFood/modules/user/models/address.dart';
 import 'package:flutter/material.dart';
 
+import '../models/address.dart';
 import '../models/user.dart';
 
 @immutable
@@ -9,7 +9,7 @@ class UserState {
   final bool loading;
   final bool updating;
 
-  final bool gettingAddresses;
+  final bool loadingAddresses;
   final List<Address> addresses;
 
   get isSignedIn => this.user != null;
@@ -18,7 +18,7 @@ class UserState {
     @required this.user,
     @required this.loading,
     @required this.updating,
-    @required this.gettingAddresses,
+    @required this.loadingAddresses,
     @required this.addresses,
   });
 
@@ -27,7 +27,7 @@ class UserState {
         loading: false,
         updating: false,
         addresses: null,
-        gettingAddresses: false,
+        loadingAddresses: false,
       );
 
   UserState copyWith({
@@ -35,14 +35,14 @@ class UserState {
     bool loading,
     bool updating,
     List<Address> addresses,
-    bool gettingAddresses,
+    bool loadingAddresses,
   }) {
     return UserState(
       user: user ?? this.user,
       loading: loading ?? this.loading,
       updating: updating ?? this.updating,
       addresses: addresses ?? this.addresses,
-      gettingAddresses: gettingAddresses ?? this.gettingAddresses,
+      loadingAddresses: loadingAddresses ?? this.loadingAddresses,
     );
   }
 }

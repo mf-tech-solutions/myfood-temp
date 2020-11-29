@@ -1,7 +1,7 @@
-import 'package:MyFood/components/app_bar/app_bar.dart';
-import 'package:MyFood/modules/navigation/store/actionCreators.dart';
-import 'package:MyFood/modules/user/components/user_address_screens/add_user_address_form.dart';
 import 'package:flutter/material.dart';
+
+import '../../components/app_bar/app_bar.dart';
+import '../../modules/user/components/user_address_screens/add_user_address_form.dart';
 
 class AddUserAddressScreen extends StatefulWidget {
   @override
@@ -17,15 +17,7 @@ class _AddUserAddressScreenState extends State<AddUserAddressScreen> {
   final _complementController = TextEditingController();
 
   @override
-  void dispose() {
-    updateRootScaffoldKey(null);
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    updateRootScaffoldKey(_scaffoldKey);
-
     return Scaffold(
       key: _scaffoldKey,
       appBar: MyAppBar(title: 'Adicionar endereço'),

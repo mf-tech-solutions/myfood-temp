@@ -1,9 +1,8 @@
-import 'package:MyFood/routes.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/app_bar/app_bar.dart';
 import '../../modules/user/components/user_address_screens/user_addresses_screen_content.dart';
-import '../../modules/navigation/store/actionCreators.dart';
+import '../../routes.dart';
 
 class UserAddressListScreen extends StatefulWidget {
   @override
@@ -18,15 +17,7 @@ class _UserAddressListScreenState extends State<UserAddressListScreen> {
   }
 
   @override
-  void dispose() {
-    updateRootScaffoldKey(null);
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    updateRootScaffoldKey(_scaffoldKey);
-
     return Scaffold(
       key: _scaffoldKey,
       appBar: MyAppBar(title: 'Endereços'),
