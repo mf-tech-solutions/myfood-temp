@@ -11,7 +11,7 @@ import '../../modules/cart/components/product_detail_screen/product_counter.dart
 import '../../modules/cart/components/product_added.dart';
 import '../../modules/cart/components/remove_from_cart_dialog.dart';
 import '../../modules/cart/models/cart_product.dart';
-import '../../modules/cart/store/actionCreators.dart';
+import '../../modules/cart/store/action_creators.dart';
 import '../../modules/cart/store/selectors.dart';
 import '../../modules/food/models/product.dart';
 import '../../store/state.dart';

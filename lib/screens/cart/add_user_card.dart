@@ -8,7 +8,7 @@ import '../../modules/cart/components/payment_methods_screen/user_card_input.dar
 import '../../modules/cart/components/formatters.dart';
 import '../../modules/cart/models/card.dart';
 import '../../modules/cart/resource.dart';
-import '../../modules/cart/store/actionCreators.dart';
+import '../../modules/cart/store/action_creators.dart';
 import '../../utils.dart';
 
 class AddUserCardScreen extends StatelessWidget {

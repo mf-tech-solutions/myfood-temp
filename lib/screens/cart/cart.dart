@@ -9,7 +9,7 @@ import '../../store/state.dart';
 import '../../components/app_bar/app_bar.dart';
 import '../../components/large_button.dart';
 import '../../modules/cart/resource.dart';
-import '../../modules/cart/store/actionCreators.dart';
+import '../../modules/cart/store/action_creators.dart';
 import '../../modules/cart/store/state.dart';
 import '../../modules/cart/store/selectors.dart';
 import '../../modules/cart/components/cart_screen/deliver_section.dart';
