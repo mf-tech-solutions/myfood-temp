@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' show immutable, required;
 
+import '../models/address.dart';
 import '../models/card.dart';
 import '../models/cart_product.dart';
 import '../models/deliver_info.dart';
@@ -137,6 +138,78 @@ class SetDeliverInfoAction {
 
   SetDeliverInfoAction(DeliverInfo info) {
     payload = SetDeliverInfoPayload(info);
+  }
+}
+//endregion
+
+//region Get addressess
+class GetDeliverAddressessAction {}
+
+class GetDeliverAddressessSuccessPayload {
+  final List<Address> addresses;
+
+  GetDeliverAddressessSuccessPayload(this.addresses);
+}
+
+class GetDeliverAddressessSuccessAction {
+  GetDeliverAddressessSuccessPayload payload;
+
+  GetDeliverAddressessSuccessAction(List<Address> addresses) {
+    payload = GetDeliverAddressessSuccessPayload(addresses);
+  }
+}
+
+class GetDeliverAddressessFailAction {}
+//endregion
+
+//region Add deliver address
+class AddDeliverAddressAction {}
+
+class AddDeliverAddressSuccessPayload {
+  final Address address;
+
+  AddDeliverAddressSuccessPayload(this.address);
+}
+
+class AddDeliverAddressSuccessAction {
+  AddDeliverAddressSuccessPayload payload;
+
+  AddDeliverAddressSuccessAction(Address address) {
+    payload = AddDeliverAddressSuccessPayload(address);
+  }
+}
+
+class AddDeliverAddressFailAction {}
+//endregion
+
+//region Set default deliver address
+class SetDefaultDeliverAddressPayload {
+  final Address address;
+
+  SetDefaultDeliverAddressPayload(this.address);
+}
+
+class SetDefaultDeliverAddressAction {
+  SetDefaultDeliverAddressPayload payload;
+
+  SetDefaultDeliverAddressAction(Address address) {
+    payload = SetDefaultDeliverAddressPayload(address);
+  }
+}
+
+class SetDefaultDeliverAddressSuccessAction {}
+
+class SetDefaultDeliverAddressFailPayload {
+  final Address previousAddress;
+
+  SetDefaultDeliverAddressFailPayload(this.previousAddress);
+}
+
+class SetDefaultDeliverAddressFailAction {
+  SetDefaultDeliverAddressFailPayload payload;
+
+  SetDefaultDeliverAddressFailAction(Address previousAddress) {
+    payload = SetDefaultDeliverAddressFailPayload(previousAddress);
   }
 }
 //endregion

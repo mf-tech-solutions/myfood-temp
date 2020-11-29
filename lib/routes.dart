@@ -1,4 +1,4 @@
-import 'package:MyFood/screens/user/add_user_address.dart';
+import 'package:MyFood/screens/cart/add_deliver_address.dart';
 import 'package:flutter/material.dart';
 
 import 'utils.dart';
@@ -13,7 +13,7 @@ import 'screens/cart/payment_methods.dart';
 import 'screens/food/games_screen.dart';
 import 'screens/food/recipes_screen.dart';
 import 'screens/food/search_screen.dart';
-import 'screens/user/user_address_list.dart';
+import 'screens/cart/deliver_address_list.dart';
 import 'screens/user/user.dart';
 import 'screens/user/user_edit.dart';
 import 'screens/user/login.dart';
@@ -27,6 +27,12 @@ class Routes {
 
       case cartRoute:
         return MaterialPageRoute(builder: (_) => CartScreen());
+
+      case deliverAddressListRoute:
+        return Utils.pageRouteBuilder(DeliverAddressListScreen());
+
+      case deliverAddAddressRoute:
+        return Utils.cupertinoRouteBuilder(AddDeliverAddressScreen());
 
       case gamesRoute:
         return Utils.pageRouteBuilder(GamesScreen());
@@ -61,12 +67,6 @@ class Routes {
       case userRoute:
         return Utils.pageRouteBuilder(UserScreen());
 
-      case userAddressListRoute:
-        return Utils.pageRouteBuilder(UserAddressListScreen());
-
-      case userAddAddressRoute:
-        return Utils.cupertinoRouteBuilder(AddUserAddressScreen());
-
       case userEditRoute:
         return Utils.cupertinoRouteBuilder(UserEditScreen());
 
@@ -78,6 +78,8 @@ class Routes {
 
 const String addUserCardRoute = 'addUserCard';
 const String cartRoute = 'cart';
+const String deliverAddressListRoute = 'userAddressList';
+const String deliverAddAddressRoute = 'userAddressList/new/';
 const String orderConfirmationRoute = 'confirmedOrder';
 const String gamesRoute = 'games';
 const String homeRoute = 'home';
@@ -90,6 +92,4 @@ const String recipesRoute = 'recipes';
 const String searchRoute = 'search';
 const String signupRoute = 'signup';
 const String userRoute = 'user';
-const String userAddressListRoute = 'userAddressList';
-const String userAddAddressRoute = 'userAddressList/new/';
 const String userEditRoute = 'userEdit';

@@ -1,3 +1,4 @@
+import '../models/address.dart';
 import '../models/card.dart';
 import '../models/cart_product.dart';
 import '../models/deliver_info.dart';
@@ -79,13 +80,28 @@ String getOrderStatusText(OrderStatus status) {
   }
 }
 
-DeliverInfo getUserAddress() {
-  final state = AppStore.store.state;
-  final user = state.userState.user;
-
-  if (user == null) {
+DeliverInfo getAddress() {
+  final addresses = AppStore.store.state.cartState.addresses;
+  if (addresses == null) {
     return null;
   }
 
-  return DeliverInfo(address: user.address.toString());
+  final defaultAddress = addresses.firstWhere(
+    (element) => element.isDefault,
+    orElse: () => null,
+  );
+  if (defaultAddress == null) {
+    return null;
+  }
+
+  return DeliverInfo(address: defaultAddress);
+}
+
+Address getDefaultDeliverAddress() {
+  final address = AppStore.store.state.cartState.addresses.firstWhere(
+    (element) => element.isDefault,
+    orElse: () => null,
+  );
+
+  return address;
 }

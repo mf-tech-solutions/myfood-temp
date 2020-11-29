@@ -1,5 +1,7 @@
 import 'actions.dart';
+import 'selectors.dart';
 import '../service.dart';
+import '../models/address.dart';
 import '../models/card.dart';
 import '../models/cart_product.dart';
 import '../models/deliver_info.dart';
@@ -65,4 +67,41 @@ void setPaymentMethod(PaymentMethod paymentMethod) {
 
 void toggleDeliverOption() {
   AppStore.store.dispatch(ToggleDeliverOption());
+}
+
+Future<void> getDeliverAddressess() async {
+  AppStore.store.dispatch(GetDeliverAddressessAction());
+
+  try {
+    final addresses = await CartService.getDeliverAddresses();
+    AppStore.store.dispatch(GetDeliverAddressessSuccessAction(addresses));
+  } catch (e) {
+    AppStore.store.dispatch(GetDeliverAddressessFailAction());
+  }
+}
+
+Future<void> addDeliverAddress(Address address) async {
+  AppStore.store.dispatch(AddDeliverAddressAction());
+
+  try {
+    await CartService.addDeliverAddress();
+    AppStore.store.dispatch(AddDeliverAddressSuccessAction(address));
+  } catch (e) {
+    AppStore.store.dispatch(AddDeliverAddressFailAction());
+  }
+}
+
+Future<void> setDefaultDeliverAddress(Address address) async {
+  final previousDefaultAddress = getDefaultDeliverAddress();
+
+  AppStore.store.dispatch(SetDefaultDeliverAddressAction(address));
+
+  try {
+    await CartService.setDefaultDeliverAddress(address);
+    AppStore.store.dispatch(SetDefaultDeliverAddressSuccessAction());
+  } catch (e) {
+    AppStore.store.dispatch(
+      SetDefaultDeliverAddressFailAction(previousDefaultAddress),
+    );
+  }
 }

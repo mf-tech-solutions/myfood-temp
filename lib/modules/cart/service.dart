@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:MyFood/modules/cart/models/address.dart';
 import 'package:MyFood/modules/cart/models/order_status.dart';
 
 import 'models/card.dart';
@@ -13,6 +14,14 @@ class CartService {
     '1812',
     '9940',
   ];
+
+  static final _deliverAddress = Address(
+    addressId: 1,
+    zipcode: '60711035',
+    street: 'Rua Sem Nome',
+    number: 0,
+    isDefault: true,
+  );
 
   static Future<List<UserCard>> getUserCards(int userId) async {
     _cardNumbers.shuffle(Random());
@@ -60,5 +69,35 @@ class CartService {
     });
 
     return stream;
+  }
+
+  static Future<List<Address>> getDeliverAddresses() {
+    return Future.delayed(Duration(milliseconds: 600), () {
+      // final empty = Random().nextBool();
+      // if (empty) {
+      //   return List();
+      // }
+
+      final addresses = [
+        _deliverAddress,
+        Address(
+          addressId: 2,
+          number: 0,
+          street: 'Outra Rua Sem Nome',
+          zipcode: '00000000',
+          isDefault: false,
+        ),
+      ];
+
+      return addresses;
+    });
+  }
+
+  static Future<void> addDeliverAddress() {
+    return Future.delayed(Duration(milliseconds: 600), () => null);
+  }
+
+  static Future<void> setDefaultDeliverAddress(Address address) {
+    return Future.delayed(Duration(milliseconds: 600), () => null);
   }
 }

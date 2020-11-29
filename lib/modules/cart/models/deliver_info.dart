@@ -1,8 +1,9 @@
-import 'package:MyFood/modules/cart/models/deliver_type.dart';
+import 'address.dart';
+import 'deliver_type.dart';
 
 class DeliverInfo {
   final DeliverType deliverType;
-  final String address;
+  final Address address;
 
   DeliverInfo({
     this.deliverType = DeliverType.deliver,

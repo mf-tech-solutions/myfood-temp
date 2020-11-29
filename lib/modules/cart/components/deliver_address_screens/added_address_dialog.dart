@@ -1,7 +1,8 @@
-import 'package:MyFood/components/alert_dialog.dart';
 import 'package:flutter/material.dart';
 
-class AddedUserAddressDialog {
+import '../../../../components/alert_dialog.dart';
+
+class AddedDeliverAddressDialog {
   final BuildContext context;
 
   Widget get dialog {
@@ -20,7 +21,7 @@ class AddedUserAddressDialog {
     );
   }
 
-  AddedUserAddressDialog(this.context);
+  AddedDeliverAddressDialog(this.context);
 
   void _onOkButtonPressed(BuildContext context) {
     Navigator.of(context).pop();

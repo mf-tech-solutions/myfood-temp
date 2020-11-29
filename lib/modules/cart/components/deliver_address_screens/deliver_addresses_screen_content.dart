@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-import '../general/input_formatters.dart';
 import '../general/my_radio_list_tile.dart';
 import '../general/scrollable_center.dart';
 import '../general/with_refresh_indicator.dart';
 import '../../models/address.dart';
-import '../../store/action_creators.dart';
+import '../../store/actionCreators.dart';
 import '../../store/selectors.dart';
 import '../../store/state.dart';
 import '../../../../constants.dart';
 import '../../../../store/state.dart';
 
-class UserAddressesScreenContent extends StatelessWidget {
-  final _zipCodeFormatter = CepInputFormatter();
-
+class DeliverAddressesScreenContent extends StatelessWidget {
   Widget buildNoAddressesMessage(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
@@ -37,7 +34,7 @@ class UserAddressesScreenContent extends StatelessWidget {
 
         return Card(
           child: MyRadioListTile<int>(
-            groupValue: getDefaultUserAddress().addressId,
+            groupValue: getDefaultDeliverAddress().addressId,
             value: address.addressId,
             title: formattedAddress,
             subtitle: address.complement != null
@@ -54,7 +51,7 @@ class UserAddressesScreenContent extends StatelessWidget {
               ),
               onTap: () {},
             ),
-            onChanged: (_) => changeDefaultUserAddress(address),
+            onChanged: (_) => changeDefaultDeliverAddress(address),
           ),
         );
       },
@@ -68,16 +65,16 @@ class UserAddressesScreenContent extends StatelessWidget {
     return '${address.street}, Nº ${address.number}';
   }
 
-  void changeDefaultUserAddress(Address address) {
-    setDefaultUserAddress(address)
+  void changeDefaultDeliverAddress(Address address) {
+    setDefaultDeliverAddress(address)
         .then((_) => print('atualizado'))
         .catchError((_) => print('falha ao atualizar'));
   }
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<AppState, UserState>(
-      converter: (store) => store.state.userState,
+    return StoreConnector<AppState, CartState>(
+      converter: (store) => store.state.cartState,
       builder: (_, state) {
         if (state.loadingAddresses) {
           return Center(
@@ -92,7 +89,7 @@ class UserAddressesScreenContent extends StatelessWidget {
         final addresses = state.addresses;
 
         if (addresses == null) {
-          getUserAddressess();
+          getDeliverAddressess();
           return SizedBox.shrink();
         }
 
@@ -101,7 +98,7 @@ class UserAddressesScreenContent extends StatelessWidget {
 
         return WithRefreshIndicator(
           child: addresses.length == 0 ? message : list,
-          onRefresh: getUserAddressess,
+          onRefresh: getDeliverAddressess,
         );
       },
     );

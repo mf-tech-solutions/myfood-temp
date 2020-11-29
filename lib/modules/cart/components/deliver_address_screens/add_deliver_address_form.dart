@@ -1,16 +1,16 @@
-import 'package:MyFood/modules/user/components/user_address_screens/added_address_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'added_address_dialog.dart';
 import 'address_validator.dart';
 import '../general/input_formatters.dart';
 import '../general/large_button.dart';
 import '../../models/address.dart';
-import '../../store/action_creators.dart';
+import '../../store/actionCreators.dart';
 import '../../../../utils.dart';
 import '../../../../components/outlined_input.dart';
 
-class AddUserAddressForm extends StatelessWidget {
+class AddDeliverAddressForm extends StatelessWidget {
   final TextEditingController streetController;
   final TextEditingController streetNumberController;
   final TextEditingController complementController;
@@ -19,7 +19,7 @@ class AddUserAddressForm extends StatelessWidget {
   final zipCodeFormatter = CepInputFormatter();
   String get zipCode => zipCodeFormatter.unmaskText(zipCodeController.text);
 
-  AddUserAddressForm({
+  AddDeliverAddressForm({
     Key key,
     @required this.streetController,
     @required this.streetNumberController,
@@ -58,10 +58,10 @@ class AddUserAddressForm extends StatelessWidget {
       complement: complementController.text,
     );
 
-    await addUserAddress(address);
+    await addDeliverAddress(address);
     Utils.showContentOnlyDialog(
       context: context,
-      child: AddedUserAddressDialog(context).dialog,
+      child: AddedDeliverAddressDialog(context).dialog,
     );
   }
 

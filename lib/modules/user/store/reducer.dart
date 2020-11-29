@@ -19,15 +19,6 @@ final authReducer = combineReducers<UserState>([
   TypedReducer(_updateUserStart),
   TypedReducer(_updateUserSuccess),
   TypedReducer(_updateUserFail),
-  TypedReducer(_getUserAddressesStart),
-  TypedReducer(_getUserAddressesSuccess),
-  TypedReducer(_getUserAddressesFail),
-  TypedReducer(_addUserAddressStart),
-  TypedReducer(_addUserAddressSuccess),
-  TypedReducer(_addUserAddressFail),
-  TypedReducer(_setDefaultUserAddress),
-  TypedReducer(_setDefaultUserAddressSuccess),
-  TypedReducer(_setDefaultUserAddressFail),
 ]);
 
 //region Login
@@ -102,90 +93,4 @@ UserState _updateUserSuccess(UserState state, UpdateUserSuccessAction action) {
 
 UserState _updateUserFail(UserState state, UpdateUserFailAction action) {
   return state.copyWith(updating: false);
-}
-
-UserState _getUserAddressesStart(
-  UserState state,
-  GetUserAddressessAction action,
-) {
-  return state.copyWith(loadingAddresses: true);
-}
-
-UserState _getUserAddressesSuccess(
-  UserState state,
-  GetUserAddressessSuccessAction action,
-) {
-  return state.copyWith(
-    loadingAddresses: false,
-    addresses: action.payload.addresses,
-  );
-}
-
-UserState _getUserAddressesFail(
-  UserState state,
-  GetUserAddressessFailAction action,
-) {
-  return state.copyWith(loadingAddresses: false);
-}
-
-UserState _addUserAddressStart(UserState state, AddUserAddressAction action) {
-  return state.copyWith(loadingAddresses: true);
-}
-
-UserState _addUserAddressSuccess(
-  UserState state,
-  AddUserAddressSuccessAction action,
-) {
-  final addresses = [...state.addresses, action.payload.address];
-
-  return state.copyWith(
-    loadingAddresses: false,
-    addresses: addresses,
-  );
-}
-
-UserState _addUserAddressFail(
-  UserState state,
-  AddUserAddressFailAction action,
-) {
-  return state.copyWith(loadingAddresses: false);
-}
-
-UserState _setDefaultUserAddress(
-  UserState state,
-  SetDefaultUserAddressAction action,
-) {
-  final newDefaultAddress = action.payload.address.copyWith(isDefault: true);
-  final addresses = state.addresses.map(
-    (e) {
-      return e.addressId == newDefaultAddress.addressId
-          ? newDefaultAddress
-          : e.copyWith(isDefault: false);
-    },
-  ).toList();
-
-  return state.copyWith(addresses: addresses);
-}
-
-UserState _setDefaultUserAddressSuccess(
-  UserState state,
-  SetDefaultUserAddressSuccessAction action,
-) {
-  return state;
-}
-
-UserState _setDefaultUserAddressFail(
-  UserState state,
-  SetDefaultUserAddressFailAction action,
-) {
-  final previousDefaultAddress = action.payload.previousAddress;
-  final addresses = state.addresses.map(
-    (e) {
-      return e.addressId == previousDefaultAddress.addressId
-          ? previousDefaultAddress.addressId
-          : e.copyWith(isDefault: false);
-    },
-  ).toList();
-
-  return state.copyWith(addresses: addresses);
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' show immutable, required;
 
+import '../models/address.dart';
 import '../models/card.dart';
 import '../models/cart_product.dart';
 import '../models/deliver_info.dart';
@@ -23,6 +24,9 @@ class CartState {
   final bool ordering;
   final OrderStatus orderStatus;
 
+  final List<Address> addresses;
+  final bool loadingAddresses;
+
   CartState({
     @required this.products,
     @required this.isDeliver,
@@ -33,6 +37,8 @@ class CartState {
     @required this.paymentMethod,
     @required this.ordering,
     @required this.orderStatus,
+    @required this.loadingAddresses,
+    @required this.addresses,
     this.currentOrder,
   });
 
@@ -46,7 +52,9 @@ class CartState {
       shouldLoadCards: true,
       ordering: false,
       orderStatus: OrderStatus.none,
-      deliverInfo: DeliverInfo(),
+      deliverInfo: null,
+      addresses: [],
+      loadingAddresses: null,
     );
   }
 
@@ -61,6 +69,8 @@ class CartState {
       ordering: currentState.ordering,
       orderStatus: currentState.orderStatus,
       deliverInfo: currentState.deliverInfo,
+      addresses: currentState.addresses,
+      loadingAddresses: currentState.loadingAddresses,
     );
   }
 
@@ -74,6 +84,8 @@ class CartState {
     bool ordering,
     OrderStatus orderStatus,
     DeliverInfo deliverInfo,
+    List<Address> addresses,
+    bool loadingAddresses,
   }) {
     return CartState(
       products: products ?? this.products,
@@ -85,6 +97,8 @@ class CartState {
       ordering: ordering ?? this.ordering,
       orderStatus: orderStatus ?? this.orderStatus,
       deliverInfo: deliverInfo ?? this.deliverInfo,
+      addresses: addresses ?? this.addresses,
+      loadingAddresses: loadingAddresses ?? this.loadingAddresses,
     );
   }
 }

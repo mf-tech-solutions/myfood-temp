@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 
 import '../../components/app_bar/app_bar.dart';
-import '../../modules/user/components/user_address_screens/user_addresses_screen_content.dart';
+import '../../modules/cart/components/deliver_address_screens/deliver_addresses_screen_content.dart';
 import '../../routes.dart';
 
-class UserAddressListScreen extends StatefulWidget {
+class DeliverAddressListScreen extends StatefulWidget {
   @override
-  _UserAddressListScreenState createState() => _UserAddressListScreenState();
+  _DeliverAddressListScreenState createState() =>
+      _DeliverAddressListScreenState();
 }
 
-class _UserAddressListScreenState extends State<UserAddressListScreen> {
+class _DeliverAddressListScreenState extends State<DeliverAddressListScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>(debugLabel: 'userAddressList');
 
   void openAddAddressForm(BuildContext context) {
-    Navigator.of(context).pushNamed(userAddAddressRoute);
+    Navigator.of(context).pushNamed(deliverAddAddressRoute);
   }
 
   @override
@@ -21,7 +22,7 @@ class _UserAddressListScreenState extends State<UserAddressListScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: MyAppBar(title: 'Endereços'),
-      body: UserAddressesScreenContent(),
+      body: DeliverAddressesScreenContent(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () => openAddAddressForm(context),

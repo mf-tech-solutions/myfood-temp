@@ -21,7 +21,16 @@ final cartReducer = combineReducers<CartState>([
   TypedReducer(_addUserCardSuccess),
   TypedReducer(_addUserCardFail),
   TypedReducer(_setDeliverInfo),
-  TypedReducer(_setPaymentMethod)
+  TypedReducer(_setPaymentMethod),
+  TypedReducer(_getDeliverAddressesStart),
+  TypedReducer(_getDeliverAddressesSuccess),
+  TypedReducer(_getDeliverAddressesFail),
+  TypedReducer(_addDeliverAddressStart),
+  TypedReducer(_addDeliverAddressSuccess),
+  TypedReducer(_addDeliverAddressFail),
+  TypedReducer(_setDefaultDeliverAddress),
+  TypedReducer(_setDefaultDeliverAddressSuccess),
+  TypedReducer(_setDefaultDeliverAddressFail),
 ]);
 
 CartState _addItemsToCart(CartState state, AddItemsToCartAction action) {
@@ -142,4 +151,91 @@ CartState _setDeliverInfo(CartState state, SetDeliverInfoAction action) {
 
 CartState _setPaymentMethod(CartState state, SetPaymentMethodAction action) {
   return state.copyWith(paymentMethod: action.payload.paymentMethod);
+}
+
+CartState _getDeliverAddressesStart(
+  CartState state,
+  GetDeliverAddressessAction action,
+) {
+  return state.copyWith(loadingAddresses: true);
+}
+
+CartState _getDeliverAddressesSuccess(
+  CartState state,
+  GetDeliverAddressessSuccessAction action,
+) {
+  return state.copyWith(
+    loadingAddresses: false,
+    addresses: action.payload.addresses,
+  );
+}
+
+CartState _getDeliverAddressesFail(
+  CartState state,
+  GetDeliverAddressessFailAction action,
+) {
+  return state.copyWith(loadingAddresses: false);
+}
+
+CartState _addDeliverAddressStart(
+    CartState state, AddDeliverAddressAction action) {
+  return state.copyWith(loadingAddresses: true);
+}
+
+CartState _addDeliverAddressSuccess(
+  CartState state,
+  AddDeliverAddressSuccessAction action,
+) {
+  final addresses = [...state.addresses, action.payload.address];
+
+  return state.copyWith(
+    loadingAddresses: false,
+    addresses: addresses,
+  );
+}
+
+CartState _addDeliverAddressFail(
+  CartState state,
+  AddDeliverAddressFailAction action,
+) {
+  return state.copyWith(loadingAddresses: false);
+}
+
+CartState _setDefaultDeliverAddress(
+  CartState state,
+  SetDefaultDeliverAddressAction action,
+) {
+  final newDefaultAddress = action.payload.address.copyWith(isDefault: true);
+  final addresses = state.addresses.map(
+    (e) {
+      return e.addressId == newDefaultAddress.addressId
+          ? newDefaultAddress
+          : e.copyWith(isDefault: false);
+    },
+  ).toList();
+
+  return state.copyWith(addresses: addresses);
+}
+
+CartState _setDefaultDeliverAddressSuccess(
+  CartState state,
+  SetDefaultDeliverAddressSuccessAction action,
+) {
+  return state;
+}
+
+CartState _setDefaultDeliverAddressFail(
+  CartState state,
+  SetDefaultDeliverAddressFailAction action,
+) {
+  final previousDefaultAddress = action.payload.previousAddress;
+  final addresses = state.addresses.map(
+    (e) {
+      return e.addressId == previousDefaultAddress.addressId
+          ? previousDefaultAddress.addressId
+          : e.copyWith(isDefault: false);
+    },
+  ).toList();
+
+  return state.copyWith(addresses: addresses);
 }

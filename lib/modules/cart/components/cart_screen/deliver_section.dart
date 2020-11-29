@@ -1,19 +1,47 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import '../list_tile.dart';
+import '../general/input_formatters.dart';
 import '../../resource.dart';
-import '../../models/deliver_info.dart';
-import '../../models/deliver_type.dart';
+import '../../models/address.dart';
 import '../../store/actionCreators.dart';
 import '../../store/selectors.dart';
+import '../../store/state.dart';
 import '../../../../constants.dart';
 import '../../../../routes.dart';
 import '../../../../store/state.dart';
 
-class DeliverSection extends StatelessWidget {
+class DeliverSection extends StatefulWidget {
+  @override
+  _DeliverSectionState createState() => _DeliverSectionState();
+}
+
+class _DeliverSectionState extends State<DeliverSection> {
+  var _fetchedAddresses = false;
+  final _zipcodeFormatter = CepInputFormatter();
+
   void goToSetAddressScreen(BuildContext context) {
-    Navigator.of(context).pushNamed(userAddressListRoute);
+    Navigator.of(context).pushNamed(deliverAddressListRoute);
+  }
+
+  void getAddressess() {
+    getDeliverAddressess();
+
+    void run() {
+      scheduleMicrotask(() {
+        setState(() => _fetchedAddresses = true);
+      });
+    }
+
+    run();
+  }
+
+  String formatAddress(Address address) {
+    final zipcode = _zipcodeFormatter.maskText(address.zipcode);
+    return '${address.street}, Nº ${address.number} - $zipcode';
   }
 
   @override
@@ -32,7 +60,6 @@ class DeliverSection extends StatelessWidget {
                 isDeliver ? CartResource.deliver : CartResource.withdraw;
 
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Padding(
                   padding: EdgeInsets.fromLTRB(12, 0, 8, 0),
@@ -48,21 +75,33 @@ class DeliverSection extends StatelessWidget {
                     ],
                   ),
                 ),
-                StoreConnector<AppState, DeliverInfo>(
-                  converter: (store) => store.state.cartState.deliverInfo,
-                  builder: (_, deliverInfo) {
-                    if (deliverInfo.deliverType == DeliverType.deliver &&
-                        deliverInfo.address == null) {
-                      setDeliverInfo(getUserAddress());
+                StoreConnector<AppState, CartState>(
+                  converter: (store) => store.state.cartState,
+                  builder: (_, state) {
+                    if (state.addresses.isEmpty && !_fetchedAddresses) {
+                      getAddressess();
+                      return Center(child: CircularProgressIndicator());
+                    }
+
+                    final deliverAddress = getDefaultDeliverAddress();
+                    if (deliverAddress == null) {
                       return Center(
-                        child: CircularProgressIndicator(),
+                        child: TextButton(
+                          child: Text('Selecione um endereço'),
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushNamed(deliverAddressListRoute);
+                          },
+                        ),
                       );
                     }
 
                     return AnimatedCrossFade(
                       firstChild: MyListTile(
-                        title: Text(CartResource.address),
-                        subtitle: Text(deliverInfo.address),
+                        title: Text(formatAddress(deliverAddress)),
+                        subtitle: deliverAddress.complement == null
+                            ? null
+                            : Text('Complemento: ${deliverAddress.complement}'),
                         trailing: TextButton(
                           child: Text('Trocar'),
                           onPressed: () => goToSetAddressScreen(context),

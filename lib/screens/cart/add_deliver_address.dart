@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
 import '../../components/app_bar/app_bar.dart';
-import '../../modules/user/components/user_address_screens/add_user_address_form.dart';
+import '../../modules/cart/components/deliver_address_screens/add_deliver_address_form.dart';
 
-class AddUserAddressScreen extends StatefulWidget {
+class AddDeliverAddressScreen extends StatefulWidget {
   @override
-  _AddUserAddressScreenState createState() => _AddUserAddressScreenState();
+  _AddDeliverAddressScreenState createState() =>
+      _AddDeliverAddressScreenState();
 }
 
-class _AddUserAddressScreenState extends State<AddUserAddressScreen> {
+class _AddDeliverAddressScreenState extends State<AddDeliverAddressScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>(debugLabel: 'addAddressScreen');
 
   final _streetController = TextEditingController();
@@ -21,7 +22,7 @@ class _AddUserAddressScreenState extends State<AddUserAddressScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: MyAppBar(title: 'Adicionar endereço'),
-      body: AddUserAddressForm(
+      body: AddDeliverAddressForm(
         streetController: _streetController,
         streetNumberController: _streetNumberController,
         zipCodeController: _zipCodeController,
