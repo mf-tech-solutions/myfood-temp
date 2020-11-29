@@ -12,11 +12,14 @@ class NavigationState {
   final List<Widget> screens;
   final List<ValueKey<int>> screenKeys;
 
+  final GlobalKey<ScaffoldState> rootScaffoldKey;
+
   NavigationState({
     @required this.currentIndex,
     this.screens,
     this.screenKeys,
     this.previousIndex,
+    this.rootScaffoldKey,
   });
 
   factory NavigationState.initial() {
@@ -34,12 +37,17 @@ class NavigationState {
     );
   }
 
-  NavigationState copyWith({int index, int previousIndex}) {
+  NavigationState copyWith({
+    int index,
+    int previousIndex,
+    GlobalKey<ScaffoldState> rootScaffoldKey,
+  }) {
     return NavigationState(
       currentIndex: index ?? this.currentIndex,
       previousIndex: previousIndex ?? this.previousIndex,
       screens: this.screens,
       screenKeys: this.screenKeys,
+      rootScaffoldKey: rootScaffoldKey ?? this.rootScaffoldKey,
     );
   }
 }

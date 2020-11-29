@@ -20,7 +20,7 @@ class ForgotPasswordCheck extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       child: Text(
-        AuthResource.forgotPassword,
+        UserResource.forgotPassword,
         textAlign: TextAlign.center,
         style: TextStyle(color: Colors.black45),
       ),

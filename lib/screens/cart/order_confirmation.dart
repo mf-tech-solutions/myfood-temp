@@ -12,7 +12,10 @@ class OrderConfirmationScreen extends StatelessWidget {
       appBar: MyAppBar(title: ''),
       backgroundColor: primaryColor,
       body: Center(
-        child: OrderConfirmationScreenContent(textColor: Colors.white),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: OrderConfirmationScreenContent(textColor: Colors.white),
+        ),
       ),
     );
   }

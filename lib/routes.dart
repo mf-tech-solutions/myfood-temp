@@ -1,3 +1,4 @@
+import 'package:MyFood/screens/user/add_user_address.dart';
 import 'package:flutter/material.dart';
 
 import 'utils.dart';
@@ -12,7 +13,7 @@ import 'screens/cart/payment_methods.dart';
 import 'screens/food/games_screen.dart';
 import 'screens/food/recipes_screen.dart';
 import 'screens/food/search_screen.dart';
-import 'screens/user/addresses.dart';
+import 'screens/user/user_address_list.dart';
 import 'screens/user/user.dart';
 import 'screens/user/user_edit.dart';
 import 'screens/user/login.dart';
@@ -60,8 +61,11 @@ class Routes {
       case userRoute:
         return Utils.pageRouteBuilder(UserScreen());
 
-      case userAddressesRoute:
-        return Utils.pageRouteBuilder(UserAddressesScreen());
+      case userAddressListRoute:
+        return Utils.pageRouteBuilder(UserAddressListScreen());
+
+      case userAddAddressRoute:
+        return Utils.cupertinoRouteBuilder(AddUserAddressScreen());
 
       case userEditRoute:
         return Utils.cupertinoRouteBuilder(UserEditScreen());
@@ -86,5 +90,6 @@ const String recipesRoute = 'recipes';
 const String searchRoute = 'search';
 const String signupRoute = 'signup';
 const String userRoute = 'user';
-const String userAddressesRoute = 'userAddresses';
+const String userAddressListRoute = 'userAddressList';
+const String userAddAddressRoute = 'userAddressList/new/';
 const String userEditRoute = 'userEdit';

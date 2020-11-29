@@ -19,6 +19,9 @@ final authReducer = combineReducers<UserState>([
   TypedReducer(_updateUserStart),
   TypedReducer(_updateUserSuccess),
   TypedReducer(_updateUserFail),
+  TypedReducer(_getUserAddressesStart),
+  TypedReducer(_getUserAddressesSuccess),
+  TypedReducer(_getUserAddressesFail),
 ]);
 
 //region Login
@@ -93,4 +96,28 @@ UserState _updateUserSuccess(UserState state, UpdateUserSuccessAction action) {
 
 UserState _updateUserFail(UserState state, UpdateUserFailAction action) {
   return state.copyWith(updating: false);
+}
+
+UserState _getUserAddressesStart(
+  UserState state,
+  GetUserAddressessAction action,
+) {
+  return state.copyWith(gettingAddresses: true);
+}
+
+UserState _getUserAddressesSuccess(
+  UserState state,
+  GetUserAddressessSuccessAction action,
+) {
+  return state.copyWith(
+    gettingAddresses: false,
+    addresses: action.payload.addresses,
+  );
+}
+
+UserState _getUserAddressesFail(
+  UserState state,
+  GetUserAddressessFailAction action,
+) {
+  return state.copyWith(gettingAddresses: false);
 }

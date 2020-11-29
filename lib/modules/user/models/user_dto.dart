@@ -13,6 +13,7 @@ class UserDto {
   final String street;
   final int streetNumber;
   final String complement;
+  final bool isDefaultAddress;
 
   UserDto({
     @required this.userId,
@@ -26,6 +27,7 @@ class UserDto {
     @required this.street,
     @required this.streetNumber,
     @required this.complement,
+    @required this.isDefaultAddress,
   });
 
   Map<String, dynamic> toJson() {
@@ -42,6 +44,7 @@ class UserDto {
         'street': street,
         'number': streetNumber,
         'complement': complement,
+        'isDefault': isDefaultAddress,
       },
     };
   }

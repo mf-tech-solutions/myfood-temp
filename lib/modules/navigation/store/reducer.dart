@@ -7,5 +7,10 @@ NavigationState navigationReducer(NavigationState state, dynamic action) {
       index: action.payload.index,
       previousIndex: state.currentIndex,
     );
+  else if (action is SetRootScaffoldKeyAction) {
+    return state.copyWith(
+      rootScaffoldKey: action.payload.key,
+    );
+  }
   return state;
 }

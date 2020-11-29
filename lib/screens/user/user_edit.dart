@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import '../../store/state.dart';
-import '../../modules/user/components/input_formatters.dart';
+import '../../modules/user/components/general/input_formatters.dart';
 import '../../modules/user/components/user_avatar.dart';
 import '../../modules/user/components/user_screen/user_payment_info_form.dart';
 import '../../modules/user/components/user_screen/user_personal_info_form.dart';
@@ -53,6 +53,7 @@ class UserEditScreen extends StatelessWidget {
         street: streetController.text,
         streetNumber: int.parse(streetNumberController.text),
         complement: complementController.text,
+        isDefaultAddress: user.address.isDefault,
       ),
     );
   }
@@ -68,7 +69,7 @@ class UserEditScreen extends StatelessWidget {
       ),
       backgroundColor: theme.primaryColor,
       body: StoreConnector<AppState, UserState>(
-        converter: (store) => store.state.authState,
+        converter: (store) => store.state.userState,
         builder: (_, state) {
           fillControllersText(state.user);
 

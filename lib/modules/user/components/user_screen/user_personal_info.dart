@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/user.dart';
-import '../input_formatters.dart';
+import '../general/input_formatters.dart';
 
 class UserPersonalInfo extends StatelessWidget {
   final User user;

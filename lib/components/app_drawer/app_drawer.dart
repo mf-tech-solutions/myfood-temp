@@ -56,7 +56,7 @@ class AppDrawer extends StatelessWidget {
           ListTile(
             title: Text('Endereços'),
             trailing: Icon(Icons.chevron_right_rounded),
-            onTap: () => Navigator.of(context).pushNamed(userAddressesRoute),
+            onTap: () => Navigator.of(context).pushNamed(userAddressListRoute),
           ),
         ],
       ),

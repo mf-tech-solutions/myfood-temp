@@ -66,7 +66,7 @@ class _UserScreenState extends State<UserScreen> {
       ),
       backgroundColor: theme.primaryColor,
       body: StoreConnector<AppState, UserState>(
-        converter: (store) => store.state.authState,
+        converter: (store) => store.state.userState,
         builder: (_, state) {
           if (state.loading) return loadingUser;
 

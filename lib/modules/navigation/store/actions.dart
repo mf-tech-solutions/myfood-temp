@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart' show immutable, required;
-import '../../../store/store.dart';
+import 'package:flutter/material.dart';
 
-@immutable
+//region Set current index
 class SetCurrentIndexPayload {
   final int index;
 
@@ -15,7 +14,20 @@ class SetCurrentIndexAction {
     payload = SetCurrentIndexPayload(index);
   }
 }
+//endregion
 
-void setCurrentIndex(int index) {
-  AppStore.store.dispatch(SetCurrentIndexAction(index: index));
+//region Set root scaffol key
+class SetRootScaffoldKeyPayload {
+  final GlobalKey<ScaffoldState> key;
+
+  SetRootScaffoldKeyPayload(this.key);
 }
+
+class SetRootScaffoldKeyAction {
+  SetRootScaffoldKeyPayload payload;
+
+  SetRootScaffoldKeyAction(GlobalKey<ScaffoldState> key) {
+    payload = SetRootScaffoldKeyPayload(key);
+  }
+}
+//endregion

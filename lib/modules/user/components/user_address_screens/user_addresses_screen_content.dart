@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-import 'list_tile.dart';
-import 'scrollable_center.dart';
-import '../models/address.dart';
-import '../store/action_creators.dart';
-import '../store/state.dart';
-import '../../../constants.dart';
-import '../../../store/state.dart';
+import '../general/list_tile.dart';
+import '../general/scrollable_center.dart';
+import '../../models/address.dart';
+import '../../store/action_creators.dart';
+import '../../store/state.dart';
+import '../../../../constants.dart';
+import '../../../../store/state.dart';
 
 class UserAddressesScreenContent extends StatelessWidget {
   final refreshIndicatorState = GlobalKey<RefreshIndicatorState>();

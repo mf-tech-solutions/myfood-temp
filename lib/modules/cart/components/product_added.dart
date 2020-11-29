@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../resource.dart';
-import '../../navigation/store/actions.dart';
+import '../../navigation/store/actionCreators.dart';
 import '../../../routes.dart';
 import '../../../constants.dart';
 import '../../../components/alert_dialog.dart';

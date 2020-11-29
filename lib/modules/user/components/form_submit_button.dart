@@ -53,7 +53,7 @@ class FormSubmitButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, bool>(
-      converter: (store) => store.state.authState.loading,
+      converter: (store) => store.state.userState.loading,
       builder: (BuildContext context, bool loading) => SizedBox(
         height: 48,
         child: getButton(context, loading),

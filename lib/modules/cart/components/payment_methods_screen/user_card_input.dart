@@ -1,7 +1,7 @@
-import 'package:MyFood/modules/cart/components/formatters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../formatters.dart';
 import '../../../../components/outlined_input.dart';
 
 class UserCardInput extends StatelessWidget {

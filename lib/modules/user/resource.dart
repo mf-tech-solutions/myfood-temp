@@ -1,4 +1,4 @@
-class AuthResource {
+class UserResource {
   //region reset password
   static get resetPasswordInstruction =>
       'Informe abaixo o email para redefinição de senha.';

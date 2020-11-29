@@ -8,7 +8,7 @@ class ResetPasswordAlert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(AuthResource.resetPasswordAlertTitle),
+      title: Text(UserResource.resetPasswordAlertTitle),
       insetPadding: const EdgeInsets.all(16),
       actionsPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
       shape: RoundedRectangleBorder(
@@ -38,13 +38,13 @@ class ResetPasswordAlert extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(AuthResource.resetPasswordInstruction),
+            Text(UserResource.resetPasswordInstruction),
             SizedBox(height: 16),
             MyTextField(
               controller: emailController,
               icon: Icons.email,
               isObscure: false,
-              hintText: AuthResource.emailHintText,
+              hintText: UserResource.emailHintText,
             ),
           ],
         ),

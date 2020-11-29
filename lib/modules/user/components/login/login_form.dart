@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'forgot_password_check.dart';
 import 'no_account_check.dart';
-import '../form_container.dart';
+import '../general/form_container.dart';
 import '../form_submit_button.dart';
 import '../../resource.dart';
 import '../../../../components/inputs/text_field.dart';
@@ -40,7 +40,7 @@ class LoginForm extends StatelessWidget {
             MyTextField(
               icon: Icons.email,
               isObscure: false,
-              hintText: AuthResource.emailHintText,
+              hintText: UserResource.emailHintText,
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
             ),
@@ -48,14 +48,14 @@ class LoginForm extends StatelessWidget {
             MyTextField(
               icon: Icons.lock,
               isObscure: true,
-              hintText: AuthResource.passwordHintText,
+              hintText: UserResource.passwordHintText,
               controller: passwordController,
             ),
             SizedBox(height: 12),
             ForgotPasswordCheck(),
             SizedBox(height: 16),
             FormSubmitButton(
-              text: AuthResource.sign.toUpperCase(),
+              text: UserResource.sign.toUpperCase(),
               onSubmit: this.onSubmit,
             ),
             SizedBox(height: 16),

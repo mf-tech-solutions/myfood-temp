@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../input_formatters.dart';
+import '../general/input_formatters.dart';
 import '../../../../components/outlined_input.dart';
 
 class UserPersonalInfoForm extends StatelessWidget {

@@ -37,6 +37,7 @@ class User {
         street: userDto.street,
         number: userDto.streetNumber,
         complement: userDto.complement,
+        isDefault: userDto.isDefaultAddress,
       ),
     );
   }

@@ -16,7 +16,7 @@ import '../../modules/cart/components/cart_screen/deliver_section.dart';
 import '../../modules/cart/components/cart_screen/cart_product_table.dart';
 import '../../modules/cart/components/cart_screen/empty_card.dart';
 import '../../modules/cart/components/cart_screen/payment_section.dart';
-import '../../modules/navigation/store/actions.dart';
+import '../../modules/navigation/store/actionCreators.dart';
 
 class CartScreen extends StatelessWidget {
   Widget get clearCartButton {
@@ -57,9 +57,9 @@ class CartScreen extends StatelessWidget {
 
   void goToOrderConfirmationScreen(BuildContext context) {
     void run() {
-      scheduleMicrotask(
-        () => Navigator.of(context).pushNamed(orderConfirmationRoute),
-      );
+      scheduleMicrotask(() {
+        Navigator.of(context).pushNamed(orderConfirmationRoute);
+      });
     }
 
     run();

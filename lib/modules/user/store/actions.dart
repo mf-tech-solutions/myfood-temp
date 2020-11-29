@@ -1,7 +1,7 @@
+import 'package:MyFood/modules/user/models/address.dart';
 import 'package:flutter/material.dart' show required;
 import 'package:redux/redux.dart' show Store;
 
-import 'action_types.dart';
 import '../service.dart';
 import '../models/user.dart';
 import '../../../store/state.dart';
@@ -9,8 +9,6 @@ import '../../../store/store.dart';
 
 //region Login
 class LoginAction {
-  ActionTypes type = ActionTypes.Login;
-
   LoginAction();
 }
 
@@ -21,7 +19,6 @@ class LoginSuccessPayload {
 }
 
 class LoginSuccessAction {
-  ActionTypes type = ActionTypes.Login;
   LoginSuccessPayload payload;
 
   LoginSuccessAction({@required User user}) {
@@ -29,9 +26,7 @@ class LoginSuccessAction {
   }
 }
 
-class LoginFailAction {
-  ActionTypes type = ActionTypes.LoginFail;
-}
+class LoginFailAction {}
 
 Future<void> login(
   Store<AppState> store,
@@ -41,7 +36,7 @@ Future<void> login(
   store.dispatch(LoginAction());
 
   try {
-    final user = await AuthService.signInWithEmailAndPassword(email, password);
+    final user = await UserService.signInWithEmailAndPassword(email, password);
     store.dispatch(LoginSuccessAction(user: user));
   } catch (e) {
     store.dispatch(LoginFailAction());
@@ -50,9 +45,7 @@ Future<void> login(
 //endregion
 
 //region SignUp
-class SignUpAction {
-  ActionTypes type = ActionTypes.SingUp;
-}
+class SignUpAction {}
 
 class SignUpSuccessPayload {
   final User user;
@@ -61,7 +54,6 @@ class SignUpSuccessPayload {
 }
 
 class SignUpSuccessAction {
-  ActionTypes type = ActionTypes.SignUpSuccess;
   SignUpSuccessPayload payload;
 
   SignUpSuccessAction({@required User user}) {
@@ -69,9 +61,7 @@ class SignUpSuccessAction {
   }
 }
 
-class SignUpFailAction {
-  ActionTypes type = ActionTypes.SignUpFail;
-}
+class SignUpFailAction {}
 
 Future<void> signUp(
   Store<AppState> store,
@@ -81,7 +71,7 @@ Future<void> signUp(
   store.dispatch(SignUpAction());
 
   try {
-    final user = await AuthService.signUpWithEmailAndPassword(email, password);
+    final user = await UserService.signUpWithEmailAndPassword(email, password);
     store.dispatch(SignUpSuccessAction(user: user));
   } catch (e) {
     store.dispatch(SignUpFailAction());
@@ -99,7 +89,7 @@ class SignOutFailAction {}
 Future<void> signOut() async {
   AppStore.store.dispatch(SignOutAction());
   try {
-    await AuthService.signOut();
+    await UserService.signOut();
     AppStore.store.dispatch(SignOutSuccessAction());
   } catch (e) {
     AppStore.store.dispatch(SignUpFailAction());
@@ -108,17 +98,11 @@ Future<void> signOut() async {
 //endregion
 
 //region SendPasswordResetEmail
-class SendPasswordResetEmailAction {
-  ActionTypes type = ActionTypes.SendPasswordResetEmail;
-}
+class SendPasswordResetEmailAction {}
 
-class SendPasswordResetEmailSuccessAction {
-  ActionTypes type = ActionTypes.SendPasswordResetEmailSuccess;
-}
+class SendPasswordResetEmailSuccessAction {}
 
-class SendPasswordResetEmailFailAction {
-  ActionTypes type = ActionTypes.SendPasswordResetEmailFail;
-}
+class SendPasswordResetEmailFailAction {}
 //endregion
 
 //region Update user
@@ -139,4 +123,25 @@ class UpdateUserSuccessAction {
 }
 
 class UpdateUserFailAction {}
+//endregion
+
+//region Get addressess
+class GetUserAddressessAction {}
+
+class GetUserAddressessSuccessPayload {
+  final List<Address> addresses;
+
+  GetUserAddressessSuccessPayload(this.addresses);
+}
+
+class GetUserAddressessSuccessAction {
+  GetUserAddressessSuccessPayload payload;
+
+  GetUserAddressessSuccessAction(List<Address> addresses) {
+    payload = GetUserAddressessSuccessPayload(addresses);
+  }
+}
+
+class GetUserAddressessFailAction {}
+
 //endregion

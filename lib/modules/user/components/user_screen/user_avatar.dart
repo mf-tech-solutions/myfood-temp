@@ -41,13 +41,10 @@ class UserAvatar extends StatelessWidget {
     return SizedBox(
       height: 96,
       width: 96,
-      child: Hero(
-        tag: 'user_img',
-        child: AsyncAvatar(
-          imageUrl: user.imageUrl,
-          backgroundColor: Colors.white10,
-          child: userNameInitial,
-        ),
+      child: AsyncAvatar(
+        imageUrl: user.imageUrl,
+        backgroundColor: Colors.white10,
+        child: userNameInitial,
       ),
     );
   }

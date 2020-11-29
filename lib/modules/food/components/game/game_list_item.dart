@@ -23,23 +23,17 @@ class GameListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        title: Hero(
-          tag: game.name,
-          child: Row(
-            children: [
-              Icon(Icons.videogame_asset_rounded),
-              SizedBox(width: 8),
-              Text(game.name),
-            ],
-          ),
+        title: Row(
+          children: [
+            Icon(Icons.videogame_asset_rounded),
+            SizedBox(width: 8),
+            Text(game.name),
+          ],
         ),
-        subtitle: Hero(
-          tag: '${game.description} + ${game.id}',
-          child: Text(
-            game.description,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
+        subtitle: Text(
+          game.description,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
         onTap: () => openGameModal(context),
       ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-import '../store/actions.dart';
+import '../store/actionCreators.dart';
 import '../store/state.dart';
 import '../../../store/state.dart';
 

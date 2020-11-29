@@ -12,13 +12,13 @@ class HasAccountCheck extends StatelessWidget {
     return Row(
       children: [
         Text(
-          AuthResource.hasAccount,
+          UserResource.hasAccount,
           textAlign: TextAlign.center,
           style: TextStyle(color: Colors.black45),
         ),
         SizedBox(width: 8),
         TextButton(
-          child: Text(AuthResource.sign),
+          child: Text(UserResource.sign),
           onPressed: () => onTapHandler(context),
         ),
       ],

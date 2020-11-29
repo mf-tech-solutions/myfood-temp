@@ -1,5 +1,6 @@
-import 'package:MyFood/components/large_icon_avatar.dart';
 import 'package:flutter/material.dart';
+
+import 'large_icon_avatar.dart';
 
 class ScreenIconAvatar extends StatelessWidget {
   final Widget child;

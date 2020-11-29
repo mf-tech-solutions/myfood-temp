@@ -12,7 +12,7 @@ class UserAvatar extends StatelessWidget {
     final primaryColor = Theme.of(context).primaryColor;
 
     return StoreConnector<AppState, User>(
-      converter: (store) => store.state.authState.user,
+      converter: (store) => store.state.userState.user,
       builder: (_, user) {
         if (user == null) return Container();
 
@@ -24,13 +24,10 @@ class UserAvatar extends StatelessWidget {
               SizedBox(
                 height: 56,
                 width: 56,
-                child: Hero(
-                  tag: 'user_img',
-                  child: AsyncAvatar(
-                    imageUrl: user.imageUrl,
-                    backgroundColor: primaryColor,
-                    child: Text(user.name.characters.elementAt(0)),
-                  ),
+                child: AsyncAvatar(
+                  imageUrl: user.imageUrl,
+                  backgroundColor: primaryColor,
+                  child: Text(user.name.characters.elementAt(0)),
                 ),
               ),
               SizedBox(width: 8),

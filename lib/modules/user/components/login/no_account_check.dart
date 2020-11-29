@@ -19,13 +19,13 @@ class NoAccountCheck extends StatelessWidget {
     return Row(
       children: [
         Text(
-          AuthResource.noAccount,
+          UserResource.noAccount,
           textAlign: TextAlign.center,
           style: TextStyle(color: Colors.black45),
         ),
         SizedBox(width: 8),
         TextButton(
-          child: Text(AuthResource.signUp),
+          child: Text(UserResource.signUp),
           onPressed: () => onTapHandler(context),
         ),
       ],

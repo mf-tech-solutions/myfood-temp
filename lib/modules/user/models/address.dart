@@ -7,12 +7,14 @@ class Address {
   final String street;
   final int number;
   final String complement;
+  final bool isDefault;
 
   Address({
     @required this.addressId,
     @required this.zipcode,
     @required this.street,
     @required this.number,
+    @required this.isDefault,
     this.complement,
   });
 

@@ -23,7 +23,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     String message;
 
     if (emailValidation != null && passwordValidation != null) {
-      message = AuthResource.invalidEmailAndPassword;
+      message = UserResource.invalidEmailAndPassword;
     } else if (emailValidation != null) {
       message = emailValidation;
     } else if (passwordValidation != null) {
@@ -34,13 +34,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   String validateEmail(String value) {
-    if (value.length == 0) return AuthResource.emailRequired;
-    if (!value.contains('@')) return AuthResource.invalidEmail;
+    if (value.length == 0) return UserResource.emailRequired;
+    if (!value.contains('@')) return UserResource.invalidEmail;
     return null;
   }
 
   String validatePassword(String value) {
-    if (value.length == 0) return AuthResource.passwordRequired;
+    if (value.length == 0) return UserResource.passwordRequired;
 
     return null;
   }

@@ -92,6 +92,38 @@ class Utils {
     );
   }
 
+  static void showSnackBar(
+    ScaffoldState scaffold,
+    Widget content, {
+    SnackBarAction action,
+    Color backgroundColor,
+    SnackBarBehavior behavior,
+  }) {
+    final defaultAction = SnackBarAction(
+      label: 'Fechar',
+      textColor: Colors.white,
+      onPressed: scaffold.hideCurrentSnackBar,
+    );
+
+    final radius = Radius.circular(12);
+    final borderRadius =
+        behavior == null ? BorderRadius.zero : BorderRadius.all(radius);
+
+    scaffold.showSnackBar(
+      SnackBar(
+        action: action ?? defaultAction,
+        backgroundColor: backgroundColor,
+        behavior: behavior,
+        padding: EdgeInsets.fromLTRB(12, 12, 8, 12),
+        content: content,
+        elevation: 4,
+        shape: RoundedRectangleBorder(
+          borderRadius: borderRadius,
+        ),
+      ),
+    );
+  }
+
   static String formatCurrency(double value) {
     return 'R\$ ${value.toStringAsFixed(2)}';
   }

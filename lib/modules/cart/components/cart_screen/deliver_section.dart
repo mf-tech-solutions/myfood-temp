@@ -13,7 +13,7 @@ import '../../../../store/state.dart';
 
 class DeliverSection extends StatelessWidget {
   void goToSetAddressScreen(BuildContext context) {
-    Navigator.of(context).pushNamed(userAddressesRoute);
+    Navigator.of(context).pushNamed(userAddressListRoute);
   }
 
   @override
