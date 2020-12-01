@@ -165,7 +165,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: MyAppBar(),
+      appBar: MyAppBar(
+        title: '',
+      ),
       body: StoreConnector<AppState, CartProduct>(
         converter: (_) => getCartProductByProductId(widget.product.id),
         builder: (_, cartProduct) {
