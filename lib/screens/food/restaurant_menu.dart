@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import '../../routes.dart';
-import '../../constants.dart';
 import '../../store/state.dart';
 import '../../components/search_box.dart';
 import '../../components/app_bar/app_bar.dart';
@@ -106,14 +105,9 @@ class _RestaurantMenuScreenState extends State<RestaurantMenuScreen> {
     return Scaffold(
       appBar: MyAppBar(),
       floatingActionButton: _floatingActionButton,
-      body: FutureBuilder(
-        future: Future.delayed(Constants.pageTransitionDuration),
-        builder: (_, __) {
-          return WithRefreshIndicator(
-            child: body,
-            onRefresh: _refresh,
-          );
-        },
+      body: WithRefreshIndicator(
+        child: body,
+        onRefresh: _refresh,
       ),
     );
   }
