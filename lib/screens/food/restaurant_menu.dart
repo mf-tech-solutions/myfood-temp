@@ -1,8 +1,8 @@
-import 'package:MyFood/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import '../../routes.dart';
+import '../../constants.dart';
 import '../../store/state.dart';
 import '../../components/search_box.dart';
 import '../../components/app_bar/app_bar.dart';
