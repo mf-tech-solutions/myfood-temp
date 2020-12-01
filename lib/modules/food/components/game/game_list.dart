@@ -48,13 +48,20 @@ class GameList extends StatelessWidget {
           ),
         );
 
-        return AnimatedCrossFade(
+        final content = AnimatedCrossFade(
           firstChild: loader,
           secondChild: getGamesView(state.games),
           crossFadeState: state.loadingGames
               ? CrossFadeState.showFirst
               : CrossFadeState.showSecond,
           duration: Constants.widgetTransitionDuration,
+        );
+
+        return FutureBuilder(
+          future: Future.delayed(Constants.pageTransitionDuration),
+          builder: (_, __) {
+            return content;
+          },
         );
       },
     );
