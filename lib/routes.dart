@@ -1,15 +1,16 @@
-import 'package:MyFood/screens/cart/add_deliver_address.dart';
 import 'package:flutter/material.dart';
 
 import 'utils.dart';
 import 'screens/home.dart';
 import 'screens/landing.dart';
 import 'screens/menu.dart';
+import 'screens/cart/add_deliver_address.dart';
 import 'screens/cart/add_user_card.dart';
 import 'screens/cart/cart.dart';
 import 'screens/cart/order_confirmation.dart';
 import 'screens/cart/order_status.dart';
 import 'screens/cart/payment_methods.dart';
+import 'screens/cart/product_detail.dart';
 import 'screens/food/games_screen.dart';
 import 'screens/food/recipes_screen.dart';
 import 'screens/food/search_screen.dart';
@@ -55,6 +56,11 @@ class Routes {
       case paymentMethodsRoute:
         return Utils.pageRouteBuilder(PaymentMethodsScreen());
 
+      case productDetailRoute:
+        return Utils.pageRouteBuilder(ProductDetailScreen(
+          product: settings.arguments,
+        ));
+
       case recipesRoute:
         return Utils.pageRouteBuilder(RecipesScreen());
 
@@ -88,6 +94,7 @@ const String loginRoute = 'login';
 const String menuRoute = 'menu';
 const String orderStatusRoute = 'orderStatus';
 const String paymentMethodsRoute = 'paymentMethods';
+const String productDetailRoute = 'productDetails';
 const String recipesRoute = 'recipes';
 const String searchRoute = 'search';
 const String signupRoute = 'signup';

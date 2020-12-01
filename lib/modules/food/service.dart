@@ -51,6 +51,7 @@ class FoodService {
               imageUrl: getImgUrl(category),
               description: random.nextBool() ? Constants.loremIpsum : null,
               unitaryPrice: random.nextDouble() * 5,
+              parentId: index,
             ),
           );
         }

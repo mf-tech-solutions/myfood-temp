@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../routes.dart';
 import '../../models/product.dart';
-import '../../../../components/bottom_sheet_wrapper.dart';
-import '../../../../screens/cart/product_detail.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -10,15 +9,9 @@ class ProductCard extends StatelessWidget {
   const ProductCard({Key key, @required this.product}) : super(key: key);
 
   void showProductDetail(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      enableDrag: true,
-      isScrollControlled: true,
-      builder: (context) => BottomSheetWrapper(
-        child: ProductDetailScreen(
-          product: product,
-        ),
-      ),
+    Navigator.of(context).pushNamed(
+      productDetailRoute,
+      arguments: product,
     );
   }
 

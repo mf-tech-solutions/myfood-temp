@@ -4,7 +4,8 @@ import '../../food/models/product.dart';
 class CartProduct {
   final IProduct product;
   final int amount;
-  List<CartProduct> additionals;
+  final List<CartProduct> additionals;
+  final int parentId;
 
   double get totalPrice =>
       amount * product.unitaryPrice +
@@ -16,27 +17,37 @@ class CartProduct {
   bool get hasAdditionals => this.additionals.length > 0;
 
   CartProduct({
-    @required this.product,
+    this.additionals,
+    this.parentId,
     @required this.amount,
-    this.additionals = const [],
-  }) {
-    additionals = product.additionals
-        .map((e) => CartProduct(product: e, amount: 0))
-        .toList();
+    @required this.product,
+  });
+
+  factory CartProduct.initial() {
+    return CartProduct(
+      amount: 0,
+      product: null,
+      additionals: [],
+      parentId: null,
+    );
   }
 
-  Map<String, dynamic> toJson() =>
-      {'product': product.toJson(), 'amount': amount};
+  Map<String, dynamic> toJson() => {
+        'product': product.toJson(),
+        'amount': amount,
+      };
 
   CartProduct copyWith({
     IProduct product,
     int amount,
     List<CartProduct> additionals,
+    int parentId,
   }) {
     return CartProduct(
       product: product ?? this.product,
       amount: amount ?? this.amount,
       additionals: additionals ?? this.additionals,
+      parentId: parentId ?? this.parentId,
     );
   }
 }

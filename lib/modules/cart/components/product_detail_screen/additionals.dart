@@ -1,23 +1,27 @@
-import 'package:MyFood/modules/cart/components/product_detail_screen/product_counter.dart';
-import 'package:MyFood/modules/cart/models/cart_product.dart';
-import 'package:MyFood/utils.dart';
 import 'package:flutter/material.dart';
 
-class AdditionalProductsList extends StatefulWidget {
+import 'additional_item.dart';
+import '../../models/cart_product.dart';
+
+typedef AdditionalItemCallback = void Function(CartProduct);
+
+class AdditionalProductsList extends StatelessWidget {
   final CartProduct cartProduct;
 
-  const AdditionalProductsList({Key key, @required this.cartProduct})
-      : super(key: key);
+  final AdditionalItemCallback add;
+  final AdditionalItemCallback subtract;
 
-  @override
-  _AdditionalProductsListState createState() => _AdditionalProductsListState();
-}
+  AdditionalProductsList({
+    Key key,
+    @required this.cartProduct,
+    @required this.add,
+    @required this.subtract,
+  }) : super(key: key);
 
-class _AdditionalProductsListState extends State<AdditionalProductsList> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final additionals = widget.cartProduct.additionals;
+    final additionals = cartProduct.additionals;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,23 +41,14 @@ class _AdditionalProductsListState extends State<AdditionalProductsList> {
               itemCount: additionals.length,
               itemBuilder: (_, index) {
                 final additional = additionals[index];
-                final product = additional.product;
-
-                return ListTile(
-                  tileColor: Colors.white,
-                  title: Text(product.name),
-                  subtitle: Text(
-                    Utils.formatCurrency(product.unitaryPrice),
-                  ),
-                  trailing: ProductCounter(
-                    amount: additional.amount,
-                    add: () {},
-                    subtract: () {},
-                  ),
+                return AdditionalItem(
+                  additionalCartProduct: additional,
+                  add: add,
+                  subtract: subtract,
                 );
               },
               separatorBuilder: (_, __) {
-                return Divider(height: 2);
+                return Divider(height: 6);
               },
             ),
           ),

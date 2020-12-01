@@ -8,6 +8,7 @@ class IProduct {
   final String description;
   final String imageUrl;
   final List<IProduct> additionals;
+  final int parentId;
 
   IProduct({
     @required this.id,
@@ -16,6 +17,7 @@ class IProduct {
     @required this.description,
     @required this.imageUrl,
     this.additionals = const [],
+    this.parentId,
   });
 
   Map<String, dynamic> toJson() => {
@@ -25,6 +27,7 @@ class IProduct {
         'imageUrl': imageUrl,
         'description': description,
         'additionals': additionals,
+        'parentId': parentId,
       };
 }
 
@@ -41,6 +44,7 @@ class Product extends IProduct {
     @required String imageUrl,
     this.description,
     List<Product> additionals,
+    int parentId,
   }) : super(
           id: id,
           name: name,
@@ -48,5 +52,6 @@ class Product extends IProduct {
           imageUrl: imageUrl,
           description: description,
           additionals: additionals ?? [],
+          parentId: parentId,
         );
 }

@@ -1,4 +1,4 @@
-import 'package:MyFood/modules/cart/components/product_detail_screen/additionals.dart';
+import 'package:MyFood/components/app_bar/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
@@ -6,6 +6,7 @@ import '../../utils.dart';
 import '../../components/large_button.dart';
 import '../../components/scroll_indicator.dart';
 import '../../modules/cart/resource.dart';
+import '../../modules/cart/components/product_detail_screen/additionals.dart';
 import '../../modules/cart/components/product_detail_screen/product_card.dart';
 import '../../modules/cart/components/product_detail_screen/product_counter.dart';
 import '../../modules/cart/components/product_added.dart';
@@ -62,32 +63,42 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-
-    final cartProduct = getCartProductByProductId(widget.product.id);
-    setState(
-      () {
-        this.cartProduct = cartProduct ??
-            CartProduct(
-              product: widget.product,
-              amount: 0,
-            );
-      },
-    );
-  }
-
   void add() {
     setState(
       () => cartProduct = cartProduct.copyWith(amount: cartProduct.amount + 1),
     );
   }
 
+  void addAdditional(CartProduct additional) {
+    setState(() {
+      final additionals = cartProduct.additionals.map((e) {
+        if (e.product.id == additional.product.id) {
+          return additional.copyWith(amount: additional.amount + 1);
+        }
+        return e;
+      }).toList();
+
+      cartProduct = cartProduct.copyWith(additionals: additionals);
+    });
+  }
+
   void subtract() {
     setState(
       () => cartProduct = cartProduct.copyWith(amount: cartProduct.amount - 1),
     );
+  }
+
+  void subtractAdditional(CartProduct additional) {
+    setState(() {
+      final additionals = cartProduct.additionals.map((e) {
+        if (e.product.id == additional.product.id) {
+          return additional.copyWith(amount: additional.amount - 1);
+        }
+        return e;
+      }).toList();
+
+      cartProduct = cartProduct.copyWith(additionals: additionals);
+    });
   }
 
   void remove() {
@@ -121,68 +132,85 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final screenHeight = MediaQuery.of(context).size.height;
+  void initState() {
+    super.initState();
 
-    return StoreConnector<AppState, CartProduct>(
-      converter: (_) => getCartProductByProductId(widget.product.id),
-      builder: (_, cartProduct) {
-        final confirmButton = getconfirmButton(cartProduct);
+    final cartProduct = getCartProductByProductId(widget.product.id);
+    setState(
+      () {
+        if (cartProduct != null) {
+          this.cartProduct = cartProduct;
+        }
 
-        return ConstrainedBox(
-          constraints: BoxConstraints(maxHeight: screenHeight * 0.6),
-          child: Stack(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 24),
-                child: ListView(
-                  children: [
-                    ProductCard(product: widget.product),
-                    SizedBox(height: 32),
-                    if (this.cartProduct.hasAdditionals)
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 32),
-                        child: AdditionalProductsList(
-                          cartProduct: this.cartProduct,
-                        ),
-                      ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ProductCounter(
-                          amount: this.cartProduct.amount,
-                          add: add,
-                          subtract: subtract,
-                        ),
-                        SizedBox(width: 16),
-                        Row(
-                          children: [
-                            Text(
-                              'Total: R\$ ${this.totalPrice}',
-                              textAlign: TextAlign.center,
-                              style: theme.textTheme.headline5,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 32),
-                    confirmButton,
-                  ],
-                ),
-              ),
-              Align(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: 24),
-                  child: ScrollIndicator(),
-                ),
-              ),
-            ],
-          ),
+        final additionals = widget.product.additionals
+            .map((e) => CartProduct(
+                  amount: 0,
+                  parentId: e.parentId,
+                  product: e,
+                  additionals: [],
+                ))
+            .toList();
+        this.cartProduct = CartProduct(
+          amount: 0,
+          additionals: additionals,
+          parentId: widget.product.parentId,
+          product: widget.product,
         );
       },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Scaffold(
+      appBar: MyAppBar(),
+      body: StoreConnector<AppState, CartProduct>(
+        converter: (_) => getCartProductByProductId(widget.product.id),
+        builder: (_, cartProduct) {
+          final confirmButton = getconfirmButton(cartProduct);
+
+          return ListView(
+            padding: EdgeInsets.symmetric(vertical: 24, horizontal: 12),
+            children: [
+              ProductCard(product: widget.product),
+              SizedBox(height: 32),
+              if (this.cartProduct.hasAdditionals)
+                Padding(
+                  padding: EdgeInsets.only(bottom: 32),
+                  child: AdditionalProductsList(
+                    cartProduct: this.cartProduct,
+                    add: addAdditional,
+                    subtract: subtractAdditional,
+                  ),
+                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ProductCounter(
+                    amount: this.cartProduct.amount,
+                    add: add,
+                    subtract: subtract,
+                  ),
+                  SizedBox(width: 16),
+                  Row(
+                    children: [
+                      Text(
+                        'Total: R\$ ${this.totalPrice}',
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.headline5,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: 32),
+              confirmButton,
+            ],
+          );
+        },
+      ),
     );
   }
 }
