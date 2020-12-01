@@ -1,4 +1,3 @@
-import 'package:MyFood/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
@@ -9,7 +8,7 @@ import '../../store/action_creators.dart';
 import '../../store/state.dart';
 import '../../store/selectors.dart';
 import '../../../../store/state.dart';
-import '../../../../store/store.dart';
+import '../../../../constants.dart';
 
 typedef ProductTapHandler = void Function({
   BuildContext context,
@@ -39,7 +38,7 @@ class CategoryProductsCardList extends StatelessWidget {
         if (state.loadingProducts)
           return Center(child: CircularProgressIndicator());
 
-        if (state.products.length == 0) fetchProducts(AppStore.store);
+        if (state.products.length == 0) fetchProducts();
         final products = getProductsByCategory(this.category.id);
 
         return AnimatedContainer(

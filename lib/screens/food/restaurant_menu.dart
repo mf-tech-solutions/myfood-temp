@@ -5,10 +5,12 @@ import '../../routes.dart';
 import '../../store/state.dart';
 import '../../components/search_box.dart';
 import '../../components/app_bar/app_bar.dart';
+import '../../components/with_refresh_indicator.dart';
+import '../../modules/food/resource.dart';
 import '../../modules/food/components/category/categories_card_list.dart';
 import '../../modules/food/components/product/categories_products_card_list.dart';
 import '../../modules/food/models/category.dart';
-import '../../modules/food/resource.dart';
+import '../../modules/food/store/action_creators.dart';
 
 class RestaurantMenuScreen extends StatefulWidget {
   @override
@@ -66,36 +68,41 @@ class _RestaurantMenuScreenState extends State<RestaurantMenuScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final body = ListView(
+      padding: const EdgeInsets.fromLTRB(12, 32, 12, 24),
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: _searchBox,
+        ),
+        SizedBox(height: 32),
+        Text(
+          FoodResource.categoriesSection,
+          style: Theme.of(context).textTheme.headline5,
+        ),
+        SizedBox(height: 24),
+        CategoriesCardList(),
+        SizedBox(height: 40),
+        StoreConnector<AppState, List<Category>>(
+          converter: (store) => store.state.foodState.categories,
+          builder: (context, categories) {
+            if (categories.length == 0)
+              return Text(FoodResource.emptyProductList);
+
+            final categoryProductsSection =
+                getCategoryProductsSection(categories);
+            return categoryProductsSection;
+          },
+        ),
+      ],
+    );
+
     return Scaffold(
       appBar: MyAppBar(),
       floatingActionButton: _floatingActionButton,
-      body: ListView(
-        padding: const EdgeInsets.fromLTRB(12, 32, 12, 24),
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: _searchBox,
-          ),
-          SizedBox(height: 32),
-          Text(
-            FoodResource.categoriesSection,
-            style: Theme.of(context).textTheme.headline5,
-          ),
-          SizedBox(height: 24),
-          CategoriesCardList(),
-          SizedBox(height: 40),
-          StoreConnector<AppState, List<Category>>(
-            converter: (store) => store.state.foodState.categories,
-            builder: (context, categories) {
-              if (categories.length == 0)
-                return Text(FoodResource.emptyProductList);
-
-              final categoryProductsSection =
-                  getCategoryProductsSection(categories);
-              return categoryProductsSection;
-            },
-          ),
-        ],
+      body: WithRefreshIndicator(
+        child: body,
+        onRefresh: fetchCategories,
       ),
     );
   }

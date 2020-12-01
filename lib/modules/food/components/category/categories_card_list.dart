@@ -9,7 +9,6 @@ import '../../store/action_creators.dart';
 import '../../store/state.dart';
 import '../../../../utils.dart';
 import '../../../../store/state.dart';
-import '../../../../store/store.dart';
 import '../../../../screens/food/category_products_screen.dart';
 
 typedef FetchCategoriesFunction = Future<List<Category>> Function();
@@ -32,7 +31,7 @@ class CategoriesCardList extends StatelessWidget {
         if (state.loadingCategories) return CircularProgressIndicator();
 
         if (state.categories.length == 0) {
-          fetchCategories(AppStore.store);
+          fetchCategories();
           return Text('Categorias não disponíveis');
         }
 
