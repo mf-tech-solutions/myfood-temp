@@ -4,7 +4,6 @@ import 'package:flutter_redux/flutter_redux.dart';
 
 import '../../utils.dart';
 import '../../components/large_button.dart';
-import '../../components/scroll_indicator.dart';
 import '../../modules/cart/resource.dart';
 import '../../modules/cart/components/product_detail_screen/additionals.dart';
 import '../../modules/cart/components/product_detail_screen/product_card.dart';
@@ -165,9 +164,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: MyAppBar(
-        title: '',
-      ),
+      appBar: MyAppBar(title: 'Adicionar ao carrinho'),
       body: StoreConnector<AppState, CartProduct>(
         converter: (_) => getCartProductByProductId(widget.product.id),
         builder: (_, cartProduct) {
