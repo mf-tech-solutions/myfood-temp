@@ -1,8 +1,8 @@
-import 'package:MyFood/components/app_bar/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import '../../utils.dart';
+import '../../components/app_bar/app_bar.dart';
 import '../../components/large_button.dart';
 import '../../modules/cart/resource.dart';
 import '../../modules/cart/components/product_detail_screen/additionals.dart';
