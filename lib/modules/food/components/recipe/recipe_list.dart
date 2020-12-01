@@ -48,13 +48,20 @@ class RecipeList extends StatelessWidget {
           ),
         );
 
-        return AnimatedCrossFade(
+        final content = AnimatedCrossFade(
           firstChild: loader,
           secondChild: getRecipesView(state.recipes),
           crossFadeState: state.loadingRecipes
               ? CrossFadeState.showFirst
               : CrossFadeState.showSecond,
           duration: Constants.widgetTransitionDuration,
+        );
+
+        return FutureBuilder(
+          future: Future.delayed(Constants.pageTransitionDuration),
+          builder: (_, __) {
+            return content;
+          },
         );
       },
     );
