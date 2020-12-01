@@ -1,3 +1,4 @@
+import 'package:MyFood/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
@@ -66,6 +67,11 @@ class _RestaurantMenuScreenState extends State<RestaurantMenuScreen> {
     Navigator.of(context).pushNamed(searchRoute);
   }
 
+  Future<void> _refresh() async {
+    await fetchCategories();
+    await fetchProducts();
+  }
+
   @override
   Widget build(BuildContext context) {
     final body = ListView(
@@ -100,9 +106,14 @@ class _RestaurantMenuScreenState extends State<RestaurantMenuScreen> {
     return Scaffold(
       appBar: MyAppBar(),
       floatingActionButton: _floatingActionButton,
-      body: WithRefreshIndicator(
-        child: body,
-        onRefresh: fetchCategories,
+      body: FutureBuilder(
+        future: Future.delayed(Constants.pageTransitionDuration),
+        builder: (_, __) {
+          return WithRefreshIndicator(
+            child: body,
+            onRefresh: _refresh,
+          );
+        },
       ),
     );
   }
