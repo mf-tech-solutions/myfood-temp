@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../components/screen_icon_avatar.dart';
-import '../../components/app_bar/app_bar.dart';
-import '../../routes.dart';
-import '../../modules/cart/components/payment_methods_screen/payment_methods_list.dart';
+import '../../../components/screen_icon_avatar.dart';
+import '../../../components/app_bar/app_bar.dart';
+import '../../../routes.dart';
+import '../../../modules/cart/components/payment_methods_screen/payment_methods_list.dart';
 
 class PaymentMethodsScreen extends StatelessWidget {
   void goToAddUsercardScreen(BuildContext context) {
