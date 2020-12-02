@@ -9,13 +9,10 @@ class ScreenIconAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Hero(
-      tag: 'screen_icon_avatar',
-      child: LargeIconAvatar(
-        child: child,
-        backgroundColor: Colors.white,
-        size: 8 * 24.0,
-      ),
+    return LargeIconAvatar(
+      child: child,
+      backgroundColor: Colors.white,
+      size: 8 * 24.0,
     );
   }
 }
