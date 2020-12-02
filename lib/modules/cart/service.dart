@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:MyFood/modules/cart/models/address.dart';
-import 'package:MyFood/modules/cart/models/order_status.dart';
+import 'models/address.dart';
+import 'models/order.dart';
+import 'models/order_status.dart';
 
 import 'models/card.dart';
 
@@ -22,6 +23,8 @@ class CartService {
     number: 0,
     isDefault: true,
   );
+
+  static List<Order> _orders = [];
 
   static Future<List<UserCard>> getUserCards(int userId) async {
     _cardNumbers.shuffle(Random());
@@ -49,7 +52,12 @@ class CartService {
     return Future.delayed(Duration(milliseconds: 800), () => card);
   }
 
-  static Stream<OrderStatus> confirmOrder() {
+  static Stream<OrderStatus> placeOrder(Order order) {
+    _orders = [
+      ..._orders,
+      order.copyWith(orderId: _orders.length),
+    ];
+
     var status = OrderStatus.confirmed;
 
     final controller = StreamController<OrderStatus>();

@@ -5,6 +5,7 @@ import '../models/address.dart';
 import '../models/card.dart';
 import '../models/cart_product.dart';
 import '../models/deliver_info.dart';
+import '../models/order.dart';
 import '../models/payment_method.dart';
 import '../../food/models/product.dart';
 import '../../../store/store.dart';
@@ -28,16 +29,27 @@ void clearCart() {
   AppStore.store.dispatch(ClearCartAction());
 }
 
-void confirmOrder() {
-  AppStore.store.dispatch(ConfirmOrderAction());
+void placeOrder() {
+  final state = AppStore.store.state.cartState;
+
+  final order = Order(
+    cartProducts: state.products,
+    deliverInfo: state.deliverInfo,
+    orderId: null,
+    paymentMethod: state.paymentMethod,
+    status: state.orderStatus,
+    taxNumber: '60805766359',
+  );
+
+  AppStore.store.dispatch(PlaceOrderAction(order));
 
   try {
-    final stream = CartService.confirmOrder();
+    final stream = CartService.placeOrder(order);
     stream.listen((status) {
-      AppStore.store.dispatch(ConfirmOrderSuccessAction(status));
+      AppStore.store.dispatch(PlaceOrderSuccessAction(status));
     });
   } catch (e) {
-    AppStore.store.dispatch(ConfirmOrderFailAction());
+    AppStore.store.dispatch(PlaceOrderFailAction());
   }
 }
 

@@ -53,7 +53,7 @@ class CartScreen extends StatelessWidget {
     );
   }
 
-  void confirm() => confirmOrder();
+  void confirm() => placeOrder();
 
   void goToOrderConfirmationScreen(BuildContext context) {
     void run() {

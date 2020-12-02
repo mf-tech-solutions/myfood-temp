@@ -11,9 +11,9 @@ final cartReducer = combineReducers<CartState>([
   TypedReducer(_removeFromCart),
   TypedReducer(_clearCart),
   TypedReducer(_toggleDeliverOption),
-  TypedReducer(_confirmOrderStart),
-  TypedReducer(_confirmOrderSuccess),
-  TypedReducer(_confirmOrderFail),
+  TypedReducer(_placeOrderStart),
+  TypedReducer(_placeOrderSuccess),
+  TypedReducer(_placeOrderFail),
   TypedReducer(_getUserCardsStart),
   TypedReducer(_getUserCardsSuccess),
   TypedReducer(_getUserCardsFail),
@@ -72,16 +72,17 @@ CartState _toggleDeliverOption(CartState state, ToggleDeliverOption action) {
 //endregion
 
 //region Confirm order
-CartState _confirmOrderStart(CartState state, ConfirmOrderAction action) {
+CartState _placeOrderStart(CartState state, PlaceOrderAction action) {
   return state.copyWith(
+    currentOrder: action.payload.order,
     ordering: true,
     orderStatus: OrderStatus.created,
   );
 }
 
-CartState _confirmOrderSuccess(
+CartState _placeOrderSuccess(
   CartState state,
-  ConfirmOrderSuccessAction action,
+  PlaceOrderSuccessAction action,
 ) {
   return state.copyWith(
     products: [],
@@ -90,10 +91,9 @@ CartState _confirmOrderSuccess(
   );
 }
 
-CartState _confirmOrderFail(CartState state, ConfirmOrderFailAction action) {
-  return state.copyWith(
-    ordering: false,
-    orderStatus: OrderStatus.error,
+CartState _placeOrderFail(CartState state, PlaceOrderFailAction action) {
+  return CartState.noOrder(
+    currentState: state.copyWith(orderStatus: OrderStatus.error),
   );
 }
 //endregion

@@ -60,45 +60,65 @@ class CartState {
 
   factory CartState.noCards(CartState currentState) {
     return CartState(
-      products: currentState.products,
-      isDeliver: currentState.isDeliver,
+      addresses: currentState.addresses,
       cards: [],
+      currentOrder: currentState.currentOrder,
+      deliverInfo: currentState.deliverInfo,
+      isDeliver: currentState.isDeliver,
+      loadingAddresses: currentState.loadingAddresses,
       loadingCards: false,
-      paymentMethod: null,
-      shouldLoadCards: false,
       ordering: currentState.ordering,
       orderStatus: currentState.orderStatus,
-      deliverInfo: currentState.deliverInfo,
+      paymentMethod: null,
+      products: currentState.products,
+      shouldLoadCards: false,
+    );
+  }
+
+  factory CartState.noOrder({@required CartState currentState}) {
+    return CartState(
       addresses: currentState.addresses,
+      cards: currentState.cards,
+      currentOrder: null,
+      deliverInfo: currentState.deliverInfo,
+      isDeliver: currentState.isDeliver,
       loadingAddresses: currentState.loadingAddresses,
+      loadingCards: currentState.loadingCards,
+      ordering: false,
+      orderStatus: OrderStatus.none,
+      paymentMethod: currentState.paymentMethod,
+      products: currentState.products,
+      shouldLoadCards: currentState.shouldLoadCards,
     );
   }
 
   CartState copyWith({
-    List<CartProduct> products,
-    bool isDeliver,
+    List<Address> addresses,
     List<UserCard> cards,
+    Order currentOrder,
+    DeliverInfo deliverInfo,
+    bool isDeliver,
+    bool loadingAddresses,
     bool loadingCards,
-    bool shouldLoadCards,
-    PaymentMethod paymentMethod,
     bool ordering,
     OrderStatus orderStatus,
-    DeliverInfo deliverInfo,
-    List<Address> addresses,
-    bool loadingAddresses,
+    PaymentMethod paymentMethod,
+    List<CartProduct> products,
+    bool shouldLoadCards,
   }) {
     return CartState(
-      products: products ?? this.products,
-      isDeliver: isDeliver ?? this.isDeliver,
+      addresses: addresses ?? this.addresses,
       cards: cards ?? this.cards,
+      currentOrder: currentOrder ?? this.currentOrder,
+      deliverInfo: deliverInfo ?? this.deliverInfo,
+      isDeliver: isDeliver ?? this.isDeliver,
+      loadingAddresses: loadingAddresses ?? this.loadingAddresses,
       loadingCards: loadingCards ?? this.loadingCards,
-      shouldLoadCards: shouldLoadCards ?? this.shouldLoadCards,
-      paymentMethod: paymentMethod ?? this.paymentMethod,
       ordering: ordering ?? this.ordering,
       orderStatus: orderStatus ?? this.orderStatus,
-      deliverInfo: deliverInfo ?? this.deliverInfo,
-      addresses: addresses ?? this.addresses,
-      loadingAddresses: loadingAddresses ?? this.loadingAddresses,
+      paymentMethod: paymentMethod ?? this.paymentMethod,
+      products: products ?? this.products,
+      shouldLoadCards: shouldLoadCards ?? this.shouldLoadCards,
     );
   }
 }

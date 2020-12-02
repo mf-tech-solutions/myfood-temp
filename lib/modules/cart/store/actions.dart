@@ -1,3 +1,4 @@
+import 'package:MyFood/modules/cart/models/order.dart';
 import 'package:flutter/material.dart' show immutable, required;
 
 import '../models/address.dart';
@@ -50,24 +51,36 @@ class ClearCartAction {}
 class ToggleDeliverOption {}
 //endregion
 
-//region Confirm order
-class ConfirmOrderAction {}
+//region Place order
+class PlaceOrderPayload {
+  final Order order;
 
-class ConfirmOrderSuccessPayload {
-  final OrderStatus orderStatus;
-
-  ConfirmOrderSuccessPayload(this.orderStatus);
+  PlaceOrderPayload(this.order);
 }
 
-class ConfirmOrderSuccessAction {
-  ConfirmOrderSuccessPayload payload;
+class PlaceOrderAction {
+  PlaceOrderPayload payload;
 
-  ConfirmOrderSuccessAction(OrderStatus orderStatus) {
-    payload = ConfirmOrderSuccessPayload(orderStatus);
+  PlaceOrderAction(Order order) {
+    payload = PlaceOrderPayload(order);
   }
 }
 
-class ConfirmOrderFailAction {}
+class PlaceOrderSuccessPayload {
+  final OrderStatus orderStatus;
+
+  PlaceOrderSuccessPayload(this.orderStatus);
+}
+
+class PlaceOrderSuccessAction {
+  PlaceOrderSuccessPayload payload;
+
+  PlaceOrderSuccessAction(OrderStatus orderStatus) {
+    payload = PlaceOrderSuccessPayload(orderStatus);
+  }
+}
+
+class PlaceOrderFailAction {}
 //endregion
 
 //region Get user cards
