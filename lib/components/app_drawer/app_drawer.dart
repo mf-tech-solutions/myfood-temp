@@ -6,12 +6,8 @@ import '../../routes.dart';
 import '../../modules/food/resource.dart';
 
 class AppDrawer extends StatelessWidget {
-  void openRecipes(BuildContext context) {
-    Navigator.of(context).pushNamed(recipesRoute);
-  }
-
-  void openGames(BuildContext context) {
-    Navigator.of(context).pushNamed(gamesRoute);
+  void _goTo(String route, BuildContext context) {
+    Navigator.of(context).pushNamed(route);
   }
 
   @override
@@ -31,7 +27,7 @@ class AppDrawer extends StatelessWidget {
                 child: PrimaryItem(
                   text: FoodResource.recipesTitle,
                   icon: Icons.menu_book_rounded,
-                  onTapHandler: openRecipes,
+                  onTapHandler: () => _goTo(recipesRoute, context),
                 ),
               ),
               SizedBox(width: 16),
@@ -40,7 +36,7 @@ class AppDrawer extends StatelessWidget {
                 child: PrimaryItem(
                   text: FoodResource.gamesTitle,
                   icon: Icons.videogame_asset_rounded,
-                  onTapHandler: openGames,
+                  onTapHandler: () => _goTo(gamesRoute, context),
                 ),
               ),
             ],
@@ -51,13 +47,17 @@ class AppDrawer extends StatelessWidget {
           ListTile(
             title: Text('Métodos de pagamento'),
             trailing: Icon(Icons.chevron_right_rounded),
-            onTap: () => Navigator.of(context).pushNamed(paymentMethodsRoute),
+            onTap: () => _goTo(paymentMethodsRoute, context),
           ),
           ListTile(
             title: Text('Endereços'),
             trailing: Icon(Icons.chevron_right_rounded),
-            onTap: () =>
-                Navigator.of(context).pushNamed(deliverAddressListRoute),
+            onTap: () => _goTo(deliverAddressListRoute, context),
+          ),
+          ListTile(
+            title: Text('Endereços'),
+            trailing: Icon(Icons.chevron_right_rounded),
+            onTap: () => _goTo(orderListRoute, context),
           ),
         ],
       ),

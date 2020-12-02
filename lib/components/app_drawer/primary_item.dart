@@ -25,7 +25,7 @@ class PrimaryItem extends StatelessWidget {
         text,
         style: TextStyle(color: primaryColor),
       ),
-      onPressed: () => onTapHandler(context),
+      onPressed: onTapHandler,
     );
   }
 }

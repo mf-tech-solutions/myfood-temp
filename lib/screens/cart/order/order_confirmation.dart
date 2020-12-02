@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../components/app_bar/app_bar.dart';
-import '../../modules/cart/components/order_confirmation_screen_content.dart';
+import '../../../components/app_bar/app_bar.dart';
+import '../../../modules/cart/components/order_confirmation_screen_content.dart';
 
 class OrderConfirmationScreen extends StatelessWidget {
   @override

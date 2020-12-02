@@ -7,8 +7,9 @@ import 'screens/menu.dart';
 import 'screens/cart/add_deliver_address.dart';
 import 'screens/cart/add_user_card.dart';
 import 'screens/cart/cart.dart';
-import 'screens/cart/order_confirmation.dart';
-import 'screens/cart/order_status.dart';
+import 'screens/cart/order/order_confirmation.dart';
+import 'screens/cart/order/order_list.dart';
+import 'screens/cart/order/order_status.dart';
 import 'screens/cart/payment_methods.dart';
 import 'screens/cart/product_detail.dart';
 import 'screens/food/games_screen.dart';
@@ -50,6 +51,9 @@ class Routes {
       case orderConfirmationRoute:
         return Utils.pageRouteBuilder(OrderConfirmationScreen());
 
+      case orderListRoute:
+        return Utils.pageRouteBuilder(OrderListScreen());
+
       case orderStatusRoute:
         return Utils.cupertinoRouteBuilder(OrderStatusScreen());
 
@@ -86,13 +90,14 @@ const String addUserCardRoute = 'addUserCard';
 const String cartRoute = 'cart';
 const String deliverAddressListRoute = 'userAddressList';
 const String deliverAddAddressRoute = 'userAddressList/new/';
-const String orderConfirmationRoute = 'confirmedOrder';
 const String gamesRoute = 'games';
 const String homeRoute = 'home';
 const String landingRoute = 'landing';
 const String loginRoute = 'login';
 const String menuRoute = 'menu';
+const String orderConfirmationRoute = 'confirmedOrder';
 const String orderStatusRoute = 'orderStatus';
+const String orderListRoute = 'orderList';
 const String paymentMethodsRoute = 'paymentMethods';
 const String productDetailRoute = 'productDetails';
 const String recipesRoute = 'recipes';
