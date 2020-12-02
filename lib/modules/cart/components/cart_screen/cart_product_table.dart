@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart' show StoreConnector;
 
-import '../../../../components/bottom_sheet_wrapper.dart';
-import '../../../../screens/cart/product_detail.dart';
+import '../../../../routes.dart';
 import '../../../../store/state.dart';
 import '../../../food/models/product.dart';
 import '../../models/cart_product.dart';
@@ -63,16 +62,7 @@ class CartProductTable extends StatelessWidget {
   }
 
   void openProductDetail(BuildContext context, Product product) {
-    showModalBottomSheet(
-      context: context,
-      enableDrag: true,
-      isScrollControlled: true,
-      builder: (_) => BottomSheetWrapper(
-        child: ProductDetailScreen(
-          product: product,
-        ),
-      ),
-    );
+    Navigator.of(context).pushNamed(productDetailRoute, arguments: product);
   }
 
   double getTotalPrice(List<CartProduct> cartProducts) {

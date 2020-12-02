@@ -119,7 +119,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   }
 
   void confirm() {
-    addProductToCart(this.cartProduct);
+    addProductToCart(cartProduct);
 
     Utils.showContentOnlyDialog(
       context: context,
@@ -139,6 +139,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       () {
         if (cartProduct != null) {
           this.cartProduct = cartProduct;
+          return;
         }
 
         final additionals = widget.product.additionals
