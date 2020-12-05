@@ -13,7 +13,7 @@ class UserService {
     cpf: '60805766359',
     email: 'dummy@email.com',
     imageUrl:
-        'https://cdn.dumpaday.com/wp-content/uploads/2018/09/photos-21-3.jpg',
+        'https://pbs.twimg.com/profile_images/1188507013233479681/WuNwaQ8R_400x400.jpg',
     address: _userAddress,
   );
 
