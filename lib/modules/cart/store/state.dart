@@ -10,6 +10,8 @@ import '../models/payment_method.dart';
 @immutable
 class CartState {
   final Order currentOrder;
+  final List<Order> orderList;
+
   final List<CartProduct> products;
   final bool isDeliver;
 
@@ -34,19 +36,21 @@ class CartState {
     @required this.loadingAddresses,
     @required this.addresses,
     this.currentOrder,
+    this.orderList,
   });
 
   factory CartState.initial() {
     return CartState(
-      products: [],
-      isDeliver: true,
-      cards: [],
-      loadingCards: false,
-      paymentMethod: null,
-      shouldLoadCards: true,
-      deliverInfo: null,
       addresses: [],
+      cards: [],
+      deliverInfo: null,
+      isDeliver: true,
       loadingAddresses: null,
+      loadingCards: false,
+      orderList: [],
+      paymentMethod: null,
+      products: [],
+      shouldLoadCards: true,
     );
   }
 
@@ -59,6 +63,7 @@ class CartState {
       isDeliver: currentState.isDeliver,
       loadingAddresses: currentState.loadingAddresses,
       loadingCards: false,
+      orderList: currentState.orderList,
       paymentMethod: null,
       products: currentState.products,
       shouldLoadCards: false,
@@ -74,6 +79,7 @@ class CartState {
       isDeliver: currentState.isDeliver,
       loadingAddresses: currentState.loadingAddresses,
       loadingCards: currentState.loadingCards,
+      orderList: currentState.orderList,
       paymentMethod: currentState.paymentMethod,
       products: currentState.products,
       shouldLoadCards: currentState.shouldLoadCards,
@@ -88,6 +94,7 @@ class CartState {
     bool isDeliver,
     bool loadingAddresses,
     bool loadingCards,
+    List<Order> orderList,
     PaymentMethod paymentMethod,
     List<CartProduct> products,
     bool shouldLoadCards,
@@ -100,6 +107,7 @@ class CartState {
       isDeliver: isDeliver ?? this.isDeliver,
       loadingAddresses: loadingAddresses ?? this.loadingAddresses,
       loadingCards: loadingCards ?? this.loadingCards,
+      orderList: orderList ?? this.orderList,
       paymentMethod: paymentMethod ?? this.paymentMethod,
       products: products ?? this.products,
       shouldLoadCards: shouldLoadCards ?? this.shouldLoadCards,

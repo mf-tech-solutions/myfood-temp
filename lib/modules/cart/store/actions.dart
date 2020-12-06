@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart' show immutable, required;
 
+import '../../food/models/product.dart';
 import '../models/address.dart';
 import '../models/card.dart';
 import '../models/cart_product.dart';
 import '../models/deliver_info.dart';
 import '../models/order.dart';
 import '../models/payment_method.dart';
-import '../../food/models/product.dart';
 
 //#region Add to cart
 @immutable
@@ -236,4 +236,24 @@ class SetDefaultDeliverAddressFailAction {
     payload = SetDefaultDeliverAddressFailPayload(previousAddress);
   }
 }
+//endregion
+
+//region Get order list
+class GetOrderListAction {}
+
+class GetOrderListSuccessPayload {
+  final List<Order> orderList;
+
+  GetOrderListSuccessPayload(this.orderList);
+}
+
+class GetOrderListSuccessAction {
+  GetOrderListSuccessPayload payload;
+
+  GetOrderListSuccessAction(List<Order> orderList) {
+    payload = GetOrderListSuccessPayload(orderList);
+  }
+}
+
+class GetOrderListFailAction {}
 //endregion

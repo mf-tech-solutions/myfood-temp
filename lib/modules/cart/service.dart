@@ -2,10 +2,9 @@ import 'dart:async';
 import 'dart:math';
 
 import 'models/address.dart';
+import 'models/card.dart';
 import 'models/order.dart';
 import 'models/order_status.dart';
-
-import 'models/card.dart';
 
 class CartService {
   static final _cardNumbers = [
@@ -53,27 +52,34 @@ class CartService {
   }
 
   static Stream<Order> placeOrder(Order order) {
-    _orders = [
-      ..._orders,
-      order.copyWith(
-        orderId: _orders.length,
-        createdAt: DateTime.now(),
-      ),
-    ];
+    final _order = order.copyWith(
+      orderId: _orders.length + 1,
+      createdAt: DateTime.now(),
+    );
+
+    _orders.insert(0, _order);
 
     var status = OrderStatus.preparing;
     final controller = StreamController<Order>();
 
     Timer.periodic(Duration(seconds: 3), (timer) {
-      final lastRun =
+      final isLastRun =
           status == OrderStatus.delivered || status == OrderStatus.denied;
-      final finishedAt = lastRun ? DateTime.now() : null;
-      controller.sink.add(order.copyWith(
+      final finishedAt = isLastRun ? DateTime.now() : null;
+      final updatedOrder = _order.copyWith(
         status: status,
         finishedAt: finishedAt,
-      ));
+      );
 
-      if (lastRun) {
+      controller.sink.add(updatedOrder);
+      _orders = _orders.map((x) {
+        if (x.orderId == null || x.orderId == updatedOrder.orderId) {
+          return updatedOrder;
+        }
+        return x;
+      }).toList();
+
+      if (isLastRun) {
         controller.close();
         timer.cancel();
       } else {
@@ -82,6 +88,13 @@ class CartService {
     });
 
     return controller.stream;
+  }
+
+  static Future<List<Order>> getOrderList() {
+    return Future.delayed(
+      Duration(milliseconds: 600),
+      () => _orders,
+    );
   }
 
   static Future<List<Address>> getDeliverAddresses() {

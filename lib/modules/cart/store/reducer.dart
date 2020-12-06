@@ -1,10 +1,9 @@
 import 'package:redux/redux.dart' show TypedReducer, combineReducers;
 
+import '../models/cart_product.dart';
 import 'actions.dart';
 import 'selectors.dart';
 import 'state.dart';
-import '../models/cart_product.dart';
-import '../models/order_status.dart';
 
 final cartReducer = combineReducers<CartState>([
   TypedReducer(_addItemsToCart),
@@ -14,6 +13,9 @@ final cartReducer = combineReducers<CartState>([
   TypedReducer(_placeOrderStart),
   TypedReducer(_placeOrderSuccess),
   TypedReducer(_placeOrderFail),
+  TypedReducer(_getOrderListStart),
+  TypedReducer(_getOrderListSuccess),
+  TypedReducer(_getOrderListFail),
   TypedReducer(_getUserCardsStart),
   TypedReducer(_getUserCardsSuccess),
   TypedReducer(_getUserCardsFail),
@@ -71,10 +73,15 @@ CartState _toggleDeliverOption(CartState state, ToggleDeliverOption action) {
 }
 //endregion
 
-//region Confirm order
+//region Place order
 CartState _placeOrderStart(CartState state, PlaceOrderAction action) {
+  final newOrder = action.payload.order;
+  final orderList = [...state.orderList].toList();
+  orderList.insert(0, newOrder);
+
   return state.copyWith(
-    currentOrder: action.payload.order,
+    currentOrder: newOrder,
+    orderList: orderList,
   );
 }
 
@@ -82,18 +89,58 @@ CartState _placeOrderSuccess(
   CartState state,
   PlaceOrderSuccessAction action,
 ) {
+  final order = action.payload.order;
+  final orderList = state.orderList.map((x) {
+    if (x.orderId == null || x.orderId == order.orderId) {
+      return order;
+    }
+    return x;
+  }).toList();
+
   return state.copyWith(
     products: [],
-    currentOrder: action.payload.order,
+    currentOrder: order,
+    orderList: orderList,
   );
 }
 
 CartState _placeOrderFail(CartState state, PlaceOrderFailAction action) {
+  final order = action.payload.order;
+  final orderList = state.orderList.map((x) {
+    if (x.orderId == null || x.orderId == order.orderId) {
+      return order;
+    }
+    return x;
+  }).toList();
+
   return CartState.noOrder(
     currentState: state.copyWith(
-      currentOrder: state.currentOrder.copyWith(status: OrderStatus.error),
+      currentOrder: order,
+      orderList: orderList,
     ),
   );
+}
+//endregion
+
+//region Get order list
+CartState _getOrderListStart(CartState state, GetOrderListAction action) {
+  return state;
+}
+
+CartState _getOrderListSuccess(
+  CartState state,
+  GetOrderListSuccessAction action,
+) {
+  return state.copyWith(
+    orderList: action.payload.orderList,
+  );
+}
+
+CartState _getOrderListFail(
+  CartState state,
+  GetOrderListFailAction action,
+) {
+  return state;
 }
 //endregion
 
@@ -142,7 +189,7 @@ CartState _addUserCardFail(
 ) {
   return state;
 }
-//region
+//endregion
 
 CartState _setDeliverInfo(CartState state, SetDeliverInfoAction action) {
   return state.copyWith(deliverInfo: action.payload.deliverInfo);

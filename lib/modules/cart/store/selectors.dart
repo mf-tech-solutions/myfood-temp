@@ -65,6 +65,9 @@ String getOrderStatusText(OrderStatus status) {
     case OrderStatus.canceled:
       return 'Sentimos muito mas seu pedido foi cancelado.';
 
+    case OrderStatus.created:
+      return 'Pedido sendo enviado.';
+
     default:
       return 'Não foi possível obter informações sobre seu pedido. Por favor tente novamente mais tarde.';
   }

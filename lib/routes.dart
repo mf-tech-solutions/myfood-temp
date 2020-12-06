@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 
-import 'utils.dart';
-import 'screens/home.dart';
-import 'screens/landing.dart';
-import 'screens/menu.dart';
 import 'screens/cart/add_deliver_address.dart';
-import 'screens/cart/payment_method/add_user_card.dart';
 import 'screens/cart/cart.dart';
+import 'screens/cart/deliver_address_list.dart';
 import 'screens/cart/order/order_list.dart';
 import 'screens/cart/order/order_status.dart';
+import 'screens/cart/order/order_summary.dart';
+import 'screens/cart/payment_method/add_user_card.dart';
 import 'screens/cart/payment_method/payment_methods.dart';
 import 'screens/cart/product_detail.dart';
 import 'screens/food/games_screen.dart';
 import 'screens/food/recipes_screen.dart';
 import 'screens/food/search_screen.dart';
-import 'screens/cart/deliver_address_list.dart';
-import 'screens/user/user.dart';
-import 'screens/user/user_edit.dart';
+import 'screens/home.dart';
+import 'screens/landing.dart';
+import 'screens/menu.dart';
 import 'screens/user/login.dart';
 import 'screens/user/signup.dart';
+import 'screens/user/user.dart';
+import 'screens/user/user_edit.dart';
+import 'utils.dart';
 
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -52,6 +53,9 @@ class Routes {
 
       case orderStatusRoute:
         return Utils.pageRouteBuilder(OrderStatusScreen());
+
+      case orderSummaryRoute:
+        return Utils.cupertinoRouteBuilder(OrderSummaryScreen());
 
       case paymentMethodsRoute:
         return Utils.pageRouteBuilder(PaymentMethodsScreen());
@@ -91,8 +95,9 @@ const String homeRoute = 'home';
 const String landingRoute = 'landing';
 const String loginRoute = 'login';
 const String menuRoute = 'menu';
-const String orderStatusRoute = 'orderStatus';
 const String orderListRoute = 'orderList';
+const String orderStatusRoute = 'orderStatus';
+const String orderSummaryRoute = 'orderSummary';
 const String paymentMethodsRoute = 'paymentMethods';
 const String productDetailRoute = 'productDetails';
 const String recipesRoute = 'recipes';

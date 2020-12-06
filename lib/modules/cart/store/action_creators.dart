@@ -1,6 +1,5 @@
-import 'actions.dart';
-import 'selectors.dart';
-import '../service.dart';
+import '../../../store/store.dart';
+import '../../food/models/product.dart';
 import '../models/address.dart';
 import '../models/card.dart';
 import '../models/cart_product.dart';
@@ -8,8 +7,9 @@ import '../models/deliver_info.dart';
 import '../models/order.dart';
 import '../models/order_status.dart';
 import '../models/payment_method.dart';
-import '../../food/models/product.dart';
-import '../../../store/store.dart';
+import '../service.dart';
+import 'actions.dart';
+import 'selectors.dart';
 
 void addProductToCart(CartProduct product) {
   AppStore.store.dispatch(AddItemsToCartAction(product: product));
@@ -53,6 +53,16 @@ void placeOrder() {
     });
   } catch (e) {
     AppStore.store.dispatch(PlaceOrderFailAction(order));
+  }
+}
+
+Future<void> getOrderList() async {
+  AppStore.store.dispatch(GetOrderListAction());
+  try {
+    final orderList = await CartService.getOrderList();
+    AppStore.store.dispatch(GetOrderListSuccessAction(orderList));
+  } catch (e) {
+    AppStore.store.dispatch(GetOrderListFailAction());
   }
 }
 

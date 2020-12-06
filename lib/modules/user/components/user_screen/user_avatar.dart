@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../models/user.dart';
 import '../../../../components/async_avatar.dart';
+import '../../models/user.dart';
 
 class UserAvatar extends StatelessWidget {
   final User user;

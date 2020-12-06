@@ -7,5 +7,6 @@ enum OrderStatus {
   preparing,
   delivering,
   delivered,
+  confirmedDelivered,
   notDelivered,
 }
