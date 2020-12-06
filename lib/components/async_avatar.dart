@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class AsyncAvatar extends StatefulWidget {
-  final String imageUrl;
+  final NetworkImage image;
   final Widget child;
   final Color backgroundColor;
 
-  const AsyncAvatar({
+  AsyncAvatar({
     Key key,
-    @required this.imageUrl,
+    @required this.image,
     @required this.backgroundColor,
     @required this.child,
   }) : super(key: key);
@@ -19,37 +19,30 @@ class AsyncAvatar extends StatefulWidget {
 }
 
 class _AsyncAvatarState extends State<AsyncAvatar> {
-  bool fetchedImage = false;
+  bool _mountedImage = false;
 
-  void listenToImageChange(NetworkImage image) {
-    final imgStream = image.resolve(ImageConfiguration.empty);
-    final listener = ImageStreamListener(
-      (info, __) => updateState(() => fetchedImage = true),
+  @override
+  void initState() {
+    super.initState();
+
+    widget.image.resolve(new ImageConfiguration()).addListener(
+      new ImageStreamListener((_, mounted) {
+        if (mounted) {
+          setState(() {
+            _mountedImage = true;
+          });
+        }
+      }),
     );
-    imgStream.addListener(listener);
-  }
-
-  void updateState(Function updateFunction) {
-    void run() {
-      scheduleMicrotask(
-        () {
-          setState(updateFunction);
-        },
-      );
-    }
-
-    run();
   }
 
   @override
   Widget build(BuildContext context) {
-    final image = NetworkImage(widget.imageUrl);
-    listenToImageChange(image);
-
-    return CircleAvatar(
-      backgroundImage: fetchedImage ? image : null,
+    return _mountedImage ? CircleAvatar(
+      backgroundImage: widget.image,
+    ) : CircleAvatar(
       backgroundColor: widget.backgroundColor,
-      child: fetchedImage ? null : widget.child,
+      child: widget.child,
     );
   }
 }

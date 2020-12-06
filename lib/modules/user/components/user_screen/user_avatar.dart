@@ -42,7 +42,7 @@ class UserAvatar extends StatelessWidget {
       height: 96,
       width: 96,
       child: AsyncAvatar(
-        imageUrl: user.imageUrl,
+        image: NetworkImage(user.imageUrl),
         backgroundColor: Colors.white10,
         child: userNameInitial,
       ),

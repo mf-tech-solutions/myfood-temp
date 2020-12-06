@@ -1,8 +1,8 @@
-import 'package:MyFood/components/async_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import '../models/user.dart';
+import '../../../components/async_avatar.dart';
 import '../../../store/state.dart';
 
 class UserAvatar extends StatelessWidget {
@@ -25,7 +25,7 @@ class UserAvatar extends StatelessWidget {
                 height: 56,
                 width: 56,
                 child: AsyncAvatar(
-                  imageUrl: user.imageUrl,
+                  image: NetworkImage(user.imageUrl),
                   backgroundColor: primaryColor,
                   child: Text(user.name.characters.elementAt(0)),
                 ),
