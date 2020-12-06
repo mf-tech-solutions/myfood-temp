@@ -2,32 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../models/order_status.dart';
+import '../models/order.dart';
 import '../store/selectors.dart';
-import '../store/state.dart';
 import '../../../components/large_icon_avatar.dart';
 import '../../../store/state.dart';
 
 class OrderStatusScreenContent extends StatelessWidget {
-  dynamic getIconUrl(OrderStatus status) {
-    switch (status) {
-      case OrderStatus.confirmed:
-        return 'assets/images/order_confirmed.svg';
-
-      case OrderStatus.preparing:
-        return 'assets/images/order_preparing.svg';
-
-      case OrderStatus.delivering:
-        return 'assets/images/order_delivering.svg';
-
-      case OrderStatus.delivered:
-        return 'assets/images/order_delivered.svg';
-
-      default:
-        return Icons.cancel_rounded;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).primaryColor;
@@ -41,10 +21,10 @@ class OrderStatusScreenContent extends StatelessWidget {
     final timeTextStyle = textTheme.headline3.copyWith(color: textColor);
 
     return Center(
-      child: StoreConnector<AppState, CartState>(
-        converter: (store) => store.state.cartState,
-        builder: (_, state) {
-          final iconUrl = getIconUrl(state.orderStatus);
+      child: StoreConnector<AppState, Order>(
+        converter: (store) => store.state.cartState.currentOrder,
+        builder: (_, order) {
+          final iconUrl = getOrderStatusIconUrl();
           final icon = iconUrl is String
               ? SvgPicture.asset(iconUrl)
               : Icon(
@@ -72,7 +52,7 @@ class OrderStatusScreenContent extends StatelessWidget {
               Hero(
                 tag: 'orderInfoText',
                 child: Text(
-                  getOrderStatusText(state.orderStatus),
+                  getOrderStatusText(order.status),
                   textAlign: TextAlign.center,
                   style: infoTextStyle.copyWith(color: Colors.white),
                 ),

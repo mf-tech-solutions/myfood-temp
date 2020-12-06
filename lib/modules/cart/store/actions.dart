@@ -1,11 +1,10 @@
-import 'package:MyFood/modules/cart/models/order.dart';
 import 'package:flutter/material.dart' show immutable, required;
 
 import '../models/address.dart';
 import '../models/card.dart';
 import '../models/cart_product.dart';
 import '../models/deliver_info.dart';
-import '../models/order_status.dart';
+import '../models/order.dart';
 import '../models/payment_method.dart';
 import '../../food/models/product.dart';
 
@@ -67,20 +66,32 @@ class PlaceOrderAction {
 }
 
 class PlaceOrderSuccessPayload {
-  final OrderStatus orderStatus;
+  final Order order;
 
-  PlaceOrderSuccessPayload(this.orderStatus);
+  PlaceOrderSuccessPayload(this.order);
 }
 
 class PlaceOrderSuccessAction {
   PlaceOrderSuccessPayload payload;
 
-  PlaceOrderSuccessAction(OrderStatus orderStatus) {
-    payload = PlaceOrderSuccessPayload(orderStatus);
+  PlaceOrderSuccessAction(Order order) {
+    payload = PlaceOrderSuccessPayload(order);
   }
 }
 
-class PlaceOrderFailAction {}
+class PlaceOrderFailPayload {
+  Order order;
+
+  PlaceOrderFailPayload(order);
+}
+
+class PlaceOrderFailAction {
+  PlaceOrderFailPayload payload;
+
+  PlaceOrderFailAction(Order order) {
+    payload = PlaceOrderFailPayload(order);
+  }
+}
 //endregion
 
 //region Get user cards

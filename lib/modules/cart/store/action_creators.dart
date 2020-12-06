@@ -6,6 +6,7 @@ import '../models/card.dart';
 import '../models/cart_product.dart';
 import '../models/deliver_info.dart';
 import '../models/order.dart';
+import '../models/order_status.dart';
 import '../models/payment_method.dart';
 import '../../food/models/product.dart';
 import '../../../store/store.dart';
@@ -34,10 +35,12 @@ void placeOrder() {
 
   final order = Order(
     cartProducts: state.products,
+    createdAt: null,
     deliverInfo: state.deliverInfo,
+    finishedAt: null,
     orderId: null,
     paymentMethod: state.paymentMethod,
-    status: state.orderStatus,
+    status: OrderStatus.created,
     taxNumber: '60805766359',
   );
 
@@ -45,11 +48,11 @@ void placeOrder() {
 
   try {
     final stream = CartService.placeOrder(order);
-    stream.listen((status) {
-      AppStore.store.dispatch(PlaceOrderSuccessAction(status));
+    stream.listen((order) {
+      AppStore.store.dispatch(PlaceOrderSuccessAction(order));
     });
   } catch (e) {
-    AppStore.store.dispatch(PlaceOrderFailAction());
+    AppStore.store.dispatch(PlaceOrderFailAction(order));
   }
 }
 

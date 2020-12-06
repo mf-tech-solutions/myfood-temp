@@ -75,8 +75,6 @@ CartState _toggleDeliverOption(CartState state, ToggleDeliverOption action) {
 CartState _placeOrderStart(CartState state, PlaceOrderAction action) {
   return state.copyWith(
     currentOrder: action.payload.order,
-    ordering: true,
-    orderStatus: OrderStatus.created,
   );
 }
 
@@ -86,14 +84,15 @@ CartState _placeOrderSuccess(
 ) {
   return state.copyWith(
     products: [],
-    ordering: false,
-    orderStatus: action.payload.orderStatus,
+    currentOrder: action.payload.order,
   );
 }
 
 CartState _placeOrderFail(CartState state, PlaceOrderFailAction action) {
   return CartState.noOrder(
-    currentState: state.copyWith(orderStatus: OrderStatus.error),
+    currentState: state.copyWith(
+      currentOrder: state.currentOrder.copyWith(status: OrderStatus.error),
+    ),
   );
 }
 //endregion

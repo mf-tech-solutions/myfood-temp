@@ -5,7 +5,6 @@ import '../models/card.dart';
 import '../models/cart_product.dart';
 import '../models/deliver_info.dart';
 import '../models/order.dart';
-import '../models/order_status.dart';
 import '../models/payment_method.dart';
 
 @immutable
@@ -21,9 +20,6 @@ class CartState {
   final DeliverInfo deliverInfo;
   final PaymentMethod paymentMethod;
 
-  final bool ordering;
-  final OrderStatus orderStatus;
-
   final List<Address> addresses;
   final bool loadingAddresses;
 
@@ -35,8 +31,6 @@ class CartState {
     @required this.loadingCards,
     @required this.shouldLoadCards,
     @required this.paymentMethod,
-    @required this.ordering,
-    @required this.orderStatus,
     @required this.loadingAddresses,
     @required this.addresses,
     this.currentOrder,
@@ -50,8 +44,6 @@ class CartState {
       loadingCards: false,
       paymentMethod: null,
       shouldLoadCards: true,
-      ordering: false,
-      orderStatus: OrderStatus.none,
       deliverInfo: null,
       addresses: [],
       loadingAddresses: null,
@@ -67,8 +59,6 @@ class CartState {
       isDeliver: currentState.isDeliver,
       loadingAddresses: currentState.loadingAddresses,
       loadingCards: false,
-      ordering: currentState.ordering,
-      orderStatus: currentState.orderStatus,
       paymentMethod: null,
       products: currentState.products,
       shouldLoadCards: false,
@@ -84,8 +74,6 @@ class CartState {
       isDeliver: currentState.isDeliver,
       loadingAddresses: currentState.loadingAddresses,
       loadingCards: currentState.loadingCards,
-      ordering: false,
-      orderStatus: OrderStatus.none,
       paymentMethod: currentState.paymentMethod,
       products: currentState.products,
       shouldLoadCards: currentState.shouldLoadCards,
@@ -100,8 +88,6 @@ class CartState {
     bool isDeliver,
     bool loadingAddresses,
     bool loadingCards,
-    bool ordering,
-    OrderStatus orderStatus,
     PaymentMethod paymentMethod,
     List<CartProduct> products,
     bool shouldLoadCards,
@@ -114,8 +100,6 @@ class CartState {
       isDeliver: isDeliver ?? this.isDeliver,
       loadingAddresses: loadingAddresses ?? this.loadingAddresses,
       loadingCards: loadingCards ?? this.loadingCards,
-      ordering: ordering ?? this.ordering,
-      orderStatus: orderStatus ?? this.orderStatus,
       paymentMethod: paymentMethod ?? this.paymentMethod,
       products: products ?? this.products,
       shouldLoadCards: shouldLoadCards ?? this.shouldLoadCards,

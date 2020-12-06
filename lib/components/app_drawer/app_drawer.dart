@@ -55,7 +55,7 @@ class AppDrawer extends StatelessWidget {
             onTap: () => _goTo(deliverAddressListRoute, context),
           ),
           ListTile(
-            title: Text('Endereços'),
+            title: Text('Pedidos'),
             trailing: Icon(Icons.chevron_right_rounded),
             onTap: () => _goTo(orderListRoute, context),
           ),

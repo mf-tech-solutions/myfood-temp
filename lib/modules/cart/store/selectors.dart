@@ -1,3 +1,6 @@
+import '../utils.dart';
+import 'package:flutter/material.dart';
+
 import '../models/address.dart';
 import '../models/card.dart';
 import '../models/cart_product.dart';
@@ -42,21 +45,8 @@ bool isCardSelectedPaymentMethod(int cardId) {
       selectedPaymentMethod.cardId == cardId;
 }
 
-bool shouldGoToOrderScreen() {
-  final state = AppStore.store.state.cartState;
-  final orderStatus = state.orderStatus;
-
-  final result = !state.ordering &&
-      (orderStatus == OrderStatus.confirmed ||
-          orderStatus == OrderStatus.denied);
-  return result;
-}
-
 String getOrderStatusText(OrderStatus status) {
   switch (status) {
-    case OrderStatus.confirmed:
-      return 'Seu pedido foi confirmado!';
-
     case OrderStatus.denied:
       return 'Seu pedido foi negado.';
 
@@ -78,6 +68,28 @@ String getOrderStatusText(OrderStatus status) {
     default:
       return 'Não foi possível obter informações sobre seu pedido. Por favor tente novamente mais tarde.';
   }
+}
+
+dynamic getOrderStatusIconUrl() {
+  final status = AppStore.store.state.cartState.currentOrder.status;
+  switch (status) {
+    case OrderStatus.preparing:
+      return '${Utils.orderImagesPath}order_preparing.svg';
+
+    case OrderStatus.delivering:
+      return '${Utils.orderImagesPath}order_delivering.svg';
+
+    case OrderStatus.delivered:
+      return '${Utils.orderImagesPath}order_delivered.svg';
+
+    default:
+      return Icons.cancel_outlined;
+  }
+}
+
+bool isOrdering() {
+  final currentOrder = AppStore.store.state.cartState.currentOrder;
+  return currentOrder != null && currentOrder.status == OrderStatus.created;
 }
 
 DeliverInfo getAddress() {

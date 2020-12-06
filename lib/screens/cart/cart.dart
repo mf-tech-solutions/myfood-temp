@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:MyFood/modules/cart/models/order_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart' show StoreConnector;
 
@@ -19,7 +20,7 @@ import '../../modules/cart/components/cart_screen/payment_section.dart';
 import '../../modules/navigation/store/actionCreators.dart';
 
 class CartScreen extends StatelessWidget {
-  Widget get clearCartButton {
+  Widget get _clearCartButton {
     return TextButton(
       child: Text(
         CartResource.clear,
@@ -29,11 +30,12 @@ class CartScreen extends StatelessWidget {
     );
   }
 
-  Widget getConfirmButton(CartState state, BuildContext context) {
+  Widget _getConfirmButton(CartState state, BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final padding = 6.0;
-    final enabled = !state.ordering && state.paymentMethod != null;
-    final text = state.ordering ? CartResource.ordering : CartResource.confirm;
+    final ordering = isOrdering();
+    final enabled = !ordering && state.paymentMethod != null;
+    final text = ordering ? CartResource.ordering : CartResource.confirm;
 
     return Positioned(
       bottom: 0,
@@ -46,24 +48,31 @@ class CartScreen extends StatelessWidget {
           width: screenWidth - 2 * padding,
           child: LargeButton(
             child: Text(text.toUpperCase()),
-            onPressed: enabled ? confirm : null,
+            onPressed: enabled ? _confirm : null,
           ),
         ),
       ),
     );
   }
 
-  void confirm() => placeOrder();
-
-  void goToOrderConfirmationScreen(BuildContext context) {
-    void run() {
-      scheduleMicrotask(() {
-        Navigator.of(context).pushNamed(orderConfirmationRoute);
-      });
+  bool _shouldGoToOrderScreen(CartState state) {
+    final currentOrder = state.currentOrder;
+    if (currentOrder == null) {
+      return false;
     }
 
-    run();
+    final orderStatus = currentOrder.status;
+    final result = orderStatus == OrderStatus.preparing ||
+        orderStatus == OrderStatus.canceled ||
+        orderStatus == OrderStatus.denied;
+    return result;
   }
+
+  void _goToOrderConfirmationScreen(BuildContext context) {
+    Future.microtask(() => Navigator.of(context).pushNamed(orderStatusRoute));
+  }
+
+  void _confirm() => placeOrder();
 
   @override
   Widget build(BuildContext context) {
@@ -72,8 +81,8 @@ class CartScreen extends StatelessWidget {
     return StoreConnector<AppState, CartState>(
       converter: (store) => store.state.cartState,
       builder: (_, state) {
-        if (shouldGoToOrderScreen()) {
-          goToOrderConfirmationScreen(context);
+        if (_shouldGoToOrderScreen(state)) {
+          _goToOrderConfirmationScreen(context);
         }
 
         final emptyCard = EmptyCard(
@@ -96,7 +105,7 @@ class CartScreen extends StatelessWidget {
                   PaymentSection(),
                 ],
               ),
-              getConfirmButton(state, context),
+              _getConfirmButton(state, context),
             ],
           ),
         );
@@ -106,7 +115,7 @@ class CartScreen extends StatelessWidget {
         return Scaffold(
           appBar: MyAppBar(
             title: CartResource.cartTitle,
-            actions: productAmount > 0 ? [clearCartButton] : null,
+            actions: productAmount > 0 ? [_clearCartButton] : null,
           ),
           body: AnimatedCrossFade(
             firstChild: emptyCard,

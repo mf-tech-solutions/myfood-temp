@@ -52,31 +52,36 @@ class CartService {
     return Future.delayed(Duration(milliseconds: 800), () => card);
   }
 
-  static Stream<OrderStatus> placeOrder(Order order) {
+  static Stream<Order> placeOrder(Order order) {
     _orders = [
       ..._orders,
-      order.copyWith(orderId: _orders.length),
+      order.copyWith(
+        orderId: _orders.length,
+        createdAt: DateTime.now(),
+      ),
     ];
 
-    var status = OrderStatus.confirmed;
-
-    final controller = StreamController<OrderStatus>();
-    final stream = controller.stream;
+    var status = OrderStatus.preparing;
+    final controller = StreamController<Order>();
 
     Timer.periodic(Duration(seconds: 3), (timer) {
-      controller.sink.add(status);
-      print(status);
+      final lastRun =
+          status == OrderStatus.delivered || status == OrderStatus.denied;
+      final finishedAt = lastRun ? DateTime.now() : null;
+      controller.sink.add(order.copyWith(
+        status: status,
+        finishedAt: finishedAt,
+      ));
 
-      if (status == OrderStatus.delivered || status == OrderStatus.denied) {
+      if (lastRun) {
         controller.close();
         timer.cancel();
       } else {
-        status = OrderStatus
-            .values[status.index + (status == OrderStatus.confirmed ? 2 : 1)];
+        status = OrderStatus.values[status.index + 1];
       }
     });
 
-    return stream;
+    return controller.stream;
   }
 
   static Future<List<Address>> getDeliverAddresses() {

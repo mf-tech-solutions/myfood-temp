@@ -8,16 +8,13 @@ class OrderListScreen extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: MyAppBar(
-        title: 'Pedidos',
-      ),
-      backgroundColor: theme.primaryColor,
+      appBar: MyAppBar(title: 'Pedidos'),
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: Center(
           child: Text(
-            'Imagine aqui uma lista de pedidos com o pedido atual no topo, se houver um pedido ativo.',
-            style: theme.textTheme.headline5.copyWith(color: Colors.white),
+            'Imagine aqui uma lista de pedidos com o pedido atual no topo.',
+            style: theme.textTheme.headline5,
             textAlign: TextAlign.center,
           ),
         ),

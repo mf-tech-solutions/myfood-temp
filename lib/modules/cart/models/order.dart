@@ -12,21 +12,28 @@ class Order {
   final OrderStatus status;
   final PaymentMethod paymentMethod;
   final String taxNumber;
+  final DateTime createdAt;
+  final DateTime finishedAt;
+
+  bool get isActive => this.finishedAt == null;
 
   Order({
     @required this.orderId,
     @required this.cartProducts,
+    @required this.createdAt,
     @required this.deliverInfo,
     @required this.status,
     @required this.paymentMethod,
     @required this.taxNumber,
+    this.finishedAt,
   });
 
   factory Order.noTaxNumber(Order data) {
     return Order(
-      orderId: data.orderId,
       cartProducts: data.cartProducts,
+      createdAt: null,
       deliverInfo: data.deliverInfo,
+      orderId: data.orderId,
       paymentMethod: data.paymentMethod,
       status: data.status,
       taxNumber: null,
@@ -34,17 +41,21 @@ class Order {
   }
 
   Order copyWith({
-    int orderId,
     List<CartProduct> cartProducts,
+    DateTime createdAt,
+    DeliverInfo deliverInfo,
+    DateTime finishedAt,
+    int orderId,
     PaymentMethod paymentMethod,
     OrderStatus status,
-    DeliverInfo deliverInfo,
     String taxNumber,
   }) {
     return Order(
-      orderId: orderId ?? this.orderId,
       cartProducts: cartProducts ?? this.cartProducts,
+      createdAt: createdAt ?? this.createdAt,
       deliverInfo: deliverInfo ?? this.deliverInfo,
+      finishedAt: finishedAt ?? this.finishedAt,
+      orderId: orderId ?? this.orderId,
       paymentMethod: paymentMethod ?? this.paymentMethod,
       status: status ?? this.status,
       taxNumber: taxNumber ?? this.taxNumber,

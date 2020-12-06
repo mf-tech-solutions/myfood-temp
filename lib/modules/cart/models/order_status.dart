@@ -3,7 +3,6 @@ enum OrderStatus {
   error,
   canceled,
   created,
-  confirmed,
   denied,
   preparing,
   delivering,
