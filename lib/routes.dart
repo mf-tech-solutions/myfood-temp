@@ -55,7 +55,9 @@ class Routes {
         return Utils.pageRouteBuilder(OrderStatusScreen());
 
       case orderSummaryRoute:
-        return Utils.cupertinoRouteBuilder(OrderSummaryScreen());
+        return Utils.cupertinoRouteBuilder(OrderSummaryScreen(
+          order: settings.arguments,
+        ));
 
       case paymentMethodsRoute:
         return Utils.pageRouteBuilder(PaymentMethodsScreen());

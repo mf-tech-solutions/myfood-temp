@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-import '../general/my_radio_list_tile.dart';
-import '../general/scrollable_center.dart';
-import '../general/with_refresh_indicator.dart';
+import '../../../../constants.dart';
+import '../../../../store/state.dart';
 import '../../models/address.dart';
 import '../../store/action_creators.dart';
 import '../../store/selectors.dart';
 import '../../store/state.dart';
-import '../../../../constants.dart';
-import '../../../../store/state.dart';
+import '../general/my_radio_list_tile.dart';
+import '../general/scrollable_center.dart';
+import '../general/with_refresh_indicator.dart';
 
 class DeliverAddressesScreenContent extends StatelessWidget {
   Widget buildNoAddressesMessage(BuildContext context) {
@@ -89,7 +89,7 @@ class DeliverAddressesScreenContent extends StatelessWidget {
         final addresses = state.addresses;
 
         if (addresses == null) {
-          getDeliverAddressess();
+          getDeliverAddresses();
           return SizedBox.shrink();
         }
 
@@ -98,7 +98,7 @@ class DeliverAddressesScreenContent extends StatelessWidget {
 
         return WithRefreshIndicator(
           child: addresses.length == 0 ? message : list,
-          onRefresh: getDeliverAddressess,
+          onRefresh: getDeliverAddresses,
         );
       },
     );

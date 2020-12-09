@@ -63,7 +63,7 @@ class OrderListScreen extends StatelessWidget {
           title: title,
           onTap: () => order.isActive
               ? _goToOrderStatusScreen(context)
-              : _goToOrderSummaryScreen(context),
+              : _goToOrderSummaryScreen(context, order),
         ),
         elevation: elevation,
       ),
@@ -95,8 +95,11 @@ class OrderListScreen extends StatelessWidget {
     Navigator.of(context).pushNamed(orderStatusRoute);
   }
 
-  void _goToOrderSummaryScreen(BuildContext context) {
-    Navigator.of(context).pushNamed(orderSummaryRoute);
+  void _goToOrderSummaryScreen(BuildContext context, Order order) {
+    Navigator.of(context).pushNamed(
+      orderSummaryRoute,
+      arguments: order,
+    );
   }
 
   @override

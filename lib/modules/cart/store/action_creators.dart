@@ -1,3 +1,5 @@
+import 'package:MyFood/modules/cart/models/deliver_type.dart';
+
 import '../../../store/store.dart';
 import '../../food/models/product.dart';
 import '../models/address.dart';
@@ -36,7 +38,11 @@ void placeOrder() {
   final order = Order(
     cartProducts: state.products,
     createdAt: null,
-    deliverInfo: state.deliverInfo,
+    deliverInfo: DeliverInfo(
+      address: getDefaultDeliverAddress(),
+      deliverType:
+          state.isDeliver ? DeliverType.deliver : DeliverType.withdrawal,
+    ),
     finishedAt: null,
     orderId: null,
     paymentMethod: state.paymentMethod,
@@ -94,7 +100,7 @@ void toggleDeliverOption() {
   AppStore.store.dispatch(ToggleDeliverOption());
 }
 
-Future<void> getDeliverAddressess() async {
+Future<void> getDeliverAddresses() async {
   AppStore.store.dispatch(GetDeliverAddressessAction());
 
   try {

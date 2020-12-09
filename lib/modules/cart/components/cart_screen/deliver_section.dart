@@ -3,16 +3,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-import '../list_tile.dart';
-import '../general/input_formatters.dart';
-import '../../resource.dart';
-import '../../models/address.dart';
-import '../../store/action_creators.dart';
-import '../../store/selectors.dart';
-import '../../store/state.dart';
 import '../../../../constants.dart';
 import '../../../../routes.dart';
 import '../../../../store/state.dart';
+import '../../models/address.dart';
+import '../../resource.dart';
+import '../../store/action_creators.dart';
+import '../../store/selectors.dart';
+import '../../store/state.dart';
+import '../general/input_formatters.dart';
+import '../list_tile.dart';
 
 class DeliverSection extends StatefulWidget {
   @override
@@ -27,8 +27,8 @@ class _DeliverSectionState extends State<DeliverSection> {
     Navigator.of(context).pushNamed(deliverAddressListRoute);
   }
 
-  void getAddressess() {
-    getDeliverAddressess();
+  void getAddresses() {
+    getDeliverAddresses();
 
     void run() {
       scheduleMicrotask(() {
@@ -79,7 +79,7 @@ class _DeliverSectionState extends State<DeliverSection> {
                   converter: (store) => store.state.cartState,
                   builder: (_, state) {
                     if (state.addresses.isEmpty && !_fetchedAddresses) {
-                      getAddressess();
+                      getAddresses();
                       return Center(child: CircularProgressIndicator());
                     }
 
