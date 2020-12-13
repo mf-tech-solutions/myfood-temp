@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../components/screen_icon_avatar.dart';
 import '../../../components/app_bar/app_bar.dart';
-import '../../../routes.dart';
+import '../../../components/screen_icon_avatar.dart';
 import '../../../modules/cart/components/payment_methods_screen/payment_methods_list.dart';
+import '../../../modules/cart/models/card.dart';
+import '../../../routes.dart';
 
 class PaymentMethodsScreen extends StatelessWidget {
-  void goToAddUsercardScreen(BuildContext context) {
-    Navigator.of(context).pushNamed(addUserCardRoute);
+  void goToAddUserCardScreen(BuildContext context, {UserCard card}) {
+    Navigator.of(context).pushNamed(addUserCardRoute, arguments: card);
   }
 
   @override
@@ -31,24 +32,20 @@ class PaymentMethodsScreen extends StatelessWidget {
             shrinkWrap: true,
             padding: EdgeInsets.zero,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Cartões',
-                    style: textTheme.headline6,
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.add, color: theme.accentColor),
-                    onPressed: () => goToAddUsercardScreen(context),
-                  ),
-                ],
+              Text(
+                'Cartões',
+                style: textTheme.headline6,
               ),
               SizedBox(height: 16),
               PaymentMethodsList(),
             ],
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add_rounded),
+        heroTag: 'paymentMethodFab',
+        onPressed: () => goToAddUserCardScreen(context),
       ),
     );
   }

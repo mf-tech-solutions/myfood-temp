@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-import '../formatters.dart';
+import '../../../../components/small_icon_button.dart';
+import '../../../../constants.dart';
+import '../../../../routes.dart';
+import '../../../../store/state.dart';
 import '../../models/card.dart';
 import '../../models/payment_method.dart';
 import '../../models/payment_mothod_type.dart';
 import '../../store/action_creators.dart';
-import '../../store/state.dart';
 import '../../store/selectors.dart';
-import '../../../../constants.dart';
-import '../../../../store/state.dart';
-import '../../../../components/small_icon_button.dart';
+import '../../store/state.dart';
+import '../formatters.dart';
 
 class PaymentMethodsList extends StatelessWidget {
   final _cardFormatter = UserCardLastDigitsFormatter();
@@ -39,21 +40,21 @@ class PaymentMethodsList extends StatelessWidget {
     );
   }
 
-  Widget _buildList(List<UserCard> cards) {
+  Widget _buildList(BuildContext context, List<UserCard> cards) {
     final cardList = cards == null
         ? Container()
         : ListView.separated(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             itemCount: cards.length,
-            itemBuilder: (_, index) => _cardItemBuilder(cards, index),
+            itemBuilder: (_, index) => _cardItemBuilder(context, cards, index),
             separatorBuilder: _separatorBuilder,
           );
 
     return cardList;
   }
 
-  Widget _cardItemBuilder(List<UserCard> cards, index) {
+  Widget _cardItemBuilder(BuildContext context, List<UserCard> cards, index) {
     final card = cards[index];
     final paymentMethod = PaymentMethod(
       PaymentMethodType.CARD,
@@ -68,12 +69,16 @@ class PaymentMethodsList extends StatelessWidget {
       onChanged: (_) => setPaymentMethod(paymentMethod),
       secondary: SmallIconButton(
         child: Icon(Icons.edit),
-        onTapCallback: () => setPaymentMethod(paymentMethod),
+        onTapCallback: () => goToAddUserCardScreen(context, card: card),
       ),
     );
   }
 
   Widget _separatorBuilder(_, __) => Divider(height: 0);
+
+  void goToAddUserCardScreen(BuildContext context, {UserCard card}) {
+    Navigator.of(context).pushNamed(addUserCardRoute, arguments: card);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +98,7 @@ class PaymentMethodsList extends StatelessWidget {
                 padding: _padding,
                 child: AnimatedCrossFade(
                   firstChild: _noCardsMessage,
-                  secondChild: _buildList(cards),
+                  secondChild: _buildList(context, cards),
                   crossFadeState: cards == null || cards.length == 0
                       ? CrossFadeState.showFirst
                       : CrossFadeState.showSecond,

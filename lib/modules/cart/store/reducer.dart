@@ -22,6 +22,12 @@ final cartReducer = combineReducers<CartState>([
   TypedReducer(_addUserCardStart),
   TypedReducer(_addUserCardSuccess),
   TypedReducer(_addUserCardFail),
+  TypedReducer(_updateUserCardStart),
+  TypedReducer(_updateUserCardSuccess),
+  TypedReducer(_updateUserCardFail),
+  TypedReducer(_removeUserCardStart),
+  TypedReducer(_removeUserCardSuccess),
+  TypedReducer(_removeUserCardFail),
   TypedReducer(_setDeliverInfo),
   TypedReducer(_setPaymentMethod),
   TypedReducer(_getDeliverAddressesStart),
@@ -30,7 +36,7 @@ final cartReducer = combineReducers<CartState>([
   TypedReducer(_addDeliverAddressStart),
   TypedReducer(_addDeliverAddressSuccess),
   TypedReducer(_addDeliverAddressFail),
-  TypedReducer(_setDefaultDeliverAddress),
+  TypedReducer(_setDefaultDeliverAddressStart),
   TypedReducer(_setDefaultDeliverAddressSuccess),
   TypedReducer(_setDefaultDeliverAddressFail),
 ]);
@@ -61,17 +67,13 @@ CartState _removeFromCart(CartState state, RemoveFromCartAction action) {
   return state.copyWith(products: updatedProducts);
 }
 
-//region Clear cart
 CartState _clearCart(CartState state, ClearCartAction action) {
   return state.copyWith(products: []);
 }
-//endregion
 
-//region
 CartState _toggleDeliverOption(CartState state, ToggleDeliverOption action) {
   return state.copyWith(isDeliver: !state.isDeliver);
 }
-//endregion
 
 //region Place order
 CartState _placeOrderStart(CartState state, PlaceOrderAction action) {
@@ -171,7 +173,7 @@ CartState _getUserCardsFail(CartState state, GetUserCardsFailAction action) {
 
 //region Add user card
 CartState _addUserCardStart(CartState state, AddUserCardAction action) {
-  return state;
+  return state.copyWith(loadingCards: true);
 }
 
 CartState _addUserCardSuccess(
@@ -180,14 +182,65 @@ CartState _addUserCardSuccess(
 ) {
   final cards = [...state.cards, action.payload.card];
 
-  return state.copyWith(cards: cards);
+  return state.copyWith(cards: cards, loadingCards: false);
 }
 
 CartState _addUserCardFail(
   CartState state,
   AddUserCardFailAction action,
 ) {
-  return state;
+  return state.copyWith(loadingCards: false);
+}
+//endregion
+
+//region Update user card
+CartState _updateUserCardStart(CartState state, UpdateUserCardAction action) {
+  return state.copyWith(loadingCards: true);
+}
+
+CartState _updateUserCardSuccess(
+  CartState state,
+  UpdateUserCardSuccessAction action,
+) {
+  final updatedCard = action.payload.card;
+  final cards = state.cards
+      .map(
+        (x) => x.id == updatedCard.id ? updatedCard : x,
+      )
+      .toList();
+
+  return state.copyWith(cards: cards, loadingCards: false);
+}
+
+CartState _updateUserCardFail(
+  CartState state,
+  UpdateUserCardFailAction action,
+) {
+  return state.copyWith(loadingCards: false);
+}
+//endregion
+
+//region Remove user card
+CartState _removeUserCardStart(CartState state, RemoveUserCardAction action) {
+  return state.copyWith(loadingCards: true);
+}
+
+CartState _removeUserCardSuccess(
+  CartState state,
+  RemoveUserCardSuccessAction action,
+) {
+  final cardList = state.cards
+      .where(
+        (x) => x.id != action.payload.cardId,
+      )
+      .toList();
+
+  return state.copyWith(cards: cardList, loadingCards: false);
+}
+
+CartState _removeUserCardFail(
+    CartState state, RemoveUserCardFailAction action) {
+  return state.copyWith(loadingCards: false);
 }
 //endregion
 
@@ -199,6 +252,7 @@ CartState _setPaymentMethod(CartState state, SetPaymentMethodAction action) {
   return state.copyWith(paymentMethod: action.payload.paymentMethod);
 }
 
+//region Get deliver addresses
 CartState _getDeliverAddressesStart(
   CartState state,
   GetDeliverAddressessAction action,
@@ -222,7 +276,9 @@ CartState _getDeliverAddressesFail(
 ) {
   return state.copyWith(loadingAddresses: false);
 }
+//endregion
 
+//region Add deliver address
 CartState _addDeliverAddressStart(
     CartState state, AddDeliverAddressAction action) {
   return state.copyWith(loadingAddresses: true);
@@ -246,8 +302,10 @@ CartState _addDeliverAddressFail(
 ) {
   return state.copyWith(loadingAddresses: false);
 }
+//endregion
 
-CartState _setDefaultDeliverAddress(
+//region Set default deliver address
+CartState _setDefaultDeliverAddressStart(
   CartState state,
   SetDefaultDeliverAddressAction action,
 ) {
@@ -285,3 +343,4 @@ CartState _setDefaultDeliverAddressFail(
 
   return state.copyWith(addresses: addresses);
 }
+//endregion

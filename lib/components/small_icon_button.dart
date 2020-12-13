@@ -22,6 +22,7 @@ class SmallIconButton extends StatelessWidget {
         child: Center(
           child: child,
         ),
+        onTap: onTapCallback,
       ),
     );
   }

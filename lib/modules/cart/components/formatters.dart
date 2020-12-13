@@ -13,3 +13,7 @@ class UserCardFormatter extends MaskTextInputFormatter {
 class UserCardLastDigitsFormatter extends MaskTextInputFormatter {
   UserCardLastDigitsFormatter() : super(mask: '**** ####');
 }
+
+class UserCardDueDateFormatter extends MaskTextInputFormatter {
+  UserCardDueDateFormatter() : super(mask: '##/##');
+}

@@ -1,11 +1,10 @@
-import 'package:MyFood/modules/cart/models/deliver_type.dart';
-
 import '../../../store/store.dart';
 import '../../food/models/product.dart';
 import '../models/address.dart';
 import '../models/card.dart';
 import '../models/cart_product.dart';
 import '../models/deliver_info.dart';
+import '../models/deliver_type.dart';
 import '../models/order.dart';
 import '../models/order_status.dart';
 import '../models/payment_method.dart';
@@ -25,6 +24,29 @@ Future<void> addUserCard(UserCardDto cardDto) async {
     AppStore.store.dispatch(AddUserCardSuccessAction(card));
   } catch (e) {
     AppStore.store.dispatch(AddUserCardFailAction());
+  }
+}
+
+Future<void> updateUserCard(UserCardDto cardDto) async {
+  AppStore.store.dispatch(UpdateUserCardAction());
+
+  try {
+    final card = await CartService.updateCard(cardDto);
+    AppStore.store.dispatch(UpdateUserCardSuccessAction(card));
+  } catch (e) {
+    AppStore.store.dispatch(UpdateUserCardFailAction());
+  }
+}
+
+Future<void> removeUserCard(int cardId) async {
+  AppStore.store.dispatch(RemoveUserCardAction());
+
+  try {
+    await CartService.removeUserCard(cardId);
+    AppStore.store.dispatch(RemoveUserCardSuccessAction(cardId));
+  } catch (e) {
+    AppStore.store.dispatch(RemoveUserCardFailAction());
+    throw e;
   }
 }
 

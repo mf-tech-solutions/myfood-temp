@@ -35,6 +35,10 @@ class CartService {
           (e) => UserCard(
             id: int.parse(e[0]),
             lastDigits: e,
+            cardHolderName: 'UM CARA MTO LEGAL',
+            cardHolderSocialId: '12345678900',
+            cvv: 123,
+            dueDate: '12/22',
           ),
         )
         .toList();
@@ -46,9 +50,34 @@ class CartService {
     final card = UserCard(
       id: Random().nextInt(999999) + 1,
       lastDigits: cardDto.lastDigits,
+      cardHolderName: cardDto.cardHolderName,
+      cardHolderSocialId: cardDto.cardHolderSocialId,
+      cvv: cardDto.cvv,
+      dueDate: cardDto.dueDate,
     );
 
     return Future.delayed(Duration(milliseconds: 800), () => card);
+  }
+
+  static Future<UserCard> updateCard(UserCardDto cardDto) async {
+    final card = UserCard(
+      id: cardDto.id,
+      number: cardDto.cardNumber,
+      lastDigits: cardDto.lastDigits,
+      cardHolderName: cardDto.cardHolderName,
+      cardHolderSocialId: cardDto.cardHolderSocialId,
+      cvv: cardDto.cvv,
+      dueDate: cardDto.dueDate,
+    );
+
+    return Future.delayed(Duration(milliseconds: 800), () => card);
+  }
+
+  static Future<void> removeUserCard(int cardId) async {
+    return Future.delayed(
+      Duration(milliseconds: 800),
+      () => null,
+    );
   }
 
   static Stream<Order> placeOrder(Order order) {

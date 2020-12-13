@@ -37,6 +37,8 @@ class CartResource {
   //region Actions
   static String get confirm => 'Confirmar';
 
+  static String get confirming => 'Confirmando';
+
   static String get update => 'Atualizar';
 
   static String get cancel => 'Cancelar';

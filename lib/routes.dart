@@ -25,7 +25,9 @@ class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case addUserCardRoute:
-        return Utils.cupertinoRouteBuilder(AddUserCardScreen());
+        return Utils.cupertinoRouteBuilder(AddUserCardScreen(
+          card: settings.arguments,
+        ));
 
       case cartRoute:
         return MaterialPageRoute(builder: (_) => CartScreen());

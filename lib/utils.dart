@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'constants.dart';
 import 'components/alert_dialog.dart';
+import 'constants.dart';
 
 class Utils {
   static Future<T> showContentOnlyDialog<T>({
@@ -116,7 +116,7 @@ class Utils {
         behavior: behavior,
         padding: EdgeInsets.fromLTRB(12, 12, 8, 12),
         content: content,
-        elevation: 4,
+        elevation: 8,
         shape: RoundedRectangleBorder(
           borderRadius: borderRadius,
         ),

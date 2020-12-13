@@ -134,6 +134,46 @@ class AddUserCardSuccessAction {
 class AddUserCardFailAction {}
 //endregion
 
+//region Update user card
+class UpdateUserCardAction {}
+
+class UpdateUserCardSuccessAction {
+  UpdateUserCardSuccessPayload payload;
+
+  UpdateUserCardSuccessAction(UserCard card) {
+    payload = UpdateUserCardSuccessPayload(card);
+  }
+}
+
+class UpdateUserCardSuccessPayload {
+  final UserCard card;
+
+  UpdateUserCardSuccessPayload(this.card);
+}
+
+class UpdateUserCardFailAction {}
+//endregion
+
+//region Remove card
+class RemoveUserCardAction {}
+
+class RemoveCardSuccessPayload {
+  final int cardId;
+
+  RemoveCardSuccessPayload(this.cardId);
+}
+
+class RemoveUserCardSuccessAction {
+  RemoveCardSuccessPayload payload;
+
+  RemoveUserCardSuccessAction(int cardId) {
+    payload = RemoveCardSuccessPayload(cardId);
+  }
+}
+
+class RemoveUserCardFailAction {}
+//endregion
+
 //region Set payment method
 class SetPaymentMethodPayload {
   PaymentMethod paymentMethod;
