@@ -1,23 +1,23 @@
 import 'dart:async';
 
-import 'package:MyFood/modules/cart/models/order_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart' show StoreConnector;
 
-import '../../routes.dart';
-import '../../constants.dart';
-import '../../store/state.dart';
 import '../../components/app_bar/app_bar.dart';
 import '../../components/large_button.dart';
-import '../../modules/cart/resource.dart';
-import '../../modules/cart/store/action_creators.dart';
-import '../../modules/cart/store/state.dart';
-import '../../modules/cart/store/selectors.dart';
-import '../../modules/cart/components/cart_screen/deliver_section.dart';
+import '../../constants.dart';
 import '../../modules/cart/components/cart_screen/cart_product_table.dart';
+import '../../modules/cart/components/cart_screen/deliver_section.dart';
 import '../../modules/cart/components/cart_screen/empty_card.dart';
 import '../../modules/cart/components/cart_screen/payment_section.dart';
+import '../../modules/cart/models/order_status.dart';
+import '../../modules/cart/resource.dart';
+import '../../modules/cart/store/action_creators.dart';
+import '../../modules/cart/store/selectors.dart';
+import '../../modules/cart/store/state.dart';
 import '../../modules/navigation/store/actionCreators.dart';
+import '../../routes.dart';
+import '../../store/state.dart';
 
 class CartScreen extends StatelessWidget {
   Widget get _clearCartButton {

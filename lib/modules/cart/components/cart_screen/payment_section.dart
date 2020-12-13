@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
+import '../../../../constants.dart';
+import '../../../../routes.dart';
+import '../../../../store/state.dart';
+import '../../../user/models/user.dart';
+import '../../models/payment_method.dart';
+import '../../store/action_creators.dart';
+import '../../store/selectors.dart';
 import 'payment_method_view.dart';
 import 'user_social_security.dart';
-import '../../models/payment_method.dart';
-import '../../../user/models/user.dart';
-import '../../../../routes.dart';
-import '../../../../constants.dart';
-import '../../../../store/state.dart';
 
 class PaymentSection extends StatefulWidget {
   @override
@@ -31,22 +33,22 @@ class _PaymentSectionState extends State<PaymentSection> {
     return Center(
       child: TextButton(
         child: Text('Escolha um método de pagamento'),
-        onPressed: goToPaymentMethodsCreen,
+        onPressed: goToPaymentMethodScreen,
       ),
     );
   }
 
-  Widget buildSelectedPaymenthMethodItem(PaymentMethod paymentMethod) {
+  Widget buildSelectedPaymentMethodItem(PaymentMethod paymentMethod) {
     return withInkWell(
       PaymentMethodView(
         paymentMethod: paymentMethod,
-        onTapCallback: goToPaymentMethodsCreen,
+        onTapCallback: goToPaymentMethodScreen,
       ),
-      goToPaymentMethodsCreen,
+      goToPaymentMethodScreen,
     );
   }
 
-  void goToPaymentMethodsCreen() {
+  void goToPaymentMethodScreen() {
     Navigator.of(context).pushNamed(paymentMethodsRoute);
   }
 
@@ -61,9 +63,12 @@ class _PaymentSectionState extends State<PaymentSection> {
             StoreConnector<AppState, PaymentMethod>(
               converter: (store) => store.state.cartState.paymentMethod,
               builder: (_, paymentMethod) {
+                if (shouldLoadCards()) {
+                  getUserCards();
+                }
                 return AnimatedCrossFade(
                   firstChild: setPaymentMethodButton,
-                  secondChild: buildSelectedPaymenthMethodItem(paymentMethod),
+                  secondChild: buildSelectedPaymentMethodItem(paymentMethod),
                   crossFadeState: paymentMethod == null
                       ? CrossFadeState.showFirst
                       : CrossFadeState.showSecond,
