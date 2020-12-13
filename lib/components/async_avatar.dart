@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 class AsyncAvatar extends StatefulWidget {
@@ -38,11 +36,13 @@ class _AsyncAvatarState extends State<AsyncAvatar> {
 
   @override
   Widget build(BuildContext context) {
-    return _mountedImage ? CircleAvatar(
-      backgroundImage: widget.image,
-    ) : CircleAvatar(
-      backgroundColor: widget.backgroundColor,
-      child: widget.child,
-    );
+    return _mountedImage
+        ? CircleAvatar(
+            backgroundImage: widget.image,
+          )
+        : CircleAvatar(
+            backgroundColor: widget.backgroundColor,
+            child: widget.child,
+          );
   }
 }
