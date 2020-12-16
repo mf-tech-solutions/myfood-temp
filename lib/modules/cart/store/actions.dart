@@ -190,6 +190,24 @@ class SetPaymentMethodAction {
 }
 //endregion
 
+//region Set social id in note
+class SetSocialIdInNoteAction {
+  SetSocialIdInNotePayload payload;
+
+  SetSocialIdInNoteAction(bool includeSocialIdInNote, String socialId) {
+    payload = SetSocialIdInNotePayload(includeSocialIdInNote, socialId);
+  }
+}
+
+class SetSocialIdInNotePayload {
+  final bool includeSocialIdInNote;
+  final String socialId;
+
+  SetSocialIdInNotePayload(this.includeSocialIdInNote, this.socialId);
+}
+
+//endregion
+
 //region Set deliver info
 class SetDeliverInfoPayload {
   final DeliverInfo deliverInfo;
@@ -206,24 +224,24 @@ class SetDeliverInfoAction {
 }
 //endregion
 
-//region Get addressess
-class GetDeliverAddressessAction {}
+//region Get addresses
+class GetDeliverAddressesAction {}
 
-class GetDeliverAddressessSuccessPayload {
+class GetDeliverAddressesSuccessPayload {
   final List<Address> addresses;
 
-  GetDeliverAddressessSuccessPayload(this.addresses);
+  GetDeliverAddressesSuccessPayload(this.addresses);
 }
 
-class GetDeliverAddressessSuccessAction {
-  GetDeliverAddressessSuccessPayload payload;
+class GetDeliverAddressesSuccessAction {
+  GetDeliverAddressesSuccessPayload payload;
 
-  GetDeliverAddressessSuccessAction(List<Address> addresses) {
-    payload = GetDeliverAddressessSuccessPayload(addresses);
+  GetDeliverAddressesSuccessAction(List<Address> addresses) {
+    payload = GetDeliverAddressesSuccessPayload(addresses);
   }
 }
 
-class GetDeliverAddressessFailAction {}
+class GetDeliverAddressesFailAction {}
 //endregion
 
 //region Add deliver address

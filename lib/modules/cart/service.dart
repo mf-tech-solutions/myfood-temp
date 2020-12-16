@@ -26,9 +26,10 @@ class CartService {
   static List<Order> _orders = [];
 
   static Future<List<UserCard>> getUserCards(int userId) async {
-    _cardNumbers.shuffle(Random());
+    final random = Random();
+    _cardNumbers.shuffle(random);
 
-    final cardAmount = Random().nextInt(5) + 1;
+    final cardAmount = random.nextInt(5) + 1;
     final cardNumbers = _cardNumbers.take(cardAmount).toList();
     final cards = cardNumbers
         .map(

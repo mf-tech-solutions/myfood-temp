@@ -28,8 +28,9 @@ final cartReducer = combineReducers<CartState>([
   TypedReducer(_removeUserCardStart),
   TypedReducer(_removeUserCardSuccess),
   TypedReducer(_removeUserCardFail),
-  TypedReducer(_setDeliverInfo),
   TypedReducer(_setPaymentMethod),
+  TypedReducer(_setSocialIdInNote),
+  TypedReducer(_setDeliverInfo),
   TypedReducer(_getDeliverAddressesStart),
   TypedReducer(_getDeliverAddressesSuccess),
   TypedReducer(_getDeliverAddressesFail),
@@ -252,17 +253,24 @@ CartState _setPaymentMethod(CartState state, SetPaymentMethodAction action) {
   return state.copyWith(paymentMethod: action.payload.paymentMethod);
 }
 
+CartState _setSocialIdInNote(CartState state, SetSocialIdInNoteAction action) {
+  return state.copyWith(
+    includeSocialIdInNote: action.payload.includeSocialIdInNote,
+    socialIdInNote: action.payload.socialId,
+  );
+}
+
 //region Get deliver addresses
 CartState _getDeliverAddressesStart(
   CartState state,
-  GetDeliverAddressessAction action,
+  GetDeliverAddressesAction action,
 ) {
   return state.copyWith(loadingAddresses: true);
 }
 
 CartState _getDeliverAddressesSuccess(
   CartState state,
-  GetDeliverAddressessSuccessAction action,
+  GetDeliverAddressesSuccessAction action,
 ) {
   return state.copyWith(
     loadingAddresses: false,
@@ -272,7 +280,7 @@ CartState _getDeliverAddressesSuccess(
 
 CartState _getDeliverAddressesFail(
   CartState state,
-  GetDeliverAddressessFailAction action,
+  GetDeliverAddressesFailAction action,
 ) {
   return state.copyWith(loadingAddresses: false);
 }

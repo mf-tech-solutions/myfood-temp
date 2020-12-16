@@ -25,6 +25,9 @@ class CartState {
   final List<Address> addresses;
   final bool loadingAddresses;
 
+  final bool includeSocialIdInNote;
+  final String socialIdInNote;
+
   CartState({
     @required this.products,
     @required this.isDeliver,
@@ -35,6 +38,8 @@ class CartState {
     @required this.paymentMethod,
     @required this.loadingAddresses,
     @required this.addresses,
+    @required this.includeSocialIdInNote,
+    this.socialIdInNote,
     this.currentOrder,
     this.orderList,
   });
@@ -51,6 +56,7 @@ class CartState {
       paymentMethod: null,
       products: [],
       shouldLoadCards: true,
+      includeSocialIdInNote: true,
     );
   }
 
@@ -67,6 +73,8 @@ class CartState {
       paymentMethod: null,
       products: currentState.products,
       shouldLoadCards: false,
+      includeSocialIdInNote: currentState.includeSocialIdInNote,
+      socialIdInNote: currentState.socialIdInNote,
     );
   }
 
@@ -83,6 +91,8 @@ class CartState {
       paymentMethod: currentState.paymentMethod,
       products: currentState.products,
       shouldLoadCards: currentState.shouldLoadCards,
+      includeSocialIdInNote: currentState.includeSocialIdInNote,
+      socialIdInNote: currentState.socialIdInNote,
     );
   }
 
@@ -98,6 +108,8 @@ class CartState {
     PaymentMethod paymentMethod,
     List<CartProduct> products,
     bool shouldLoadCards,
+    bool includeSocialIdInNote,
+    String socialIdInNote,
   }) {
     return CartState(
       addresses: addresses ?? this.addresses,
@@ -111,6 +123,9 @@ class CartState {
       paymentMethod: paymentMethod ?? this.paymentMethod,
       products: products ?? this.products,
       shouldLoadCards: shouldLoadCards ?? this.shouldLoadCards,
+      includeSocialIdInNote:
+          includeSocialIdInNote ?? this.includeSocialIdInNote,
+      socialIdInNote: socialIdInNote ?? this.socialIdInNote,
     );
   }
 }

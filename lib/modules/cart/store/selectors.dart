@@ -1,6 +1,6 @@
-import '../utils.dart';
 import 'package:flutter/material.dart';
 
+import '../../../store/store.dart';
 import '../models/address.dart';
 import '../models/card.dart';
 import '../models/cart_product.dart';
@@ -8,7 +8,7 @@ import '../models/deliver_info.dart';
 import '../models/order_status.dart';
 import '../models/payment_method.dart';
 import '../models/payment_mothod_type.dart';
-import '../../../store/store.dart';
+import '../utils.dart';
 
 CartProduct getCartProductByProductId(int productId) {
   return AppStore.store.state.cartState.products.firstWhere(
@@ -37,6 +37,10 @@ bool shouldLoadCards() {
 
 PaymentMethod getSelectedPaymentMethod() {
   return AppStore.store.state.cartState.paymentMethod;
+}
+
+bool includeSocialIdInNote() {
+  return AppStore.store.state.cartState.includeSocialIdInNote;
 }
 
 bool isCardSelectedPaymentMethod(int cardId) {

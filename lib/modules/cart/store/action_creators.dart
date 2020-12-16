@@ -69,7 +69,7 @@ void placeOrder() {
     orderId: null,
     paymentMethod: state.paymentMethod,
     status: OrderStatus.created,
-    taxNumber: '60805766359',
+    socialIdInNote: state.socialIdInNote,
   );
 
   AppStore.store.dispatch(PlaceOrderAction(order));
@@ -118,18 +118,25 @@ void setPaymentMethod(PaymentMethod paymentMethod) {
   AppStore.store.dispatch(SetPaymentMethodAction(paymentMethod));
 }
 
+void setSocialIdInNote(bool includeSocialIdInNote, String socialId) {
+  AppStore.store.dispatch(SetSocialIdInNoteAction(
+    includeSocialIdInNote,
+    socialId,
+  ));
+}
+
 void toggleDeliverOption() {
   AppStore.store.dispatch(ToggleDeliverOption());
 }
 
 Future<void> getDeliverAddresses() async {
-  AppStore.store.dispatch(GetDeliverAddressessAction());
+  AppStore.store.dispatch(GetDeliverAddressesAction());
 
   try {
     final addresses = await CartService.getDeliverAddresses();
-    AppStore.store.dispatch(GetDeliverAddressessSuccessAction(addresses));
+    AppStore.store.dispatch(GetDeliverAddressesSuccessAction(addresses));
   } catch (e) {
-    AppStore.store.dispatch(GetDeliverAddressessFailAction());
+    AppStore.store.dispatch(GetDeliverAddressesFailAction());
   }
 }
 

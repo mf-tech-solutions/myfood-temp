@@ -11,7 +11,7 @@ class Order {
   final DeliverInfo deliverInfo;
   final OrderStatus status;
   final PaymentMethod paymentMethod;
-  final String taxNumber;
+  final String socialIdInNote;
   final DateTime createdAt;
   final DateTime finishedAt;
 
@@ -24,7 +24,7 @@ class Order {
     @required this.deliverInfo,
     @required this.status,
     @required this.paymentMethod,
-    @required this.taxNumber,
+    @required this.socialIdInNote,
     this.finishedAt,
   });
 
@@ -36,7 +36,7 @@ class Order {
       orderId: data.orderId,
       paymentMethod: data.paymentMethod,
       status: data.status,
-      taxNumber: null,
+      socialIdInNote: null,
     );
   }
 
@@ -58,7 +58,7 @@ class Order {
       orderId: orderId ?? this.orderId,
       paymentMethod: paymentMethod ?? this.paymentMethod,
       status: status ?? this.status,
-      taxNumber: taxNumber ?? this.taxNumber,
+      socialIdInNote: taxNumber ?? this.socialIdInNote,
     );
   }
 }

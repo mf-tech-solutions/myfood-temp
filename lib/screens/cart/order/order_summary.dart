@@ -1,8 +1,8 @@
-import 'package:MyFood/modules/cart/components/order_summary_screen/items_section.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:MyFood/modules/cart/components/general/input_formatters.dart';
 import 'package:flutter/material.dart';
 
 import '../../../components/app_bar/app_bar.dart';
+import '../../../modules/cart/components/order_summary_screen/items_section.dart';
 import '../../../modules/cart/models/deliver_type.dart';
 import '../../../modules/cart/models/order.dart';
 import '../../../modules/cart/models/payment_mothod_type.dart';
@@ -11,6 +11,7 @@ import '../../../modules/cart/utils.dart';
 
 class OrderSummaryScreen extends StatelessWidget {
   final Order order;
+  final _socialIdFormatter = CpfInputFormatter();
 
   OrderSummaryScreen({
     Key key,
@@ -22,7 +23,7 @@ class OrderSummaryScreen extends StatelessWidget {
       child: child,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(16),
       ),
       margin: EdgeInsets.only(bottom: 16),
       padding: EdgeInsets.symmetric(
@@ -130,8 +131,8 @@ class OrderSummaryScreen extends StatelessWidget {
             child: buildPaymentMethodSection(),
           ),
           Text(
-            order.taxNumber != null
-                ? 'CPF na nota: ${order.taxNumber}'
+            order.socialIdInNote != null
+                ? 'CPF na nota: ${_socialIdFormatter.maskText(order.socialIdInNote)}'
                 : 'CPF não incluso',
           )
         ],

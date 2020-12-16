@@ -4,7 +4,6 @@ import 'package:flutter_redux/flutter_redux.dart';
 import '../../../../constants.dart';
 import '../../../../routes.dart';
 import '../../../../store/state.dart';
-import '../../../user/models/user.dart';
 import '../../models/payment_method.dart';
 import '../../store/action_creators.dart';
 import '../../store/selectors.dart';
@@ -33,7 +32,7 @@ class _PaymentSectionState extends State<PaymentSection> {
     return Center(
       child: TextButton(
         child: Text('Escolha um método de pagamento'),
-        onPressed: goToPaymentMethodScreen,
+        onPressed: () => goToRoute(paymentMethodsRoute),
       ),
     );
   }
@@ -42,14 +41,14 @@ class _PaymentSectionState extends State<PaymentSection> {
     return withInkWell(
       PaymentMethodView(
         paymentMethod: paymentMethod,
-        onTapCallback: goToPaymentMethodScreen,
+        onTapCallback: () => goToRoute(paymentMethodsRoute),
       ),
-      goToPaymentMethodScreen,
+      () => goToRoute(paymentMethodsRoute),
     );
   }
 
-  void goToPaymentMethodScreen() {
-    Navigator.of(context).pushNamed(paymentMethodsRoute);
+  void goToRoute(String route, {Object arguments}) {
+    Navigator.of(context).pushNamed(route, arguments: arguments);
   }
 
   @override
@@ -76,24 +75,37 @@ class _PaymentSectionState extends State<PaymentSection> {
                 );
               },
             ),
-            SizedBox(height: 12),
-            StoreConnector<AppState, User>(
-              converter: (store) => store.state.userState.user,
-              builder: (_, user) {
+            Divider(height: 1),
+            StoreConnector<AppState, AppState>(
+              converter: (store) => store.state,
+              builder: (_, appState) {
+                final user = appState.userState.user;
                 if (user == null) return SizedBox(height: 0);
+
+                final cartState = appState.cartState;
+                final socialId = cartState.socialIdInNote;
+                if (cartState.includeSocialIdInNote && socialId == null) {
+                  setSocialIdInNote(true, user.cpf);
+                }
 
                 return withInkWell(
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      UserSocialSecutiryView(user: user),
+                      SocialIdView(),
                       TextButton(
                         child: Text('Trocar'),
-                        onPressed: () {},
+                        onPressed: () => goToRoute(
+                          setSocialIdInNoteRoute,
+                          arguments: socialId,
+                        ),
                       ),
                     ],
                   ),
-                  () {},
+                  () => goToRoute(
+                    setSocialIdInNoteRoute,
+                    arguments: socialId,
+                  ),
                 );
               },
             ),

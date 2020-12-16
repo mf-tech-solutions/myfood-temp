@@ -1,31 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
+import '../../../../store/state.dart';
+import '../../store/state.dart';
 import '../formatters.dart';
-import '../../../user/models/user.dart';
 
-class UserSocialSecutiryView extends StatelessWidget {
+class SocialIdView extends StatelessWidget {
   final _formatter = CpfFormatter();
-  final User user;
-
-  UserSocialSecutiryView({Key key, @required this.user}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('CPF na nota'),
-        SizedBox(height: 4),
-        Text(
-          _formatter.maskText(user.cpf),
-          style: textTheme.subtitle1.copyWith(
-            color: theme.disabledColor,
-          ),
-        ),
-      ],
+    return StoreConnector<AppState, CartState>(
+      converter: (store) => store.state.cartState,
+      builder: (_, state) {
+        final includeSocialIdInNote = state.includeSocialIdInNote;
+        if (!includeSocialIdInNote) {
+          return Text('CPF não incluso');
+        }
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('CPF na nota'),
+            SizedBox(height: 4),
+            Text(
+              _formatter.maskText(state.socialIdInNote),
+              style: textTheme.subtitle1.copyWith(
+                color: theme.disabledColor,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

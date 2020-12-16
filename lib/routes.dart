@@ -1,3 +1,4 @@
+import 'package:MyFood/screens/cart/set_social_id.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/cart/add_deliver_address.dart';
@@ -72,11 +73,16 @@ class Routes {
       case recipesRoute:
         return Utils.pageRouteBuilder(RecipesScreen());
 
-      case signupRoute:
-        return Utils.cupertinoRouteBuilder(SignUpScreen());
-
       case searchRoute:
         return Utils.pageRouteBuilder(SearchScreen());
+
+      case setSocialIdInNoteRoute:
+        return Utils.pageRouteBuilder(SetSocialIdScreen(
+          socialId: settings.arguments,
+        ));
+
+      case signupRoute:
+        return Utils.cupertinoRouteBuilder(SignUpScreen());
 
       case userRoute:
         return Utils.pageRouteBuilder(UserScreen());
@@ -106,6 +112,7 @@ const String paymentMethodsRoute = 'paymentMethods';
 const String productDetailRoute = 'productDetails';
 const String recipesRoute = 'recipes';
 const String searchRoute = 'search';
+const String setSocialIdInNoteRoute = 'setSocialId';
 const String signupRoute = 'signup';
 const String userRoute = 'user';
 const String userEditRoute = 'userEdit';
