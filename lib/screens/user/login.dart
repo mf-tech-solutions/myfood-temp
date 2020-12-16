@@ -3,14 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-import '../landing.dart';
+import '../../modules/user/components/login/login_screen_body.dart';
+import '../../modules/user/resource.dart';
+import '../../modules/user/store/action_creators.dart';
+import '../../modules/user/store/state.dart';
 import '../../routes.dart';
 import '../../store/state.dart';
-import '../../store/store.dart';
-import '../../modules/user/resource.dart';
-import '../../modules/user/store/state.dart';
-import '../../modules/user/store/actions.dart';
-import '../../modules/user/components/login/login_screen_body.dart';
+import '../landing.dart';
 
 class LoginScreen extends StatefulWidget {
   final emailController = TextEditingController();
@@ -21,6 +20,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   void goToHomeScreen() {
     @override
     void run() {
@@ -66,9 +67,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
   //endregion
 
-  void onSubmit(BuildContext context) {
-    login(
-      AppStore.store,
+  void onSubmit(BuildContext context) async {
+    await login(
       this.widget.emailController.text,
       this.widget.passwordController.text,
     );
@@ -76,7 +76,6 @@ class _LoginScreenState extends State<LoginScreen> {
     goToHomeScreen();
 
     String validation = validate();
-
     if (validation != null) {
       Scaffold.of(context).showSnackBar(
         SnackBar(
@@ -111,15 +110,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
         return Scaffold(
           backgroundColor: Theme.of(context).primaryColor,
-          body: SafeArea(
-            child: LoginScreenBody(
-              emailController: this.widget.emailController,
-              passwordController: this.widget.passwordController,
-              validateEmail: this.validateEmail,
-              validatePassword: this.validatePassword,
-              onSubmit: this.onSubmit,
-            ),
+          body: LoginScreenBody(
+            emailController: this.widget.emailController,
+            passwordController: this.widget.passwordController,
+            validateEmail: this.validateEmail,
+            validatePassword: this.validatePassword,
+            onSubmit: this.onSubmit,
           ),
+          key: _scaffoldKey,
         );
       },
     );

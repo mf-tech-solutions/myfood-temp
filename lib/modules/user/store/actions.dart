@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart' show required;
 import 'package:redux/redux.dart' show Store;
 
-import '../service.dart';
-import '../models/user.dart';
 import '../../../store/state.dart';
 import '../../../store/store.dart';
+import '../models/user.dart';
+import '../service.dart';
 
 //region Login
 class LoginAction {
@@ -26,21 +26,6 @@ class LoginSuccessAction {
 }
 
 class LoginFailAction {}
-
-Future<void> login(
-  Store<AppState> store,
-  String email,
-  String password,
-) async {
-  store.dispatch(LoginAction());
-
-  try {
-    final user = await UserService.signInWithEmailAndPassword(email, password);
-    store.dispatch(LoginSuccessAction(user: user));
-  } catch (e) {
-    store.dispatch(LoginFailAction());
-  }
-}
 //endregion
 
 //region SignUp
