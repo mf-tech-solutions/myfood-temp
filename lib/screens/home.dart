@@ -1,22 +1,13 @@
-import 'package:MyFood/modules/navigation/store/selectors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart' show StoreConnector;
 
-import '../constants.dart';
-import '../store/state.dart';
 import '../components/app_bar/app_bar.dart';
-import '../modules/navigation/store/actionCreators.dart';
-import '../modules/navigation/store/state.dart';
+import '../constants.dart';
 import '../modules/navigation/components/bottom_navigation.dart';
+import '../modules/navigation/store/state.dart';
+import '../store/state.dart';
 
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  final _scaffoldKey = GlobalKey<ScaffoldState>(debugLabel: 'homeScreen');
-
+class HomeScreen extends StatelessWidget {
   Widget transitionBuilder(
     Widget child,
     Animation<double> primaryAnimation,
@@ -43,12 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return StoreConnector<AppState, NavigationState>(
       converter: (store) => store.state.navigationState,
       builder: (context, state) {
-        if (getRootScaffoldKey() == null) {
-          updateRootScaffoldKey(_scaffoldKey);
-        }
-
         return Scaffold(
-          key: _scaffoldKey,
           body: AnimatedSwitcher(
             layoutBuilder: (currentChild, previousChildren) {
               return Stack(
