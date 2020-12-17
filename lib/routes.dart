@@ -1,9 +1,9 @@
 import 'package:MyFood/screens/cart/set_social_id.dart';
 import 'package:flutter/material.dart';
 
-import 'screens/cart/add_deliver_address.dart';
 import 'screens/cart/cart.dart';
-import 'screens/cart/deliver_address_list.dart';
+import 'screens/cart/deliver_address/add_deliver_address.dart';
+import 'screens/cart/deliver_address/deliver_address_list.dart';
 import 'screens/cart/order/order_list.dart';
 import 'screens/cart/order/order_status.dart';
 import 'screens/cart/order/order_summary.dart';
@@ -37,7 +37,9 @@ class Routes {
         return Utils.pageRouteBuilder(DeliverAddressListScreen());
 
       case deliverAddAddressRoute:
-        return Utils.cupertinoRouteBuilder(AddDeliverAddressScreen());
+        return Utils.cupertinoRouteBuilder(AddDeliverAddressScreen(
+          address: settings.arguments,
+        ));
 
       case gamesRoute:
         return Utils.pageRouteBuilder(GamesScreen());

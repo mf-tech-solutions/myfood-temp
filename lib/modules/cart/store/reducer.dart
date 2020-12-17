@@ -37,6 +37,9 @@ final cartReducer = combineReducers<CartState>([
   TypedReducer(_addDeliverAddressStart),
   TypedReducer(_addDeliverAddressSuccess),
   TypedReducer(_addDeliverAddressFail),
+  TypedReducer(_updateDeliverAddressStart),
+  TypedReducer(_updateDeliverAddressSuccess),
+  TypedReducer(_updateDeliverAddressFail),
   TypedReducer(_setDefaultDeliverAddressStart),
   TypedReducer(_setDefaultDeliverAddressSuccess),
   TypedReducer(_setDefaultDeliverAddressFail),
@@ -307,6 +310,36 @@ CartState _addDeliverAddressSuccess(
 CartState _addDeliverAddressFail(
   CartState state,
   AddDeliverAddressFailAction action,
+) {
+  return state.copyWith(loadingAddresses: false);
+}
+//endregion
+
+//region Update deliver address
+CartState _updateDeliverAddressStart(
+  CartState state,
+  UpdateDeliverAddressAction action,
+) {
+  return state.copyWith(loadingAddresses: true);
+}
+
+CartState _updateDeliverAddressSuccess(
+  CartState state,
+  UpdateDeliverAddressSuccessAction action,
+) {
+  final updatedAddress = action.payload.address;
+  final addresses = state.addresses
+      .map(
+        (x) => x.addressId == updatedAddress.addressId ? updatedAddress : x,
+      )
+      .toList();
+
+  return state.copyWith(loadingAddresses: false, addresses: addresses);
+}
+
+CartState _updateDeliverAddressFail(
+  CartState state,
+  UpdateDeliverAddressFailAction action,
 ) {
   return state.copyWith(loadingAddresses: false);
 }

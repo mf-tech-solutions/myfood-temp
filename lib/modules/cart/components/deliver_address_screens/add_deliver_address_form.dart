@@ -1,14 +1,16 @@
+import 'package:MyFood/modules/cart/store/action_creators.dart';
+import 'package:MyFood/store/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
-import 'added_address_dialog.dart';
-import 'address_validator.dart';
+import '../../../../components/outlined_input.dart';
+import '../../../../utils.dart';
+import '../../models/address.dart';
 import '../general/input_formatters.dart';
 import '../general/large_button.dart';
-import '../../models/address.dart';
-import '../../store/action_creators.dart';
-import '../../../../utils.dart';
-import '../../../../components/outlined_input.dart';
+import 'added_address_dialog.dart';
+import 'address_validator.dart';
 
 class AddDeliverAddressForm extends StatelessWidget {
   final TextEditingController streetController;
@@ -19,15 +21,72 @@ class AddDeliverAddressForm extends StatelessWidget {
   final zipCodeFormatter = CepInputFormatter();
   String get zipCode => zipCodeFormatter.unmaskText(zipCodeController.text);
 
+  final Address address;
+  bool get isUpdate => address != null;
+
   AddDeliverAddressForm({
     Key key,
     @required this.streetController,
     @required this.streetNumberController,
     @required this.zipCodeController,
     @required this.complementController,
-  }) : super(key: key);
+    this.address,
+  }) : super(key: key) {
+    if (!isUpdate) {
+      return;
+    }
 
-  void showInvalidDataSnackBar(BuildContext context, {String message}) {
+    streetController.text = address.street;
+    streetNumberController.text = address.number.toString();
+    zipCodeController.text = zipCodeFormatter.maskText(address.zipcode);
+    complementController.text = address.complement;
+  }
+
+  void _confirm(BuildContext context) async {
+    final validationMessage = _validate();
+    if (validationMessage.isNotEmpty) {
+      _showInvalidDataSnackBar(
+        context,
+        message: validationMessage,
+      );
+      return;
+    }
+
+    final address = Address(
+      addressId: this.address?.addressId,
+      street: streetController.text,
+      number: int.parse(streetNumberController.text),
+      zipcode: zipCode,
+      complement:
+          complementController.text.isEmpty ? null : complementController.text,
+      isDefault: this.address?.isDefault,
+    );
+    if (isUpdate) {
+      await _updateAddress(address);
+      Utils.showContentOnlyDialog(
+        context: context,
+        child: AddedDeliverAddressDialog(context, isUpdate: true).dialog,
+      );
+    } else {
+      await _addAddress(address);
+      Utils.showContentOnlyDialog(
+        context: context,
+        child: AddedDeliverAddressDialog(context).dialog,
+      );
+    }
+  }
+
+  String _validate() {
+    final street = streetController.text;
+    final streetNumber = streetNumberController.text;
+
+    final validator = AddressValidator(street, streetNumber, zipCode);
+    validator.validate();
+
+    return validator.validationMessage;
+  }
+
+  void _showInvalidDataSnackBar(BuildContext context, {String message}) {
     final scaffold = Scaffold.of(context);
     final backgroundColor = Theme.of(context).accentColor;
     final content = Text(
@@ -41,37 +100,12 @@ class AddDeliverAddressForm extends StatelessWidget {
     );
   }
 
-  void confirm(BuildContext context) async {
-    final validationMessage = validate();
-    if (validationMessage.isNotEmpty) {
-      showInvalidDataSnackBar(
-        context,
-        message: validationMessage,
-      );
-      return;
-    }
-
-    final address = Address(
-      street: streetController.text,
-      number: int.parse(streetNumberController.text),
-      zipcode: zipCode,
-      complement: complementController.text,
-    );
-
-    await addDeliverAddress(address);
-    Utils.showContentOnlyDialog(
-      context: context,
-      child: AddedDeliverAddressDialog(context).dialog,
-    );
+  Future<void> _addAddress(Address address) {
+    return addDeliverAddress(address);
   }
 
-  String validate() {
-    final street = streetController.text;
-    final streetNumber = streetNumberController.text;
-
-    final validator = AddressValidator(street, streetNumber, zipCode);
-    validator.validate();
-    return validator.validationMessage;
+  Future<void> _updateAddress(Address address) {
+    return updateDeliverAddress(address);
   }
 
   @override
@@ -118,7 +152,7 @@ class AddDeliverAddressForm extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Expanded(
-                flex: 4,
+                flex: 3,
                 child: OutlinedInput(
                   controller: zipCodeController,
                   inputType: TextInputType.number,
@@ -132,7 +166,7 @@ class AddDeliverAddressForm extends StatelessWidget {
               ),
               SizedBox(width: 12),
               Expanded(
-                flex: 6,
+                flex: 7,
                 child: OutlinedInput(
                   capitalization: TextCapitalization.words,
                   controller: complementController,
@@ -141,18 +175,23 @@ class AddDeliverAddressForm extends StatelessWidget {
                     LengthLimitingTextInputFormatter(20),
                   ],
                   labelText: 'Complemento',
-                  onSubmitted: (_) => confirm(context),
+                  onSubmitted: (_) => _confirm(context),
                 ),
               ),
             ],
           ),
         ),
-        SizedBox(
-          width: double.infinity,
-          child: LargeButton(
-            child: Text('CONFIRMAR'),
-            onPressed: () => confirm(context),
-          ),
+        StoreConnector<AppState, bool>(
+          converter: (store) => store.state.cartState.loadingAddresses,
+          builder: (context, loadingAddresses) {
+            return SizedBox(
+              width: double.infinity,
+              child: LargeButton(
+                child: Text(loadingAddresses ? 'AGUARDE' : 'CONFIRMAR'),
+                onPressed: loadingAddresses ? null : () => _confirm(context),
+              ),
+            );
+          },
         ),
       ],
     );

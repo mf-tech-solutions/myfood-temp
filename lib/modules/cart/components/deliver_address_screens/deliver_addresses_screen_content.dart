@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import '../../../../constants.dart';
+import '../../../../routes.dart';
 import '../../../../store/state.dart';
 import '../../models/address.dart';
 import '../../store/action_creators.dart';
@@ -23,7 +24,7 @@ class DeliverAddressesScreenContent extends StatelessWidget {
     );
   }
 
-  Widget buildAddressesList(List<Address> addresses) {
+  Widget buildAddressesList(BuildContext context, List<Address> addresses) {
     return ListView.separated(
       padding: EdgeInsets.symmetric(vertical: 24, horizontal: 12),
       physics: const AlwaysScrollableScrollPhysics(),
@@ -49,7 +50,10 @@ class DeliverAddressesScreenContent extends StatelessWidget {
                   color: Constants.blackTextColor,
                 ),
               ),
-              onTap: () {},
+              onTap: () => Navigator.of(context).pushNamed(
+                deliverAddAddressRoute,
+                arguments: address,
+              ),
             ),
             onChanged: (_) => changeDefaultDeliverAddress(address),
           ),
@@ -87,14 +91,13 @@ class DeliverAddressesScreenContent extends StatelessWidget {
         }
 
         final addresses = state.addresses;
-
         if (addresses == null) {
           getDeliverAddresses();
           return SizedBox.shrink();
         }
 
         final message = buildNoAddressesMessage(context);
-        final list = buildAddressesList(addresses);
+        final list = buildAddressesList(context, addresses);
 
         return WithRefreshIndicator(
           child: addresses.length == 0 ? message : list,

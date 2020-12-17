@@ -4,10 +4,12 @@ import '../../../../components/alert_dialog.dart';
 
 class AddedDeliverAddressDialog {
   final BuildContext context;
+  final bool isUpdate;
 
   Widget get dialog {
     return MyAlertDialog(
-      content: Text('Endereço adicionado com sucesso!'),
+      content: Text(
+          'Endereço ${isUpdate ? 'atualizado' : 'adicionado'} com sucesso!'),
       actions: [
         TextButton(
           child: Text('OK', style: TextStyle(color: Colors.black87)),
@@ -21,7 +23,7 @@ class AddedDeliverAddressDialog {
     );
   }
 
-  AddedDeliverAddressDialog(this.context);
+  AddedDeliverAddressDialog(this.context, {this.isUpdate = false});
 
   void _onOkButtonPressed(BuildContext context) {
     Navigator.of(context).pop();

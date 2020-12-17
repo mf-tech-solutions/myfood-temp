@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../components/app_bar/app_bar.dart';
-import '../../modules/cart/components/deliver_address_screens/deliver_addresses_screen_content.dart';
-import '../../routes.dart';
+import '../../../components/app_bar/app_bar.dart';
+import '../../../modules/cart/components/deliver_address_screens/deliver_addresses_screen_content.dart';
+import '../../../routes.dart';
 
 class DeliverAddressListScreen extends StatelessWidget {
   void openAddAddressForm(BuildContext context) {

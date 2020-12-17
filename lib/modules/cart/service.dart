@@ -153,6 +153,10 @@ class CartService {
     return Future.delayed(Duration(milliseconds: 600), () => null);
   }
 
+  static updateDeliverAddress() {
+    return Future.delayed(Duration(milliseconds: 666), () => null);
+  }
+
   static Future<void> setDefaultDeliverAddress(Address address) {
     return Future.delayed(Duration(milliseconds: 600), () => null);
   }

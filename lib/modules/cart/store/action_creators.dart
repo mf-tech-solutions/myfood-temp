@@ -151,6 +151,17 @@ Future<void> addDeliverAddress(Address address) async {
   }
 }
 
+Future<void> updateDeliverAddress(Address address) async {
+  AppStore.store.dispatch(UpdateDeliverAddressAction());
+
+  try {
+    await CartService.updateDeliverAddress();
+    AppStore.store.dispatch(UpdateDeliverAddressSuccessAction(address));
+  } catch (e) {
+    AppStore.store.dispatch(UpdateDeliverAddressFailAction());
+  }
+}
+
 Future<void> setDefaultDeliverAddress(Address address) async {
   final previousDefaultAddress = getDefaultDeliverAddress();
 

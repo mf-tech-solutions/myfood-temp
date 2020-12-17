@@ -264,6 +264,26 @@ class AddDeliverAddressSuccessAction {
 class AddDeliverAddressFailAction {}
 //endregion
 
+// region Update deliver address
+class UpdateDeliverAddressAction {}
+
+class UpdateDeliverAddressSuccessAction {
+  UpdateDeliverAddressSuccessPayload payload;
+
+  UpdateDeliverAddressSuccessAction(Address address) {
+    payload = UpdateDeliverAddressSuccessPayload(address);
+  }
+}
+
+class UpdateDeliverAddressSuccessPayload {
+  final Address address;
+
+  UpdateDeliverAddressSuccessPayload(this.address);
+}
+
+class UpdateDeliverAddressFailAction {}
+// endregion
+
 //region Set default deliver address
 class SetDefaultDeliverAddressPayload {
   final Address address;
