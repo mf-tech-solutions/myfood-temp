@@ -9,7 +9,6 @@ import '../../modules/user/store/action_creators.dart';
 import '../../modules/user/store/state.dart';
 import '../../routes.dart';
 import '../../store/state.dart';
-import '../landing.dart';
 
 class LoginScreen extends StatefulWidget {
   final emailController = TextEditingController();
@@ -26,9 +25,8 @@ class _LoginScreenState extends State<LoginScreen> {
     @override
     void run() {
       scheduleMicrotask(() {
-        Navigator.of(this.context).pushNamedAndRemoveUntil(
+        Navigator.of(this.context).pushReplacementNamed(
           homeRoute,
-          (route) => false,
         );
       });
     }
@@ -73,8 +71,6 @@ class _LoginScreenState extends State<LoginScreen> {
       this.widget.passwordController.text,
     );
 
-    goToHomeScreen();
-
     String validation = validate();
     if (validation != null) {
       Scaffold.of(context).showSnackBar(
@@ -100,10 +96,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return StoreConnector<AppState, UserState>(
       converter: (store) => store.state.userState,
       builder: (_, state) {
-        if (state.loading) {
-          return LandingScreen();
-        }
-
         if (state.user != null) {
           goToHomeScreen();
         }

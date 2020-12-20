@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'login_form.dart';
+import '../../../../components/inputs/text_field.dart';
 import '../auth_screen_image.dart';
 import '../form_submit_button.dart';
-import '../../../../components/inputs/text_field.dart';
+import 'login_form.dart';
 
 class LoginScreenBody extends StatelessWidget {
   final TextEditingController emailController;
@@ -37,8 +37,10 @@ class LoginScreenBody extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  AuthScreenImage(),
-                  SizedBox(height: 24),
+                  SizedBox(
+                    height: 256,
+                    child: AuthScreenImage(),
+                  ),
                   LoginForm(
                     width: formContainerWidth,
                     emailController: this.emailController,

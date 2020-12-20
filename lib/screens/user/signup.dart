@@ -1,10 +1,15 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-import '../../routes.dart';
-import '../../store/store.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+
+import '../../modules/user/components/signup/signup_screen_body.dart';
 import '../../modules/user/resource.dart';
 import '../../modules/user/store/actions.dart';
-import '../../modules/user/components/signup/signup_screen_body.dart';
+import '../../modules/user/store/state.dart';
+import '../../routes.dart';
+import '../../store/state.dart';
+import '../../store/store.dart';
 
 class SignUpScreen extends StatefulWidget {
   final emailController = TextEditingController();
@@ -54,29 +59,44 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
 
     validate();
-    goToHomeScreen();
   }
 
   void goToHomeScreen() {
-    Navigator.of(context).pushNamedAndRemoveUntil(
-      homeRoute,
-      (route) => false,
-    );
+    @override
+    void run() {
+      scheduleMicrotask(() {
+        Navigator.of(this.context).pushNamedAndRemoveUntil(
+          homeRoute,
+          (_) => false,
+        );
+      });
+    }
+
+    run();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
-      body: SafeArea(
-        child: SignUpScreenBody(
-          emailController: this.widget.emailController,
-          validateEmail: this.validateEmail,
-          passwordController: this.widget.passwordController,
-          validatePassword: this.validatePassword,
-          onSubmit: (_) => this.onSubmit(),
-        ),
-      ),
+    return StoreConnector<AppState, UserState>(
+      converter: (store) => store.state.userState,
+      builder: (_, state) {
+        if (state.user != null) {
+          goToHomeScreen();
+        }
+
+        return Scaffold(
+          backgroundColor: Theme.of(context).primaryColor,
+          body: SafeArea(
+            child: SignUpScreenBody(
+              emailController: this.widget.emailController,
+              validateEmail: this.validateEmail,
+              passwordController: this.widget.passwordController,
+              validatePassword: this.validatePassword,
+              onSubmit: (_) => this.onSubmit(),
+            ),
+          ),
+        );
+      },
     );
   }
 }
