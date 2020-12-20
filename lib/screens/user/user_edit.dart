@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import 'package:MyFood/modules/user/components/general/select_user_image_bottom_sheet.dart';
-import 'package:MyFood/modules/user/components/user_screen/user_avatar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/app_bar/app_bar.dart';
 import '../../components/large_button.dart';
 import '../../modules/user/components/general/input_formatters.dart';
+import '../../modules/user/components/general/select_user_image_bottom_sheet.dart';
+import '../../modules/user/components/user_screen/user_avatar.dart';
 import '../../modules/user/components/user_screen/user_personal_info_form.dart';
 import '../../modules/user/models/user.dart';
 import '../../modules/user/models/user_dto.dart';
