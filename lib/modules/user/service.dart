@@ -1,9 +1,8 @@
 import 'dart:math';
 
-import 'models/user_dto.dart';
-
 import 'models/address.dart';
 import 'models/user.dart';
+import 'models/user_dto.dart';
 
 class UserService {
   static final _user = User(
@@ -14,7 +13,6 @@ class UserService {
     email: 'dummy@email.com',
     imageUrl:
         'https://pbs.twimg.com/profile_images/1188507013233479681/WuNwaQ8R_400x400.jpg',
-    address: _userAddress,
   );
 
   static final _userAddress = Address(

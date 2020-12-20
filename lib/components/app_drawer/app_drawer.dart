@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../modules/food/resource.dart';
+import '../../routes.dart';
 import 'drawer_header.dart';
 import 'primary_item.dart';
-import '../../routes.dart';
-import '../../modules/food/resource.dart';
 
 class AppDrawer extends StatelessWidget {
   void _goTo(String route, BuildContext context) {
@@ -14,7 +14,7 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 0),
         children: [
           AppDrawerHeader(),
           SizedBox(height: 16),

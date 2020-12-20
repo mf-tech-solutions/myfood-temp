@@ -1,4 +1,3 @@
-import 'package:MyFood/screens/cart/set_social_id.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/cart/cart.dart';
@@ -10,6 +9,7 @@ import 'screens/cart/order/order_summary.dart';
 import 'screens/cart/payment_method/add_user_card.dart';
 import 'screens/cart/payment_method/payment_methods.dart';
 import 'screens/cart/product_detail.dart';
+import 'screens/cart/set_social_id.dart';
 import 'screens/food/games_screen.dart';
 import 'screens/food/recipes_screen.dart';
 import 'screens/food/search_screen.dart';
@@ -20,6 +20,7 @@ import 'screens/user/login.dart';
 import 'screens/user/signup.dart';
 import 'screens/user/user.dart';
 import 'screens/user/user_edit.dart';
+import 'screens/user/user_image.dart';
 import 'utils.dart';
 
 class Routes {
@@ -92,6 +93,9 @@ class Routes {
       case userEditRoute:
         return Utils.cupertinoRouteBuilder(UserEditScreen());
 
+      case userImageRoute:
+        return Utils.cupertinoRouteBuilder(UserImageScreen());
+
       default:
         return MaterialPageRoute(builder: (_) => HomeScreen());
     }
@@ -118,3 +122,4 @@ const String setSocialIdInNoteRoute = 'setSocialId';
 const String signupRoute = 'signup';
 const String userRoute = 'user';
 const String userEditRoute = 'userEdit';
+const String userImageRoute = 'userImage';

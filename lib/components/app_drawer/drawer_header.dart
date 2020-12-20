@@ -1,32 +1,23 @@
 import 'package:flutter/material.dart';
 
-import '../../routes.dart';
-import '../../modules/user/resource.dart';
-import '../../modules/user/store/actions.dart';
 import '../../modules/user/components/user_avatar.dart';
+import '../../routes.dart';
 
 class AppDrawerHeader extends StatelessWidget {
+  void goToUserScreen(BuildContext context) {
+    Navigator.of(context).pushNamed(userRoute);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        GestureDetector(
-          onTap: () => Navigator.of(context).pushNamed(userRoute),
-          child: UserAvatar(),
-        ),
-        TextButton.icon(
-          icon: Icon(Icons.exit_to_app_rounded),
-          label: Text(UserResource.signOut.toUpperCase()),
-          onPressed: () async {
-            await signOut();
-            Navigator.of(context).pushNamedAndRemoveUntil(
-              loginRoute,
-              (_) => false,
-            );
-          },
-        ),
-      ],
+    return ListTile(
+      title: UserAvatar(),
+      trailing: IconButton(
+        icon: Icon(Icons.chevron_right_rounded),
+        onPressed: () => goToUserScreen(context),
+        padding: EdgeInsets.zero,
+      ),
+      onTap: () => goToUserScreen(context),
     );
   }
 }

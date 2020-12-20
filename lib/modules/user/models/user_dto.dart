@@ -8,13 +8,6 @@ class UserDto {
   final String phone;
   final String imageUrl;
 
-  final int addressId;
-  final String zipcode;
-  final String street;
-  final int streetNumber;
-  final String complement;
-  final bool isDefaultAddress;
-
   UserDto({
     @required this.userId,
     @required this.cpf,
@@ -22,12 +15,6 @@ class UserDto {
     @required this.email,
     @required this.phone,
     @required this.imageUrl,
-    @required this.addressId,
-    @required this.zipcode,
-    @required this.street,
-    @required this.streetNumber,
-    @required this.complement,
-    @required this.isDefaultAddress,
   });
 
   Map<String, dynamic> toJson() {
@@ -38,14 +25,6 @@ class UserDto {
       'email': email,
       'phone': phone,
       'imageUrl': imageUrl,
-      'address': {
-        'addressId': addressId,
-        'zipcode': zipcode,
-        'street': street,
-        'number': streetNumber,
-        'complement': complement,
-        'isDefault': isDefaultAddress,
-      },
     };
   }
 }

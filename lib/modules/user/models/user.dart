@@ -1,7 +1,6 @@
-import 'user_dto.dart';
 import 'package:flutter/material.dart';
 
-import 'address.dart';
+import 'user_dto.dart';
 
 @immutable
 class User {
@@ -11,7 +10,6 @@ class User {
   final String phone;
   final String email;
   final String imageUrl;
-  final Address address;
 
   User({
     @required this.userId,
@@ -20,7 +18,6 @@ class User {
     @required this.phone,
     @required this.email,
     @required this.imageUrl,
-    @required this.address,
   });
 
   factory User.fromDto(UserDto userDto) {
@@ -31,14 +28,6 @@ class User {
       phone: userDto.phone,
       email: userDto.email,
       imageUrl: userDto.imageUrl,
-      address: Address(
-        addressId: userDto.addressId,
-        zipcode: userDto.zipcode,
-        street: userDto.street,
-        number: userDto.streetNumber,
-        complement: userDto.complement,
-        isDefault: userDto.isDefaultAddress,
-      ),
     );
   }
 }

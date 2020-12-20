@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import '../../components/app_bar/app_bar.dart';
-import '../../components/large_card.dart';
-import '../../constants.dart';
 import '../../modules/user/components/user_screen/user_avatar.dart';
-import '../../modules/user/components/user_screen/user_payment_info.dart';
 import '../../modules/user/components/user_screen/user_personal_info.dart';
 import '../../modules/user/store/state.dart';
 import '../../routes.dart';
@@ -36,16 +33,6 @@ class _UserScreenState extends State<UserScreen> {
     );
   }
 
-  Widget get editButton {
-    return TextButton(
-      child: Text(
-        'EDITAR',
-        style: TextStyle(color: Constants.blackTextColor),
-      ),
-      onPressed: goToEditScreen,
-    );
-  }
-
   void goToEditScreen() {
     Navigator.of(context).pushNamed(userEditRoute);
   }
@@ -53,10 +40,7 @@ class _UserScreenState extends State<UserScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(
-        title: '',
-        actions: [editButton],
-      ),
+      appBar: MyAppBar(title: ''),
       body: StoreConnector<AppState, UserState>(
         converter: (store) => store.state.userState,
         builder: (_, state) {
@@ -65,23 +49,23 @@ class _UserScreenState extends State<UserScreen> {
           if (state.user == null) return noUser;
 
           return ListView(
-            padding: EdgeInsets.symmetric(vertical: 24, horizontal: 12),
+            padding: EdgeInsets.symmetric(vertical: 24, horizontal: 24),
             children: [
+              SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  UserAvatar(user: state.user),
+                  UserAvatar(),
                 ],
               ),
-              SizedBox(height: 32),
-              LargeCard(child: UserPersonalInfo(user: state.user)),
-              SizedBox(height: 16),
-              LargeCard(child: UserPaymentInfo()),
+              SizedBox(height: 48),
+              UserPersonalInfo(user: state.user),
             ],
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: 'user_edit_fab',
         child: Icon(Icons.edit_rounded),
         onPressed: goToEditScreen,
       ),

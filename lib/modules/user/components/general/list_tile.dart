@@ -31,7 +31,7 @@ class MyListTile extends StatelessWidget {
         padding: EdgeInsets.only(bottom: this.subtitle != null ? 8 : 0),
         child: Text(title),
       ),
-      subtitle: Text(subtitle),
+      subtitle: subtitle == null ? null : Text(subtitle),
       leading: leading,
       trailing: trailing,
       onTap: onTap,

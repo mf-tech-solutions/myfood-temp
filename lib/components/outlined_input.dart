@@ -6,6 +6,7 @@ typedef OnSubmitted = void Function(String);
 class OutlinedInput extends TextField {
   OutlinedInput({
     Key key,
+    List<String> autoFillHints,
     @required TextEditingController controller,
     TextCapitalization capitalization,
     bool enforcedMaxLength = false,
@@ -17,6 +18,7 @@ class OutlinedInput extends TextField {
     int maxLength,
     OnSubmitted onSubmitted,
   }) : super(
+          autofillHints: autoFillHints,
           controller: controller,
           decoration: InputDecoration(
             border: OutlineInputBorder(
