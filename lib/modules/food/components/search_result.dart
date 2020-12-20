@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-import 'search_no_match.dart';
-import '../resource.dart';
+import '../../../components/bottom_sheet_wrapper.dart';
+import '../../../constants.dart';
+import '../../../screens/cart/product_detail.dart';
+import '../../../screens/food/category_products_screen.dart';
+import '../../../utils.dart';
 import '../models/category.dart';
 import '../models/product.dart';
 import '../models/search_result.dart';
-import '../../../constants.dart';
-import '../../../utils.dart';
-import '../../../components/bottom_sheet_wrapper.dart';
-import '../../../screens/cart/product_detail.dart';
-import '../../../screens/food/category_products_screen.dart';
+import '../resource.dart';
+import 'search_no_match.dart';
 
 class SearchResultView extends StatefulWidget {
   final SearchResult resultModel;
@@ -21,7 +21,7 @@ class SearchResultView extends StatefulWidget {
 }
 
 class _SearchResultViewState extends State<SearchResultView> {
-  final _textColor = Colors.white;
+  final _textColor = Constants.blackTextColor;
 
   bool get _resultHasItems {
     return widget.resultModel.categories.length > 0 &&

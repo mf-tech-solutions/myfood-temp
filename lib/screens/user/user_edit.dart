@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-import '../../store/state.dart';
+import '../../components/app_bar/app_bar.dart';
+import '../../components/large_button.dart';
+import '../../components/large_card.dart';
 import '../../modules/user/components/general/input_formatters.dart';
 import '../../modules/user/components/user_avatar.dart';
 import '../../modules/user/components/user_screen/user_payment_info_form.dart';
@@ -10,9 +12,7 @@ import '../../modules/user/models/user.dart';
 import '../../modules/user/models/user_dto.dart';
 import '../../modules/user/store/action_creators.dart';
 import '../../modules/user/store/state.dart';
-import '../../components/large_button.dart';
-import '../../components/large_card.dart';
-import '../../components/app_bar/app_bar.dart';
+import '../../store/state.dart';
 
 class UserEditScreen extends StatelessWidget {
   final nameController = TextEditingController();
@@ -67,7 +67,6 @@ class UserEditScreen extends StatelessWidget {
       appBar: MyAppBar(
         title: 'Editar',
       ),
-      backgroundColor: theme.primaryColor,
       body: StoreConnector<AppState, UserState>(
         converter: (store) => store.state.userState,
         builder: (_, state) {

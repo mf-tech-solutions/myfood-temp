@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart' show StoreProvider;
 
-import 'routes.dart';
 import 'constants.dart';
+import 'routes.dart';
 import 'store/state.dart';
 import 'store/store.dart';
 
@@ -35,6 +35,13 @@ class App extends StatelessWidget {
           //endregion
 
           //region Themes
+          appBarTheme: AppBarTheme(
+            color: Constants.scaffoldBackgroundColor,
+            elevation: 0,
+            iconTheme: IconThemeData(
+              color: Constants.blackTextColor,
+            ),
+          ),
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
             selectedItemColor: Constants.accentColor,
             backgroundColor: Colors.white,

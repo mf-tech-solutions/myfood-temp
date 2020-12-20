@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
+import '../../components/app_bar/app_bar.dart';
+import '../../components/large_card.dart';
+import '../../constants.dart';
+import '../../modules/user/components/user_screen/user_avatar.dart';
+import '../../modules/user/components/user_screen/user_payment_info.dart';
+import '../../modules/user/components/user_screen/user_personal_info.dart';
+import '../../modules/user/store/state.dart';
 import '../../routes.dart';
 import '../../store/state.dart';
-import '../../components/large_card.dart';
-import '../../components/app_bar/app_bar.dart';
-import '../../modules/user/store/state.dart';
-import '../../modules/user/components/user_screen/user_payment_info.dart';
-import '../../modules/user/components/user_screen/user_avatar.dart';
-import '../../modules/user/components/user_screen/user_personal_info.dart';
 
 class UserScreen extends StatefulWidget {
   @override
@@ -36,14 +37,10 @@ class _UserScreenState extends State<UserScreen> {
   }
 
   Widget get editButton {
-    return TextButton.icon(
-      icon: Icon(
-        Icons.edit_rounded,
-        color: Colors.white,
-      ),
-      label: Text(
+    return TextButton(
+      child: Text(
         'EDITAR',
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(color: Constants.blackTextColor),
       ),
       onPressed: goToEditScreen,
     );
@@ -55,16 +52,11 @@ class _UserScreenState extends State<UserScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Scaffold(
       appBar: MyAppBar(
         title: '',
-        actions: [
-          editButton,
-        ],
+        actions: [editButton],
       ),
-      backgroundColor: theme.primaryColor,
       body: StoreConnector<AppState, UserState>(
         converter: (store) => store.state.userState,
         builder: (_, state) {
