@@ -1,47 +1,73 @@
-import 'package:redux/redux.dart' show TypedReducer, combineReducers;
+import 'package:redux/redux.dart';
+
 import 'actions.dart';
 import 'state.dart';
 
 final foodReducer = combineReducers<FoodState>([
-  TypedReducer<FoodState, FetchCategoriesAction>(_fetchCategories),
-  TypedReducer<FoodState, FetchCategoriesSuccessAction>(
-      _fetchCategoriesSuccess),
-  TypedReducer<FoodState, FetchCategoriesFailAction>(_fetchCategoriesFail),
-  TypedReducer<FoodState, FetchProductsAction>(_fetchProducts),
-  TypedReducer<FoodState, FetchProductsSuccessAction>(_fetchProductsSuccess),
-  TypedReducer<FoodState, FetchProductsFailAction>(_fetchProductsFail),
-  TypedReducer<FoodState, FetchRecipesAction>(_fetchRecipesStart),
-  TypedReducer<FoodState, FetchRecipesSuccessAction>(_fetchRecipesSuccess),
-  TypedReducer<FoodState, FetchRecipesFailAction>(_fetchRecipesFail),
-  TypedReducer<FoodState, FetchGamesAction>(_fetchGamesStart),
-  TypedReducer<FoodState, FetchGamesSuccessAction>(_fetchGamesSuccess),
-  TypedReducer<FoodState, FetchGamesFailAction>(_fetchGamesFail),
+  TypedReducer(_fetchCategoriesStart),
+  TypedReducer(_fetchCategoriesSuccess),
+  TypedReducer(_fetchCategoriesFail),
+  TypedReducer(_fetchProductsStart),
+  TypedReducer(_fetchProductsSuccess),
+  TypedReducer(_fetchProductsFail),
+  TypedReducer(_fetchRecipesStart),
+  TypedReducer(_fetchRecipesSuccess),
+  TypedReducer(_fetchRecipesFail),
+  TypedReducer(_fetchGamesStart),
+  TypedReducer(_fetchGamesSuccess),
+  TypedReducer(_fetchGamesFail),
 ]);
 
 //region Fetch categories
-FoodState _fetchCategories(FoodState state, FetchCategoriesAction action) =>
-    state.copyWith(loadingCategories: true);
+FoodState _fetchCategoriesStart(
+  FoodState state,
+  FetchCategoriesAction action,
+) {
+  return state.copyWith(
+    loadingCategories: true,
+    loadingProducts: true,
+  );
+}
 
 FoodState _fetchCategoriesSuccess(
-        FoodState state, FetchCategoriesSuccessAction action) =>
-    state.copyWith(
-        categories: action.payload.categories, loadingCategories: false);
+  FoodState state,
+  FetchCategoriesSuccessAction action,
+) {
+  return state.copyWith(
+    categories: action.payload.categories,
+    loadingCategories: false,
+  );
+}
 
 FoodState _fetchCategoriesFail(
-        FoodState state, FetchCategoriesFailAction action) =>
-    state.copyWith(loadingCategories: false);
+  FoodState state,
+  FetchCategoriesFailAction action,
+) {
+  return state.copyWith(loadingCategories: false);
+}
 //endregion
 
 //region Fetch products
-FoodState _fetchProducts(FoodState state, FetchProductsAction action) =>
-    state.copyWith(loadingProducts: true);
+FoodState _fetchProductsStart(FoodState state, FetchProductsAction action) {
+  return state.copyWith(loadingProducts: true);
+}
 
 FoodState _fetchProductsSuccess(
-        FoodState state, FetchProductsSuccessAction action) =>
-    state.copyWith(products: action.payload.products, loadingProducts: false);
+  FoodState state,
+  FetchProductsSuccessAction action,
+) {
+  return state.copyWith(
+    products: action.payload.products,
+    loadingProducts: false,
+  );
+}
 
-FoodState _fetchProductsFail(FoodState state, FetchProductsFailAction action) =>
-    state.copyWith(loadingProducts: false);
+FoodState _fetchProductsFail(
+  FoodState state,
+  FetchProductsFailAction action,
+) {
+  return state.copyWith(loadingProducts: false);
+}
 //endregion
 
 //region Fetch recipes
