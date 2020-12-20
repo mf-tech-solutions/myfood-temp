@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../resource.dart';
-import '../../../components/large_icon_avatar.dart';
+import '../../../../components/large_icon_avatar.dart';
+import '../../resource.dart';
 
 class SearchNoMatch extends StatefulWidget {
   final Color textColor;

@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 
-import 'product_card.dart';
 import '../../models/category.dart';
 import '../../models/product.dart';
-import '../../store/action_creators.dart';
-import '../../store/state.dart';
 import '../../store/selectors.dart';
-import '../../../../store/state.dart';
-import '../../../../constants.dart';
+import 'product_card.dart';
 
 typedef ProductTapHandler = void Function({
   BuildContext context,
@@ -32,27 +27,14 @@ class CategoryProductsCardList extends StatelessWidget {
   }
 
   Widget build(BuildContext context) {
-    return StoreConnector<AppState, FoodState>(
-      converter: (store) => store.state.foodState,
-      builder: (context, state) {
-        if (state.loadingProducts)
-          return Center(child: CircularProgressIndicator());
-
-        if (state.products.length == 0) fetchProducts();
-        final products = getProductsByCategory(this.category.id);
-
-        return AnimatedContainer(
-          duration: Constants.widgetTransitionDuration,
-          child: ListView.separated(
-            itemCount: products.length,
-            padding: EdgeInsets.zero,
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (_, index) => itemBuilder(products[index]),
-            separatorBuilder: (_, __) => separatorBuilder(),
-          ),
-        );
-      },
+    final products = getProductsByCategory(this.category.id);
+    return ListView.separated(
+      itemCount: products.length,
+      padding: EdgeInsets.zero,
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemBuilder: (_, index) => itemBuilder(products[index]),
+      separatorBuilder: (_, __) => separatorBuilder(),
     );
   }
 }

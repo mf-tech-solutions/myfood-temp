@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../large_card_content.dart';
 import '../../models/game.dart';
+import '../general/large_card_content.dart';
 
 class GameCardContent extends StatelessWidget {
   final FoodGame game;

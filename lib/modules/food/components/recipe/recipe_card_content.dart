@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'ingredient_view.dart';
-import '../large_card_content.dart';
-import '../../resource.dart';
 import '../../models/recipe.dart';
+import '../../resource.dart';
+import '../general/large_card_content.dart';
+import 'ingredient_view.dart';
 
 class RecipeCardContent extends StatelessWidget {
   final Recipe recipe;

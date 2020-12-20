@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../../../components/bottom_sheet_wrapper.dart';
-import '../../../constants.dart';
-import '../../../screens/cart/product_detail.dart';
-import '../../../screens/food/category_products_screen.dart';
-import '../../../utils.dart';
-import '../models/category.dart';
-import '../models/product.dart';
-import '../models/search_result.dart';
-import '../resource.dart';
+import '../../../../components/bottom_sheet_wrapper.dart';
+import '../../../../constants.dart';
+import '../../../../screens/cart/product_detail.dart';
+import '../../../../screens/food/category_products_screen.dart';
+import '../../../../utils.dart';
+import '../../models/category.dart';
+import '../../models/product.dart';
+import '../../models/search_result.dart';
+import '../../resource.dart';
 import 'search_no_match.dart';
 
 class SearchResultView extends StatefulWidget {

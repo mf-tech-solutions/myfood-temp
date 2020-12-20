@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../components/alert_dialog.dart';
 import '../../components/app_bar/app_bar.dart';
 import '../../components/search_box.dart';
-import '../../modules/food/components/search_result.dart';
+import '../../modules/food/components/search/search_result.dart';
 import '../../modules/food/models/search_result.dart';
 import '../../modules/food/resource.dart';
 import '../../modules/food/store/selectors.dart';
