@@ -1,12 +1,12 @@
-import 'package:MyFood/modules/cart/store/action_creators.dart';
-import 'package:MyFood/store/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import '../../../../components/outlined_input.dart';
+import '../../../../store/state.dart';
 import '../../../../utils.dart';
 import '../../models/address.dart';
+import '../../store/action_creators.dart';
 import '../general/input_formatters.dart';
 import '../general/large_button.dart';
 import 'added_address_dialog.dart';
@@ -111,7 +111,7 @@ class AddDeliverAddressForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: EdgeInsets.symmetric(vertical: 48, horizontal: 12),
+      shrinkWrap: true,
       children: [
         Padding(
           padding: EdgeInsets.only(bottom: 16),

@@ -1,5 +1,8 @@
+import 'package:MyFood/components/screen_icon_avatar.dart';
+import 'package:MyFood/modules/cart/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../../constants.dart';
 import '../../../../routes.dart';
@@ -26,8 +29,9 @@ class DeliverAddressesScreenContent extends StatelessWidget {
 
   Widget buildAddressesList(BuildContext context, List<Address> addresses) {
     return ListView.separated(
-      padding: EdgeInsets.symmetric(vertical: 24, horizontal: 12),
+      padding: EdgeInsets.zero,
       physics: const AlwaysScrollableScrollPhysics(),
+      shrinkWrap: true,
       itemCount: addresses.length,
       itemBuilder: (_, index) {
         final address = addresses[index];
@@ -93,14 +97,27 @@ class DeliverAddressesScreenContent extends StatelessWidget {
         final addresses = state.addresses;
         if (addresses == null) {
           getDeliverAddresses();
-          return SizedBox.shrink();
+          return Container();
         }
 
         final message = buildNoAddressesMessage(context);
         final list = buildAddressesList(context, addresses);
+        final listWithImage = ListView(
+          padding: EdgeInsets.symmetric(vertical: 24, horizontal: 12),
+          children: [
+            ScreenIconAvatar(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SvgPicture.asset('${Utils.imagesPath}address_list.svg'),
+              ),
+            ),
+            SizedBox(height: 24),
+            list,
+          ],
+        );
 
         return WithRefreshIndicator(
-          child: addresses.length == 0 ? message : list,
+          child: addresses.length == 0 ? message : listWithImage,
           onRefresh: getDeliverAddresses,
         );
       },

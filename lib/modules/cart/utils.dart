@@ -1,6 +1,10 @@
 class Utils {
+  static String get imagesPath {
+    return 'assets/images/';
+  }
+
   static String get orderImagesPath {
-    return 'assets/images/order/';
+    return '${imagesPath}order/';
   }
 
   static String formatCurrency(double value) {
