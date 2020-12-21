@@ -1,4 +1,3 @@
-import 'package:MyFood/modules/user/store/actions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
@@ -6,6 +5,7 @@ import '../../components/app_bar/app_bar.dart';
 import '../../modules/user/components/general/list_tile.dart';
 import '../../modules/user/components/user_screen/user_avatar.dart';
 import '../../modules/user/components/user_screen/user_personal_info.dart';
+import '../../modules/user/store/actions.dart';
 import '../../modules/user/store/state.dart';
 import '../../routes.dart';
 import '../../store/state.dart';
