@@ -1,7 +1,11 @@
 import 'dart:io';
 
+import 'package:MyFood/modules/user/components/user_screen/update_dialog.dart';
+import 'package:MyFood/modules/user/components/user_screen/user_info_validator.dart';
+import 'package:MyFood/store/state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
 import '../../components/app_bar/app_bar.dart';
 import '../../components/large_button.dart';
@@ -13,6 +17,7 @@ import '../../modules/user/models/user.dart';
 import '../../modules/user/models/user_dto.dart';
 import '../../modules/user/store/action_creators.dart';
 import '../../modules/user/store/selectors.dart';
+import '../../utils.dart';
 
 class UserEditScreen extends StatefulWidget {
   @override
@@ -22,12 +27,14 @@ class UserEditScreen extends StatefulWidget {
 class _UserEditScreenState extends State<UserEditScreen> {
   File _userSelectedImage;
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final _nameController = TextEditingController();
-  final _cpfController = TextEditingController();
+  final _socialIdController = TextEditingController();
   final _phoneController = TextEditingController();
   final _emailController = TextEditingController();
 
-  final _cpfFormatter = CpfInputFormatter();
+  final _socialIdFormatter = CpfInputFormatter();
   final _phoneFormatter = CellphoneInputFormatter();
 
   Widget get changeImageButton {
@@ -83,21 +90,64 @@ class _UserEditScreenState extends State<UserEditScreen> {
     final user = getUser();
 
     _nameController.text = user.name;
-    _cpfController.text = _cpfFormatter.maskText(user.cpf);
+    _socialIdController.text = _socialIdFormatter.maskText(user.cpf);
     _phoneController.text = _phoneFormatter.maskText(user.phone);
     _emailController.text = user.email;
   }
 
-  void save(User user) {
-    updateUser(
+  void save(User user) async {
+    final validationMessage = validate();
+    if (validationMessage.isNotEmpty) {
+      _showInvalidDataSnackBar(message: validationMessage);
+      return;
+    }
+
+    await updateUser(
       UserDto(
         userId: user.userId,
-        cpf: _cpfFormatter.unmaskText(_cpfController.text),
+        cpf: _socialIdFormatter.unmaskText(_socialIdController.text),
         name: _nameController.text,
         email: _emailController.text,
         phone: _phoneFormatter.unmaskText(_phoneController.text),
         imageUrl: user.imageUrl,
       ),
+    );
+    Utils.showContentOnlyDialog(
+      child: UserInfoUpdateDialog(
+        context: context,
+        message: 'Atualizado com sucesso',
+      ).dialog,
+      context: context,
+    );
+  }
+
+  String validate() {
+    final unmaskedSocialId =
+        _socialIdFormatter.unmaskText(_socialIdController.text);
+    final unmaskedPhone = _phoneFormatter.unmaskText(_phoneController.text);
+
+    final validator = UserInfoValidator(
+      _nameController.text,
+      unmaskedSocialId,
+      unmaskedPhone,
+      _emailController.text,
+    );
+    validator.validate();
+
+    return validator.validationMessage;
+  }
+
+  void _showInvalidDataSnackBar({String message}) {
+    final scaffold = _scaffoldKey.currentState;
+    final backgroundColor = Theme.of(context).accentColor;
+    final content = Text(
+      message ?? 'Dados inválidos! Por favor tente novamente.',
+    );
+
+    Utils.showSnackBar(
+      scaffold,
+      content,
+      backgroundColor: backgroundColor,
     );
   }
 
@@ -107,14 +157,14 @@ class _UserEditScreenState extends State<UserEditScreen> {
     final mediaQuery = MediaQuery.of(context);
     final bottomViewInset = mediaQuery.viewInsets.bottom;
     final user = getUser();
-    final updating = isUpdating();
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: MyAppBar(title: 'Editar'),
       body: Stack(
         children: [
           ListView(
-            padding: EdgeInsets.only(left: 24, right: 24, bottom: 80),
+            padding: EdgeInsets.only(left: 24, right: 24, bottom: 88),
             children: [
               SizedBox(height: 48),
               Row(
@@ -135,7 +185,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
               SizedBox(height: 48),
               UserPersonalInfoForm(
                 nameController: _nameController,
-                cpfController: _cpfController,
+                socialIdController: _socialIdController,
                 phoneController: _phoneController,
                 emailController: _emailController,
               ),
@@ -148,26 +198,16 @@ class _UserEditScreenState extends State<UserEditScreen> {
               width: mediaQuery.size.width,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: LargeButton(
-                  child: updating
-                      ? Row(
-                          children: [
-                            SizedBox(
-                              height: 24,
-                              width: 24,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  Colors.white,
-                                ),
-                              ),
-                            ),
-                            Text('SALVAR'),
-                          ],
-                        )
-                      : Text('SALVAR'),
-                  backgroundColor: theme.accentColor,
-                  elevation: 4,
-                  onPressed: () => save(user),
+                child: StoreConnector<AppState, bool>(
+                  converter: (store) => store.state.userState.updating,
+                  builder: (_, updating) {
+                    return LargeButton(
+                      child: Text(updating ? 'SALVANDO' : 'SALVAR'),
+                      backgroundColor: theme.accentColor,
+                      elevation: 4,
+                      onPressed: updating ? null : () => save(user),
+                    );
+                  },
                 ),
               ),
             ),

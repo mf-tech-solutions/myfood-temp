@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../../components/outlined_input.dart';
-import '../../../cart/components/general/input_formatters.dart';
+import '../../../user/components/general/input_formatters.dart';
 
 class UserPersonalInfoForm extends StatelessWidget {
   final TextEditingController nameController;
-  final TextEditingController cpfController;
+  final TextEditingController socialIdController;
   final TextEditingController phoneController;
   final TextEditingController emailController;
 
@@ -16,7 +16,7 @@ class UserPersonalInfoForm extends StatelessWidget {
   UserPersonalInfoForm({
     Key key,
     @required this.nameController,
-    @required this.cpfController,
+    @required this.socialIdController,
     @required this.phoneController,
     @required this.emailController,
   }) : super(key: key);
@@ -27,41 +27,46 @@ class UserPersonalInfoForm extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         OutlinedInput(
-          labelText: 'Nome',
+          autoFillHints: [AutofillHints.name],
           controller: nameController,
           inputFormatters: [
             LengthLimitingTextInputFormatter(60),
           ],
+          keyBoardAction: TextInputAction.next,
+          labelText: 'Nome',
         ),
         SizedBox(height: 16),
         OutlinedInput(
-          labelText: 'CPF',
-          inputType: TextInputType.number,
-          hintText: '000.000.000-00',
-          controller: cpfController,
+          controller: socialIdController,
+          hintText: cpfFormatter.maskText('00000000000'),
           inputFormatters: [
             LengthLimitingTextInputFormatter(14),
             cpfFormatter,
           ],
+          inputType: TextInputType.number,
+          keyBoardAction: TextInputAction.next,
+          labelText: 'CPF',
         ),
         SizedBox(height: 16),
         OutlinedInput(
-          labelText: 'Telefone',
-          hintText: '(00) 90000-0000',
-          inputType: TextInputType.number,
+          autoFillHints: [AutofillHints.telephoneNumber],
           controller: phoneController,
+          hintText: phoneFormatter.maskText('0090000000'),
           inputFormatters: [
             LengthLimitingTextInputFormatter(15),
             phoneFormatter,
           ],
+          inputType: TextInputType.number,
+          keyBoardAction: TextInputAction.next,
+          labelText: 'Telefone',
         ),
         SizedBox(height: 16),
         OutlinedInput(
           autoFillHints: [AutofillHints.email],
+          controller: emailController,
           labelText: 'E-mail',
           hintText: 'seu@email.com',
           inputType: TextInputType.emailAddress,
-          controller: emailController,
         ),
       ],
     );

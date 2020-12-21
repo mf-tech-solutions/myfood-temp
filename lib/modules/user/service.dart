@@ -8,7 +8,7 @@ class UserService {
   static final _user = User(
     userId: 1,
     name: 'Dummy',
-    phone: '8588369766',
+    phone: '85988369766',
     cpf: '60805766359',
     email: 'dummy@email.com',
     imageUrl:

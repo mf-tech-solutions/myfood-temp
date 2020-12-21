@@ -9,7 +9,7 @@ class CpfInputFormatter extends MaskTextInputFormatter {
 class CellphoneInputFormatter extends MaskTextInputFormatter {
   CellphoneInputFormatter({
     String initialText,
-  }) : super(mask: '(##) 9####-####');
+  }) : super(mask: '(##) #####-####');
 }
 
 class CepInputFormatter extends MaskTextInputFormatter {
