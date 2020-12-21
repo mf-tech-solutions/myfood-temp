@@ -1,7 +1,9 @@
+import 'package:MyFood/modules/user/store/actions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import '../../components/app_bar/app_bar.dart';
+import '../../modules/user/components/general/list_tile.dart';
 import '../../modules/user/components/user_screen/user_avatar.dart';
 import '../../modules/user/components/user_screen/user_personal_info.dart';
 import '../../modules/user/store/state.dart';
@@ -14,13 +16,9 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
-  final _textColor = Colors.white;
-
   Widget get loadingUser {
     return Center(
-      child: CircularProgressIndicator(
-        valueColor: AlwaysStoppedAnimation<Color>(_textColor),
-      ),
+      child: CircularProgressIndicator(),
     );
   }
 
@@ -28,13 +26,21 @@ class _UserScreenState extends State<UserScreen> {
     return Center(
       child: Text(
         'Usuário não encontrado.',
-        style: TextStyle(color: _textColor),
       ),
     );
   }
 
   void goToEditScreen() {
     Navigator.of(context).pushNamed(userEditRoute);
+  }
+
+  void _signOut() async {
+    //TODO: Create dialog to confirm the action
+    await signOut();
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      loginRoute,
+      (route) => false,
+    );
   }
 
   @override
@@ -49,7 +55,7 @@ class _UserScreenState extends State<UserScreen> {
           if (state.user == null) return noUser;
 
           return ListView(
-            padding: EdgeInsets.symmetric(vertical: 24, horizontal: 24),
+            padding: EdgeInsets.all(24),
             children: [
               SizedBox(height: 24),
               Row(
@@ -60,6 +66,14 @@ class _UserScreenState extends State<UserScreen> {
               ),
               SizedBox(height: 48),
               UserPersonalInfo(user: state.user),
+              SizedBox(height: 32),
+              Divider(),
+              SizedBox(height: 24),
+              MyListTile(
+                leading: Icon(Icons.exit_to_app_rounded),
+                title: 'Sair',
+                onTap: _signOut,
+              ),
             ],
           );
         },

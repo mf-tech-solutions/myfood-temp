@@ -28,7 +28,7 @@ class MyListTile extends StatelessWidget {
     return ListTile(
       contentPadding: contentPadding ?? _defaultPadding,
       title: Padding(
-        padding: EdgeInsets.only(bottom: this.subtitle != null ? 8 : 0),
+        padding: EdgeInsets.only(bottom: this.subtitle != null ? 4 : 0),
         child: Text(title),
       ),
       subtitle: subtitle == null ? null : Text(subtitle),
