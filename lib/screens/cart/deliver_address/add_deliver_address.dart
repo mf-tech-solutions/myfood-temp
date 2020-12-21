@@ -22,14 +22,12 @@ class AddDeliverAddressScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(
+        centerTitle: !isUpdate,
         title: '${isUpdate ? 'Atualizar' : 'Adicionar'} endereço',
         actions: isUpdate
             ? [
                 TextButton(
-                  child: Text(
-                    'Remover',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                  child: Text('Remover'),
                   onPressed: () {},
                 )
               ]

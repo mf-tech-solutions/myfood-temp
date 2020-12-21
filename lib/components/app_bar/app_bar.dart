@@ -8,6 +8,7 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
 
   final List<Widget> actions;
   final Color backgroundColor;
+  final bool centerTitle;
   final Color titleColor;
   final String title;
 
@@ -15,6 +16,7 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
     Key key,
     this.actions,
     this.backgroundColor,
+    this.centerTitle = true,
     this.title,
     this.titleColor,
   })  : preferredSize = Size.fromHeight(54),
@@ -37,7 +39,7 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
         title ?? 'myFood',
         style: titleStyle,
       ),
-      centerTitle: true,
+      centerTitle: centerTitle,
       elevation: 0,
       actions: actions,
       backgroundColor: bgColor,

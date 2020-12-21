@@ -35,10 +35,7 @@ class AddUserCardScreen extends StatelessWidget {
       converter: (store) => store.state.cartState.loadingCards,
       builder: (context, loading) {
         return TextButton(
-          child: Text(
-            'REMOVER',
-            style: TextStyle(color: Colors.white),
-          ),
+          child: Text('Remover'),
           onPressed: loading ? null : _removeCard,
         );
       },
@@ -156,6 +153,7 @@ class AddUserCardScreen extends StatelessWidget {
     return Scaffold(
       key: _scaffoldKey,
       appBar: MyAppBar(
+        centerTitle: !isUpdate,
         title: '${isUpdate ? 'Atualizar' : 'Adicionar'} cartão',
         actions: isUpdate ? [removeCardAction] : [],
       ),
