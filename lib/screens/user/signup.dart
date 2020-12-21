@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
@@ -51,28 +49,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
   //endregion
 
-  void onSubmit() {
-    signUp(
+  void onSubmit() async {
+    await signUp(
       AppStore.store,
       this.widget.emailController.text,
       this.widget.passwordController.text,
     );
+    goToHomeScreen();
 
     validate();
   }
 
   void goToHomeScreen() {
-    @override
-    void run() {
-      scheduleMicrotask(() {
-        Navigator.of(this.context).pushNamedAndRemoveUntil(
-          homeRoute,
-          (_) => false,
-        );
-      });
-    }
-
-    run();
+    Navigator.of(this.context).pushNamedAndRemoveUntil(
+      homeRoute,
+      (_) => false,
+    );
   }
 
   @override
@@ -80,10 +72,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return StoreConnector<AppState, UserState>(
       converter: (store) => store.state.userState,
       builder: (_, state) {
-        if (state.user != null) {
-          goToHomeScreen();
-        }
-
         return Scaffold(
           backgroundColor: Theme.of(context).primaryColor,
           body: SafeArea(

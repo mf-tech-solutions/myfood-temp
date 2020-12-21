@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
@@ -22,16 +20,9 @@ class _LoginScreenState extends State<LoginScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   void goToHomeScreen() {
-    @override
-    void run() {
-      scheduleMicrotask(() {
-        Navigator.of(this.context).pushReplacementNamed(
-          homeRoute,
-        );
-      });
-    }
-
-    run();
+    Navigator.of(this.context).pushReplacementNamed(
+      homeRoute,
+    );
   }
 
   //region Validation
@@ -71,6 +62,8 @@ class _LoginScreenState extends State<LoginScreen> {
       this.widget.passwordController.text,
     );
 
+    goToHomeScreen();
+
     String validation = validate();
     if (validation != null) {
       Scaffold.of(context).showSnackBar(
@@ -96,10 +89,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return StoreConnector<AppState, UserState>(
       converter: (store) => store.state.userState,
       builder: (_, state) {
-        if (state.user != null) {
-          goToHomeScreen();
-        }
-
         return Scaffold(
           backgroundColor: Theme.of(context).primaryColor,
           body: LoginScreenBody(
