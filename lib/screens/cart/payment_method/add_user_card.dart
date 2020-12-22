@@ -1,4 +1,3 @@
-import 'package:MyFood/store/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,11 +6,13 @@ import '../../../components/alert_dialog.dart';
 import '../../../components/app_bar/app_bar.dart';
 import '../../../components/screen_icon_avatar.dart';
 import '../../../modules/cart/components/formatters.dart';
+import '../../../modules/cart/components/general/large_button.dart';
 import '../../../modules/cart/components/payment_methods_screen/card_validator.dart';
 import '../../../modules/cart/components/payment_methods_screen/user_card_form.dart';
 import '../../../modules/cart/models/card.dart';
 import '../../../modules/cart/resource.dart';
 import '../../../modules/cart/store/action_creators.dart';
+import '../../../store/state.dart';
 import '../../../utils.dart';
 
 class AddUserCardScreen extends StatelessWidget {
@@ -150,6 +151,8 @@ class AddUserCardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bottomViewInset = MediaQuery.of(context).viewInsets.bottom;
+
     return Scaffold(
       key: _scaffoldKey,
       appBar: MyAppBar(
@@ -157,24 +160,68 @@ class AddUserCardScreen extends StatelessWidget {
         title: '${isUpdate ? 'Atualizar' : 'Adicionar'} cartão',
         actions: isUpdate ? [removeCardAction] : [],
       ),
-      body: ListView(
-        padding: EdgeInsets.symmetric(vertical: 24, horizontal: 12),
+      body: Stack(
         children: [
-          ScreenIconAvatar(
-            child: Stack(
-              children: [
-                SvgPicture.asset('assets/images/add_user_card.svg'),
-              ],
-            ),
+          ListView(
+            padding: EdgeInsets.fromLTRB(24, 24, 24, 80),
+            children: [
+              ScreenIconAvatar(
+                child: SvgPicture.asset('assets/images/add_user_card.svg'),
+              ),
+              SizedBox(height: 24),
+              UserCardForm(
+                cardNumberController: _cardNumberController,
+                cardCvvController: _cardCvvController,
+                cardDueDateController: _cardDueDateController,
+                cardHolderNameController: _cardHolderNameController,
+                cardHolderSocialIdController: _cardHolderSocialIdController,
+              ),
+            ],
           ),
-          SizedBox(height: 24),
-          UserCardForm(
-            cardNumberController: _cardNumberController,
-            cardCvvController: _cardCvvController,
-            cardDueDateController: _cardDueDateController,
-            cardHolderNameController: _cardHolderNameController,
-            cardHolderSocialIdController: _cardHolderSocialIdController,
-            onConfirmCallback: _confirm,
+          Positioned(
+            bottom: bottomViewInset == 0 ? 24 : 12,
+            left: 0,
+            right: 0,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              child: StoreConnector<AppState, bool>(
+                converter: (store) => store.state.cartState.loadingCards,
+                builder: (context, loading) {
+                  final text = loading
+                      ? CartResource.confirming.toUpperCase()
+                      : CartResource.confirm.toUpperCase();
+                  final buttonChild = loading
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 18,
+                              width: 18,
+                              child: CircularProgressIndicator(
+                                valueColor:
+                                    AlwaysStoppedAnimation(Colors.white),
+                              ),
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              text,
+                              style: TextStyle(color: Colors.white),
+                            )
+                          ],
+                        )
+                      : Text(
+                          text,
+                          style: TextStyle(color: Colors.white),
+                        );
+
+                  return LargeButton(
+                    child: buttonChild,
+                    elevation: 4,
+                    onPressed: loading ? null : () => _confirm(context),
+                  );
+                },
+              ),
+            ),
           ),
         ],
       ),
