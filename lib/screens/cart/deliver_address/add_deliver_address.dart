@@ -1,9 +1,3 @@
-import 'package:MyFood/modules/cart/components/deliver_address_screens/added_address_dialog.dart';
-import 'package:MyFood/modules/cart/components/deliver_address_screens/address_validator.dart';
-import 'package:MyFood/modules/cart/components/general/input_formatters.dart';
-import 'package:MyFood/modules/cart/components/general/large_button.dart';
-import 'package:MyFood/modules/cart/store/action_creators.dart';
-import 'package:MyFood/store/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,8 +5,14 @@ import 'package:flutter_svg/svg.dart';
 import '../../../components/app_bar/app_bar.dart';
 import '../../../components/screen_icon_avatar.dart';
 import '../../../modules/cart/components/deliver_address_screens/add_deliver_address_form.dart';
+import '../../../modules/cart/components/deliver_address_screens/added_address_dialog.dart';
+import '../../../modules/cart/components/deliver_address_screens/address_validator.dart';
+import '../../../modules/cart/components/general/input_formatters.dart';
+import '../../../modules/cart/components/general/large_button.dart';
 import '../../../modules/cart/models/address.dart';
+import '../../../modules/cart/store/action_creators.dart';
 import '../../../modules/cart/utils.dart';
+import '../../../store/state.dart';
 import '../../../utils.dart' as GeneralUtils;
 
 class AddDeliverAddressScreen extends StatelessWidget {
