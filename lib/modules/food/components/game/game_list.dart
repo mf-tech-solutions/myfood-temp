@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart' show StoreConnector;
 
-import 'game_list_item.dart';
-import '../../resource.dart';
-import '../../models/game.dart';
-import '../../store/action_creators.dart';
-import '../../store/state.dart';
 import '../../../../constants.dart';
 import '../../../../store/state.dart';
+import '../../../cart/components/general/scrollable_center.dart';
+import '../../models/game.dart';
+import '../../resource.dart';
+import '../../store/action_creators.dart';
+import '../../store/state.dart';
+import 'game_list_item.dart';
 
 class GameList extends StatelessWidget {
   Widget getGamesView(List<FoodGame> games) {
     if (games.length == 0)
-      return Center(
+      return ScrollableCenter(
         child: Text(
           FoodResource.emptyGameList,
           style: TextStyle(color: Colors.white),
@@ -42,10 +43,8 @@ class GameList extends StatelessWidget {
       builder: (_, state) {
         if (state.games.length == 0) fetchGames();
 
-        final loader = Center(
-          child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-          ),
+        final loader = ScrollableCenter(
+          child: CircularProgressIndicator(),
         );
 
         final content = AnimatedCrossFade(
