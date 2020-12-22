@@ -74,14 +74,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
       builder: (_, state) {
         return Scaffold(
           backgroundColor: Theme.of(context).primaryColor,
-          body: SafeArea(
-            child: SignUpScreenBody(
-              emailController: this.widget.emailController,
-              validateEmail: this.validateEmail,
-              passwordController: this.widget.passwordController,
-              validatePassword: this.validatePassword,
-              onSubmit: (_) => this.onSubmit(),
-            ),
+          body: SignUpScreenBody(
+            emailController: this.widget.emailController,
+            validateEmail: this.validateEmail,
+            passwordController: this.widget.passwordController,
+            validatePassword: this.validatePassword,
+            onSubmit: (_) => this.onSubmit(),
           ),
         );
       },
