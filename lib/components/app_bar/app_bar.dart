@@ -9,6 +9,7 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
   final List<Widget> actions;
   final Color backgroundColor;
   final bool centerTitle;
+  final Widget leading;
   final Color titleColor;
   final String title;
 
@@ -17,11 +18,12 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
     this.actions,
     this.backgroundColor,
     this.centerTitle = true,
+    this.leading,
     this.title,
     this.titleColor,
   })  : preferredSize = Size.fromHeight(54),
         super(key: key) {
-    if (backgroundColor != null) {
+    if (backgroundColor != null && title.isNotEmpty) {
       assert(titleColor != null);
     } else if (titleColor != null) {
       assert(backgroundColor != null);
@@ -35,14 +37,15 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
     );
 
     return AppBar(
+      actions: actions,
+      backgroundColor: bgColor,
+      centerTitle: centerTitle,
+      elevation: 0,
+      leading: leading,
       title: Text(
         title ?? 'myFood',
         style: titleStyle,
       ),
-      centerTitle: centerTitle,
-      elevation: 0,
-      actions: actions,
-      backgroundColor: bgColor,
     );
   }
 }

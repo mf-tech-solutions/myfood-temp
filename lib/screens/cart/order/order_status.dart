@@ -9,7 +9,17 @@ class OrderStatusScreen extends StatelessWidget {
     final primaryColor = Theme.of(context).primaryColor;
 
     return Scaffold(
-      appBar: MyAppBar(title: ''),
+      appBar: MyAppBar(
+        title: '',
+        backgroundColor: primaryColor,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
       backgroundColor: primaryColor,
       body: Center(
         child: Column(
