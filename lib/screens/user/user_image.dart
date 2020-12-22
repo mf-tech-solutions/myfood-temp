@@ -22,27 +22,17 @@ class _UserImageScreenState extends State<UserImageScreen> {
     ];
   }
 
-  void openImageSourcePickerBottomSheet({bool isCupertino = true}) {
+  void openImageSourcePickerBottomSheet() {
     final sheet = SelectUserImageBottomSheet(
       context: context,
-      isCupertino: isCupertino,
     );
 
-    if (isCupertino) {
-      showCupertinoModalPopup(
-        context: context,
-        builder: (context) {
-          return sheet.widget;
-        },
-      );
-    } else {
-      showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return sheet.widget;
-        },
-      );
-    }
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return sheet.widget;
+      },
+    );
   }
 
   @override

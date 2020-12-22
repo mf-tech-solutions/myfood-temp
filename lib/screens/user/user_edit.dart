@@ -63,27 +63,14 @@ class _UserEditScreenState extends State<UserEditScreen> {
     fillControllersText();
   }
 
-  void openImageSourcePickerBottomSheet({bool isCupertino = true}) {
-    final sheet = SelectUserImageBottomSheet(
+  void openImageSourcePickerBottomSheet() {
+    final sheet = SelectUserImageBottomSheet(context: context);
+    showModalBottomSheet(
       context: context,
-      isCupertino: isCupertino,
+      builder: (context) {
+        return sheet.widget;
+      },
     );
-
-    if (isCupertino) {
-      showCupertinoModalPopup(
-        context: context,
-        builder: (context) {
-          return sheet.widget;
-        },
-      );
-    } else {
-      showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return sheet.widget;
-        },
-      );
-    }
   }
 
   void fillControllersText() {
@@ -153,7 +140,6 @@ class _UserEditScreenState extends State<UserEditScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final mediaQuery = MediaQuery.of(context);
     final bottomViewInset = mediaQuery.viewInsets.bottom;
     final user = getUser();
@@ -164,7 +150,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
       body: Stack(
         children: [
           ListView(
-            padding: EdgeInsets.only(left: 24, right: 24, bottom: 88),
+            padding: EdgeInsets.only(left: 24, right: 24, bottom: 80),
             children: [
               SizedBox(height: 48),
               Row(
@@ -194,21 +180,18 @@ class _UserEditScreenState extends State<UserEditScreen> {
           Positioned(
             bottom: bottomViewInset == 0 ? 24 : 12,
             left: 0,
-            child: SizedBox(
-              width: mediaQuery.size.width,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: StoreConnector<AppState, bool>(
-                  converter: (store) => store.state.userState.updating,
-                  builder: (_, updating) {
-                    return LargeButton(
-                      child: Text(updating ? 'SALVANDO' : 'SALVAR'),
-                      backgroundColor: theme.accentColor,
-                      elevation: 4,
-                      onPressed: updating ? null : () => save(user),
-                    );
-                  },
-                ),
+            right: 0,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              child: StoreConnector<AppState, bool>(
+                converter: (store) => store.state.userState.updating,
+                builder: (_, updating) {
+                  return LargeButton(
+                    child: Text(updating ? 'SALVANDO' : 'SALVAR'),
+                    elevation: 4,
+                    onPressed: updating ? null : () => save(user),
+                  );
+                },
               ),
             ),
           ),
