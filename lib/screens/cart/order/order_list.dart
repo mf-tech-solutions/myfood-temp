@@ -17,6 +17,8 @@ import '../../../utils.dart';
 
 class OrderListScreen extends StatelessWidget {
   Widget _itemBuilder(BuildContext context, int index, List<Order> orderList) {
+    final theme = Theme.of(context);
+
     final order = orderList[index];
     final orderPrice = order.cartProducts.fold(0.0, (currentPrice, element) {
       return currentPrice + element.totalPrice;
@@ -24,61 +26,77 @@ class OrderListScreen extends StatelessWidget {
     final statusText = getOrderStatusText(order.status);
     final title =
         '${order.orderId == null ? '' : 'Pedido #${order.orderId} - '}$statusText';
-    final subtitle = Utils.formatCurrency(orderPrice);
+    final subtitle = 'Valor total: ${Utils.formatCurrency(orderPrice)}';
     final leading = order.finishedAt == null
         ? null
-        : Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                DateFormat('dd').format(order.finishedAt),
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black54,
-                ),
+        : SizedBox(
+            height: 56,
+            width: 56,
+            child: CircleAvatar(
+              backgroundColor: theme.dividerColor,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    DateFormat('dd').format(order.finishedAt),
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  Text(
+                    DateFormat(DateFormat.ABBR_MONTH)
+                        .format(order.finishedAt)
+                        .toUpperCase(),
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black54,
+                    ),
+                  )
+                ],
               ),
-              Text(
-                DateFormat(DateFormat.ABBR_MONTH)
-                    .format(order.finishedAt)
-                    .toUpperCase(),
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black54,
-                ),
-              )
-            ],
+            ),
           );
 
-    final double elevation = order.isActive ? 4 : 0;
     final padding = EdgeInsets.only(bottom: order.isActive ? 8 : 0);
 
     final tile = Padding(
       padding: padding,
-      child: Card(
-        child: MyListTile(
-          leading: leading,
-          contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-          subtitle: subtitle,
-          title: title,
-          onTap: () => order.isActive
-              ? _goToOrderStatusScreen(context)
-              : _goToOrderSummaryScreen(context, order),
-        ),
-        elevation: elevation,
+      child: MyListTile(
+        leading: leading,
+        contentPadding: EdgeInsets.symmetric(vertical: order.isActive ? 0 : 8),
+        subtitle: subtitle,
+        title: title,
+        onTap: () => order.isActive
+            ? _goToOrderStatusScreen(context)
+            : _goToOrderSummaryScreen(context, order),
       ),
     );
 
     if (order.isActive) {
-      return Column(
-        children: [
-          Text(
-            'Pedido ativo',
-            style: TextStyle(fontWeight: FontWeight.w500),
+      return Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: theme.dividerColor,
+            style: BorderStyle.solid,
           ),
-          SizedBox(height: 12),
-          tile,
-        ],
+          color: Colors.white,
+        ),
+        padding: EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Pedido ativo',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            SizedBox(height: 12),
+            tile,
+          ],
+        ),
       );
     }
 
@@ -86,7 +104,7 @@ class OrderListScreen extends StatelessWidget {
   }
 
   Widget _separatorBuilder(_, __) {
-    return SizedBox(height: 16);
+    return Divider();
   }
 
   Future<void> _refresh() => getOrderList();
