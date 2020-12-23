@@ -63,6 +63,9 @@ String getOrderStatusText(OrderStatus status) {
     case OrderStatus.delivered:
       return 'Por favor confirme o recebimento do seu pedido.';
 
+    case OrderStatus.confirmedDelivered:
+      return 'Pedido entregue.';
+
     case OrderStatus.notDelivered:
       return 'Sentimos muito que seu pedido não foi entregue.';
 

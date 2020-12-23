@@ -93,8 +93,8 @@ class CartService {
     final controller = StreamController<Order>();
 
     Timer.periodic(Duration(seconds: 3), (timer) {
-      final isLastRun =
-          status == OrderStatus.delivered || status == OrderStatus.denied;
+      final isLastRun = status == OrderStatus.confirmedDelivered ||
+          status == OrderStatus.denied;
       final finishedAt = isLastRun ? DateTime.now() : null;
       final updatedOrder = _order.copyWith(
         status: status,
