@@ -1,6 +1,6 @@
-import 'package:MyFood/modules/user/components/auth_screen_image.dart';
 import 'package:flutter/material.dart';
 
+import '../modules/user/components/auth_screen_image.dart';
 import '../routes.dart';
 
 class OnBoardingScreen extends StatefulWidget {
