@@ -31,15 +31,23 @@ class LoginScreenBody extends StatelessWidget {
         builder: (context, orientation) {
           final formContainerWidth =
               size.width * (orientation == Orientation.portrait ? 1 : 0.5);
+          final imageSize = 240.0;
+
           return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(24, 40, 24, 24),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: 240,
-                    child: AuthScreenImage(),
+                  Hero(
+                    tag: 'app_logo',
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxHeight: imageSize,
+                        maxWidth: imageSize,
+                      ),
+                      child: AuthScreenImage(),
+                    ),
                   ),
                   LoginForm(
                     width: formContainerWidth,
