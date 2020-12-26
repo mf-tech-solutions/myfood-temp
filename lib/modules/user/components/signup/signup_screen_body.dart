@@ -33,12 +33,12 @@ class SignUpScreenBody extends StatelessWidget {
               size.width * (orientation == Orientation.portrait ? 1 : 0.5);
           return SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(24, 32, 24, 24),
+              padding: const EdgeInsets.fromLTRB(24, 40, 24, 24),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 256,
+                    height: 240,
                     child: AuthScreenImage(),
                   ),
                   SignUpForm(
