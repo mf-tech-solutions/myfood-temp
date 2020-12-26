@@ -31,7 +31,7 @@ UserState _loginSuccess(UserState state, LoginSuccessAction action) {
 }
 
 UserState _loginFail(UserState state, LoginFailAction action) {
-  return state.copyWith(loading: false);
+  return state.copyWith(loading: false, user: null);
 }
 //endregion
 

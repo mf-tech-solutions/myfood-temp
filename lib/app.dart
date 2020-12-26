@@ -21,7 +21,7 @@ class App extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'MyFood',
-        initialRoute: loginRoute,
+        initialRoute: landingRoute,
         onGenerateRoute: Routes.generateRoute,
         theme: ThemeData(
           //region Colors

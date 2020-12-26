@@ -33,6 +33,12 @@ class UserService {
     );
   }
 
+  static Future<User> signInWithToken(String token) {
+    return Future.delayed(Duration(milliseconds: 1200), () {
+      return Random().nextBool() ? _user : null;
+    });
+  }
+
   static Future<User> signUpWithEmailAndPassword(
     String email,
     String password,

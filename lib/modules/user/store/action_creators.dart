@@ -1,3 +1,5 @@
+import 'package:MyFood/modules/user/models/user.dart';
+
 import '../../../store/store.dart';
 import '../models/user_dto.dart';
 import '../service.dart';
@@ -15,6 +17,24 @@ Future<void> login(
     store.dispatch(LoginSuccessAction(user: user));
   } catch (e) {
     store.dispatch(LoginFailAction());
+  }
+}
+
+Future<User> loginWithToken(String token) async {
+  final store = AppStore.store;
+  store.dispatch(LoginAction());
+
+  try {
+    final user = await UserService.signInWithToken(token);
+    if (user == null) {
+      throw new Exception();
+    }
+
+    store.dispatch(LoginSuccessAction(user: user));
+    return user;
+  } catch (e) {
+    store.dispatch(LoginFailAction());
+    return null;
   }
 }
 

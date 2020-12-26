@@ -7,9 +7,7 @@ import '../models/user.dart';
 import '../service.dart';
 
 //region Login
-class LoginAction {
-  LoginAction();
-}
+class LoginAction {}
 
 class LoginSuccessPayload {
   final User user;
