@@ -44,7 +44,9 @@ class RecipeList extends StatelessWidget {
         if (state.recipes.length == 0) fetchRecipes();
 
         final loader = ScrollableCenter(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation(Theme.of(context).primaryColor),
+          ),
         );
 
         final content = AnimatedCrossFade(

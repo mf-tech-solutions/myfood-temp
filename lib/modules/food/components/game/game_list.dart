@@ -44,7 +44,9 @@ class GameList extends StatelessWidget {
         if (state.games.length == 0) fetchGames();
 
         final loader = ScrollableCenter(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation(Theme.of(context).primaryColor),
+          ),
         );
 
         final content = AnimatedCrossFade(

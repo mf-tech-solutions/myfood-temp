@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class Constants {
   static Color get primaryColor => Colors.deepOrange[600];
 
+  static Color get primaryColorLight => Colors.deepOrange[500];
+
   static Color get primarySwatch => Colors.deepOrange;
 
   static Color get accentColor => Colors.amberAccent[700];

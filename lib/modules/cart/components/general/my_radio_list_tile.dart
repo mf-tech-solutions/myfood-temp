@@ -26,6 +26,7 @@ class MyRadioListTile<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RadioListTile<T>(
+      activeColor: Theme.of(context).primaryColor,
       groupValue: groupValue,
       secondary: secondary,
       subtitle: subtitle != null ? Text(subtitle) : null,

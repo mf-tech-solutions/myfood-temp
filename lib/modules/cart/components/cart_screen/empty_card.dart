@@ -33,7 +33,6 @@ class EmptyCard extends StatelessWidget {
           Text(CartResource.emptyCart),
           SizedBox(height: 12),
           RaisedButton(
-            color: Theme.of(context).accentColor,
             elevation: 0,
             textColor: Colors.white,
             child: Text(CartResource.addToCartTitle),

@@ -63,6 +63,7 @@ class PaymentMethodsList extends StatelessWidget {
     final selectedPaymentMethod = getSelectedPaymentMethod();
 
     return RadioListTile<int>(
+      activeColor: Theme.of(context).primaryColor,
       groupValue: selectedPaymentMethod?.cardId,
       value: card.id,
       title: Text(_cardFormatter.maskText(card.lastDigits)),

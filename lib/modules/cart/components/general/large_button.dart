@@ -26,7 +26,7 @@ class LargeButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(48),
         ),
         child: child,
-        color: backgroundColor ?? Theme.of(context).accentColor,
+        color: backgroundColor ?? Theme.of(context).primaryColor,
         textColor: Colors.white,
         onPressed: onPressed,
       ),

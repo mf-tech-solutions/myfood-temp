@@ -30,7 +30,7 @@ class App extends StatelessWidget {
           indicatorColor: Constants.primaryColor,
           primaryColor: Constants.primaryColor,
           primarySwatch: Constants.primarySwatch,
-          splashColor: Constants.accentColorLight,
+          splashColor: Constants.primaryColorLight,
           scaffoldBackgroundColor: Constants.scaffoldBackgroundColor,
           //endregion
 
@@ -43,7 +43,7 @@ class App extends StatelessWidget {
             ),
           ),
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
-            selectedItemColor: Constants.accentColor,
+            selectedItemColor: Constants.primaryColor,
             backgroundColor: Colors.white,
           ),
           iconTheme: IconThemeData(color: Colors.black87),
@@ -59,6 +59,10 @@ class App extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
             elevation: 0,
+          ),
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: Constants.primaryColor,
+            foregroundColor: Colors.white,
           ),
           textTheme: TextTheme(
             headline5: TextStyle(
@@ -76,6 +80,7 @@ class App extends StatelessWidget {
               letterSpacing: 1.25,
             ),
           ),
+
           //endregion
 
           visualDensity: VisualDensity.adaptivePlatformDensity,
