@@ -84,6 +84,10 @@ class Utils {
     return 'R\$ ${value.toStringAsFixed(2)}';
   }
 
+  static String get imagesPath {
+    return 'assets/images/';
+  }
+
   static MaterialPageRoute materialPageRouteBuilder(Widget screen) {
     return MaterialPageRoute(builder: (_) => screen);
   }

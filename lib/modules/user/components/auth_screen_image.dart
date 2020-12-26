@@ -4,6 +4,6 @@ import 'package:flutter_svg/svg.dart';
 class AuthScreenImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset('assets/images/login_img.svg');
+    return SvgPicture.asset('assets/images/app_logo.svg');
   }
 }

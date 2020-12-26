@@ -5,9 +5,9 @@ class Constants {
 
   static Color get primarySwatch => Colors.deepOrange;
 
-  static Color get accentColor => Colors.deepOrangeAccent[400];
+  static Color get accentColor => Colors.amberAccent[700];
 
-  static Color get accentColorLight => Colors.deepOrangeAccent[200];
+  static Color get accentColorLight => Colors.amberAccent;
 
   static Color get scaffoldBackgroundColor => Color(0xFFF2F2F2);
 

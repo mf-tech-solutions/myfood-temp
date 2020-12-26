@@ -1,3 +1,4 @@
+import 'package:MyFood/screens/root.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/cart/cart.dart';
@@ -16,6 +17,7 @@ import 'screens/food/search_screen.dart';
 import 'screens/home.dart';
 import 'screens/landing.dart';
 import 'screens/menu.dart';
+import 'screens/onboarding.dart';
 import 'screens/user/login.dart';
 import 'screens/user/signup.dart';
 import 'screens/user/user.dart';
@@ -54,6 +56,9 @@ class Routes {
       case menuRoute:
         return Utils.materialPageRouteBuilder(MenuScreen());
 
+      case onBoardingRoute:
+        return Utils.materialPageRouteBuilder(OnBoardingScreen());
+
       case orderListRoute:
         return Utils.customPageRouteBuilder(OrderListScreen());
 
@@ -75,6 +80,9 @@ class Routes {
 
       case recipesRoute:
         return Utils.customPageRouteBuilder(RecipesScreen());
+
+      case rootRoute:
+        return Utils.materialPageRouteBuilder(RootScreen());
 
       case searchRoute:
         return Utils.customPageRouteBuilder(SearchScreen());
@@ -111,12 +119,14 @@ const String homeRoute = 'home';
 const String landingRoute = 'landing';
 const String loginRoute = 'login';
 const String menuRoute = 'menu';
+const String onBoardingRoute = 'onboarding';
 const String orderListRoute = 'orderList';
 const String orderStatusRoute = 'orderStatus';
 const String orderSummaryRoute = 'orderSummary';
 const String paymentMethodsRoute = 'paymentMethods';
 const String productDetailRoute = 'productDetails';
 const String recipesRoute = 'recipes';
+const String rootRoute = 'root';
 const String searchRoute = 'search';
 const String setSocialIdInNoteRoute = 'setSocialId';
 const String signupRoute = 'signup';

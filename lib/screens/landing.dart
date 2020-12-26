@@ -63,7 +63,10 @@ class _LandingScreenState extends State<LandingScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
-                  child: AuthScreenImage(),
+                  child: Hero(
+                    tag: 'app_logo',
+                    child: AuthScreenImage(),
+                  ),
                   height: imageSize,
                   width: imageSize,
                 ),

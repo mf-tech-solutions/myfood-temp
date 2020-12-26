@@ -90,4 +90,12 @@ class UserService {
   static Future<void> setDefaultUserAddress(Address address) {
     return Future.delayed(Duration(milliseconds: 600), () => null);
   }
+
+  static Future<bool> isFirstAccess() {
+    //TODO: Save this info on SharedPreferences
+    return Future.delayed(
+      Duration(milliseconds: 2000),
+      () => true,
+    );
+  }
 }
