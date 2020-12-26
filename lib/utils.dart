@@ -48,9 +48,49 @@ class Utils {
     );
   }
 
-  static PageRouteBuilder pageRouteBuilder(Widget nextScreen) {
+  static void showSnackBar(
+    ScaffoldState scaffold,
+    Widget content, {
+    SnackBarAction action,
+    Color backgroundColor,
+    SnackBarBehavior behavior,
+  }) {
+    final defaultAction = SnackBarAction(
+      label: 'FECHAR',
+      textColor: Colors.white,
+      onPressed: scaffold.hideCurrentSnackBar,
+    );
+
+    final radius = Radius.circular(12);
+    final borderRadius =
+        behavior == null ? BorderRadius.zero : BorderRadius.all(radius);
+
+    scaffold.showSnackBar(
+      SnackBar(
+        action: action ?? defaultAction,
+        backgroundColor: backgroundColor,
+        behavior: behavior,
+        padding: EdgeInsets.fromLTRB(12, 12, 8, 12),
+        content: content,
+        elevation: 8,
+        shape: RoundedRectangleBorder(
+          borderRadius: borderRadius,
+        ),
+      ),
+    );
+  }
+
+  static String formatCurrency(double value) {
+    return 'R\$ ${value.toStringAsFixed(2)}';
+  }
+
+  static MaterialPageRoute materialPageRouteBuilder(Widget screen) {
+    return MaterialPageRoute(builder: (_) => screen);
+  }
+
+  static PageRouteBuilder customPageRouteBuilder(Widget screen) {
     return PageRouteBuilder(
-      pageBuilder: (_, __, ___) => nextScreen,
+      pageBuilder: (_, __, ___) => screen,
       transitionDuration: Constants.pageTransitionDuration,
       reverseTransitionDuration: Constants.pageTransitionDuration,
       fullscreenDialog: false,
@@ -90,41 +130,5 @@ class Utils {
         );
       },
     );
-  }
-
-  static void showSnackBar(
-    ScaffoldState scaffold,
-    Widget content, {
-    SnackBarAction action,
-    Color backgroundColor,
-    SnackBarBehavior behavior,
-  }) {
-    final defaultAction = SnackBarAction(
-      label: 'FECHAR',
-      textColor: Colors.white,
-      onPressed: scaffold.hideCurrentSnackBar,
-    );
-
-    final radius = Radius.circular(12);
-    final borderRadius =
-        behavior == null ? BorderRadius.zero : BorderRadius.all(radius);
-
-    scaffold.showSnackBar(
-      SnackBar(
-        action: action ?? defaultAction,
-        backgroundColor: backgroundColor,
-        behavior: behavior,
-        padding: EdgeInsets.fromLTRB(12, 12, 8, 12),
-        content: content,
-        elevation: 8,
-        shape: RoundedRectangleBorder(
-          borderRadius: borderRadius,
-        ),
-      ),
-    );
-  }
-
-  static String formatCurrency(double value) {
-    return 'R\$ ${value.toStringAsFixed(2)}';
   }
 }

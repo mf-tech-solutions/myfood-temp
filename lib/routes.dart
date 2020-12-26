@@ -32,10 +32,10 @@ class Routes {
         ));
 
       case cartRoute:
-        return MaterialPageRoute(builder: (_) => CartScreen());
+        return Utils.materialPageRouteBuilder(CartScreen());
 
       case deliverAddressListRoute:
-        return Utils.pageRouteBuilder(DeliverAddressListScreen());
+        return Utils.customPageRouteBuilder(DeliverAddressListScreen());
 
       case deliverAddAddressRoute:
         return Utils.cupertinoRouteBuilder(AddDeliverAddressScreen(
@@ -43,22 +43,22 @@ class Routes {
         ));
 
       case gamesRoute:
-        return Utils.pageRouteBuilder(GamesScreen());
+        return Utils.customPageRouteBuilder(GamesScreen());
 
       case landingRoute:
-        return MaterialPageRoute(builder: (_) => LandingScreen());
+        return Utils.cupertinoRouteBuilder(LandingScreen());
 
       case loginRoute:
-        return MaterialPageRoute(builder: (_) => LoginScreen());
+        return Utils.materialPageRouteBuilder(LoginScreen());
 
       case menuRoute:
-        return MaterialPageRoute(builder: (_) => MenuScreen());
+        return Utils.materialPageRouteBuilder(MenuScreen());
 
       case orderListRoute:
-        return Utils.pageRouteBuilder(OrderListScreen());
+        return Utils.customPageRouteBuilder(OrderListScreen());
 
       case orderStatusRoute:
-        return Utils.pageRouteBuilder(OrderStatusScreen());
+        return Utils.customPageRouteBuilder(OrderStatusScreen());
 
       case orderSummaryRoute:
         return Utils.cupertinoRouteBuilder(OrderSummaryScreen(
@@ -66,21 +66,21 @@ class Routes {
         ));
 
       case paymentMethodsRoute:
-        return Utils.pageRouteBuilder(PaymentMethodsScreen());
+        return Utils.customPageRouteBuilder(PaymentMethodsScreen());
 
       case productDetailRoute:
-        return Utils.pageRouteBuilder(ProductDetailScreen(
+        return Utils.customPageRouteBuilder(ProductDetailScreen(
           product: settings.arguments,
         ));
 
       case recipesRoute:
-        return Utils.pageRouteBuilder(RecipesScreen());
+        return Utils.customPageRouteBuilder(RecipesScreen());
 
       case searchRoute:
-        return Utils.pageRouteBuilder(SearchScreen());
+        return Utils.customPageRouteBuilder(SearchScreen());
 
       case setSocialIdInNoteRoute:
-        return Utils.pageRouteBuilder(SetSocialIdScreen(
+        return Utils.customPageRouteBuilder(SetSocialIdScreen(
           socialId: settings.arguments,
         ));
 
@@ -88,7 +88,7 @@ class Routes {
         return Utils.cupertinoRouteBuilder(SignUpScreen());
 
       case userRoute:
-        return Utils.pageRouteBuilder(UserScreen());
+        return Utils.customPageRouteBuilder(UserScreen());
 
       case userEditRoute:
         return Utils.cupertinoRouteBuilder(UserEditScreen());
@@ -97,7 +97,7 @@ class Routes {
         return Utils.cupertinoRouteBuilder(UserImageScreen());
 
       default:
-        return MaterialPageRoute(builder: (_) => HomeScreen());
+        return Utils.materialPageRouteBuilder(HomeScreen());
     }
   }
 }
