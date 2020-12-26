@@ -35,7 +35,7 @@ class LoginScreenBody extends StatelessWidget {
 
           return SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(24, 40, 24, 24),
+              padding: const EdgeInsets.fromLTRB(24, 48, 24, 24),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
