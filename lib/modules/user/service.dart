@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'models/address.dart';
 import 'models/user.dart';
 import 'models/user_dto.dart';
@@ -91,11 +93,23 @@ class UserService {
     return Future.delayed(Duration(milliseconds: 600), () => null);
   }
 
-  static Future<bool> isFirstAccess() {
-    //TODO: Save this info on SharedPreferences
-    return Future.delayed(
-      Duration(milliseconds: 2000),
-      () => true,
-    );
+  static Future<bool> isFirstAccess() async {
+    final key = 'isFirstAccess';
+
+    final preferences = await SharedPreferences.getInstance();
+
+    // comment the line below before building the release version
+    preferences.remove(key);
+
+    var isFirstAccess = preferences.getBool(key);
+    if (isFirstAccess == null) {
+      isFirstAccess = true;
+    } else {
+      isFirstAccess = false;
+    }
+
+    await preferences.setBool(key, isFirstAccess);
+
+    return isFirstAccess;
   }
 }

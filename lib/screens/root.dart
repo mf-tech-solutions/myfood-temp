@@ -17,40 +17,35 @@ class RootScreen extends StatelessWidget {
     run();
   }
 
+  void verifyFirstAccess(BuildContext context) {
+    UserService.isFirstAccess().then((isFirstAccess) {
+      if (isFirstAccess == true) {
+        goToRoute(context, onBoardingRoute);
+      } else {
+        goToRoute(context, landingRoute);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: UserService.isFirstAccess(),
-        initialData: false,
-        builder: (context, snapshot) {
-          final imageSize = 320.0;
-          final placeholderScreen = Scaffold(
-            backgroundColor: Theme.of(context).primaryColor,
-            body: Center(
-              child: Hero(
-                tag: 'app_logo',
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: imageSize,
-                    maxWidth: imageSize,
-                  ),
-                  child: AuthScreenImage(),
-                ),
-              ),
+    verifyFirstAccess(context);
+
+    final imageSize = 320.0;
+    return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
+      body: Center(
+        child: Hero(
+          tag: 'app_logo',
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: imageSize,
+              maxWidth: imageSize,
             ),
-          );
-
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return placeholderScreen;
-          }
-
-          if (snapshot.data == true) {
-            goToRoute(context, onBoardingRoute);
-          } else {
-            goToRoute(context, landingRoute);
-          }
-
-          return placeholderScreen;
-        });
+            child: AuthScreenImage(),
+          ),
+        ),
+      ),
+    );
   }
 }
