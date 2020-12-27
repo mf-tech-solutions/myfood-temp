@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart' show StoreConnector;
+
 import '../../../store/state.dart';
 
 typedef FunctionWithContext = void Function(BuildContext context);
@@ -15,7 +16,7 @@ class FormSubmitButton extends StatelessWidget {
   }) : super(key: key);
 
   Widget getButton(BuildContext context, bool loading) {
-    final accentColor = Theme.of(context).accentColor;
+    final backgroundColor = Theme.of(context).primaryColor;
     final text = Text(this.text);
     final textColor = Colors.white;
     final shape = RoundedRectangleBorder(
@@ -24,7 +25,7 @@ class FormSubmitButton extends StatelessWidget {
 
     if (loading)
       return RaisedButton.icon(
-        color: accentColor,
+        color: backgroundColor,
         icon: SizedBox(
           height: 24,
           width: 24,
@@ -41,10 +42,10 @@ class FormSubmitButton extends StatelessWidget {
       );
 
     return RaisedButton(
-      color: accentColor,
+      color: backgroundColor,
       child: text,
       textColor: textColor,
-      elevation: 0,
+      elevation: 4,
       shape: shape,
       onPressed: () => this.onSubmit(context),
     );
