@@ -85,7 +85,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             SizedBox(
               height: 56,
               child: RaisedButton.icon(
-                elevation: 0,
+                elevation: 4,
                 color: theme.accentColor,
                 textColor: textColor,
                 icon: Icon(Icons.send_rounded),

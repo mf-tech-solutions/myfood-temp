@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../components/async_avatar.dart';
 import '../../../../routes.dart';
-import '../../models/user.dart';
 import '../../store/selectors.dart';
+import '../general/user_initials.dart';
 
 class UserAvatar extends StatelessWidget {
   final double size;
@@ -12,14 +12,9 @@ class UserAvatar extends StatelessWidget {
     this.size = 96,
   }) : super(key: key);
 
-  Widget buildUserNameInitial(User user) {
-    return Text('${user.name.characters.elementAt(0)}');
-  }
-
   @override
   Widget build(BuildContext context) {
     final user = getUser();
-    final userNameInitial = buildUserNameInitial(user);
 
     return GestureDetector(
       child: SizedBox(
@@ -29,8 +24,8 @@ class UserAvatar extends StatelessWidget {
           tag: 'user_img',
           child: AsyncAvatar(
             image: NetworkImage(user.imageUrl),
-            backgroundColor: Colors.white10,
-            child: userNameInitial,
+            backgroundColor: Theme.of(context).primaryColor,
+            child: UserInitials(color: Colors.white),
           ),
         ),
       ),

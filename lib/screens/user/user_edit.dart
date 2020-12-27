@@ -1,22 +1,23 @@
 import 'dart:io';
 
-import 'package:MyFood/modules/user/components/user_screen/update_dialog.dart';
-import 'package:MyFood/modules/user/components/user_screen/user_info_validator.dart';
-import 'package:MyFood/store/state.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../components/app_bar/app_bar.dart';
 import '../../components/large_button.dart';
 import '../../modules/user/components/general/input_formatters.dart';
 import '../../modules/user/components/general/select_user_image_bottom_sheet.dart';
-import '../../modules/user/components/user_screen/user_avatar.dart';
+import '../../modules/user/components/general/user_initials.dart';
+import '../../modules/user/components/user_screen/update_dialog.dart';
+import '../../modules/user/components/user_screen/user_info_validator.dart';
 import '../../modules/user/components/user_screen/user_personal_info_form.dart';
 import '../../modules/user/models/user.dart';
 import '../../modules/user/models/user_dto.dart';
 import '../../modules/user/store/action_creators.dart';
 import '../../modules/user/store/selectors.dart';
+import '../../routes.dart';
+import '../../store/state.dart';
 import '../../utils.dart';
 
 class UserEditScreen extends StatefulWidget {
@@ -25,7 +26,15 @@ class UserEditScreen extends StatefulWidget {
 }
 
 class _UserEditScreenState extends State<UserEditScreen> {
-  File _userSelectedImage;
+  File _selectedImage;
+
+  set selectedImage(File value) {
+    setState(() {
+      _selectedImage = value;
+    });
+  }
+
+  final _imagePicker = ImagePicker();
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -50,7 +59,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
           padding: const EdgeInsets.all(4.0),
           child: Center(
             child: Icon(
-              Icons.camera_alt,
+              Icons.edit_rounded,
               color: Theme.of(context).primaryColor,
             ),
           ),
@@ -63,8 +72,53 @@ class _UserEditScreenState extends State<UserEditScreen> {
     fillControllersText();
   }
 
+  void _pickImageFromGallery() async {
+    final image = await _imagePicker.getImage(
+      source: ImageSource.gallery,
+      imageQuality: 100,
+    );
+    if (image != null) {
+      selectedImage = File(image.path);
+    }
+    //TODO: push image to api to save the change
+  }
+
+  void _pickImageFromCamera() async {
+    final image = await _imagePicker.getImage(
+      source: ImageSource.camera,
+      imageQuality: 100,
+    );
+    if (image != null) {
+      selectedImage = File(image.path);
+    }
+    //TODO: push image to api to save the change
+  }
+
+  void _removeImage() async {
+    final user = getUser();
+    await updateUser(
+      UserDto(
+        userId: user.userId,
+        cpf: user.cpf,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        imageUrl: '',
+      ),
+    );
+
+    // Changes the state to provoke a rebuild
+    selectedImage = null;
+  }
+
   void openImageSourcePickerBottomSheet() {
-    final sheet = SelectUserImageBottomSheet(context: context);
+    final sheet = SelectUserImageBottomSheet(
+      context: context,
+      pickFromGallery: _pickImageFromGallery,
+      pickFromCamera: _pickImageFromCamera,
+      removeImage: _removeImage,
+    );
+
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -138,6 +192,28 @@ class _UserEditScreenState extends State<UserEditScreen> {
     );
   }
 
+  Widget buildUserImage() {
+    final user = getUser();
+    ImageProvider image;
+    if (_selectedImage != null) {
+      image = FileImage(_selectedImage);
+    } else if (user.imageUrl.isNotEmpty) {
+      image = NetworkImage(user.imageUrl);
+    }
+
+    return SizedBox(
+      height: 96,
+      width: 96,
+      child: CircleAvatar(
+        backgroundImage: image,
+        backgroundColor: Theme
+            .of(context)
+            .primaryColor,
+        child: UserInitials(color: Colors.white),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -158,7 +234,14 @@ class _UserEditScreenState extends State<UserEditScreen> {
                 children: [
                   Stack(
                     children: [
-                      UserAvatar(),
+                      GestureDetector(
+                        child: Hero(
+                          tag: 'user_img',
+                          child: buildUserImage(),
+                        ),
+                        onTap: () =>
+                            Navigator.of(context).pushNamed(userImageRoute),
+                      ),
                       Positioned(
                         bottom: 0,
                         right: 0,

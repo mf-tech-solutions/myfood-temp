@@ -6,6 +6,9 @@ import 'list_tile.dart';
 
 class SelectUserImageBottomSheet {
   final BuildContext context;
+  final Function pickFromGallery;
+  final Function pickFromCamera;
+  final Function removeImage;
 
   Widget get widget {
     return _material();
@@ -13,6 +16,9 @@ class SelectUserImageBottomSheet {
 
   const SelectUserImageBottomSheet({
     @required this.context,
+    @required this.pickFromGallery,
+    @required this.pickFromCamera,
+    @required this.removeImage,
   });
 
   Widget _material() {
@@ -29,7 +35,7 @@ class SelectUserImageBottomSheet {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Escolha sua de perfil',
+                'Escolha sua foto de perfil',
                 style: textTheme.headline6,
               ),
               IconButton(
@@ -48,7 +54,10 @@ class SelectUserImageBottomSheet {
               backgroundColor: theme.primaryColor,
             ),
             title: 'Galeria',
-            onTap: () {},
+            onTap: () {
+              pickFromGallery();
+              Navigator.of(context).pop();
+            },
           ),
           MyListTile(
             leading: CircleAvatar(
@@ -59,7 +68,10 @@ class SelectUserImageBottomSheet {
               backgroundColor: theme.primaryColor,
             ),
             title: 'Câmera',
-            onTap: () {},
+            onTap: () {
+              pickFromCamera();
+              Navigator.of(context).pop();
+            },
           ),
           MyListTile(
             leading: CircleAvatar(
@@ -70,7 +82,10 @@ class SelectUserImageBottomSheet {
               backgroundColor: Constants.scaffoldBackgroundColor,
             ),
             title: 'Remover foto',
-            onTap: () {},
+            onTap: () {
+              removeImage();
+              Navigator.of(context).pop();
+            },
           ),
         ],
       ),
