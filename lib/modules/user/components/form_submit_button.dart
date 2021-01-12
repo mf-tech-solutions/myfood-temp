@@ -22,6 +22,7 @@ class FormSubmitButton extends StatelessWidget {
     final shape = RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(48),
     );
+    final elevation = 2.0;
 
     if (loading)
       return RaisedButton.icon(
@@ -36,16 +37,16 @@ class FormSubmitButton extends StatelessWidget {
         ),
         label: text,
         textColor: textColor,
-        elevation: 0,
+        elevation: elevation,
         shape: shape,
-        onPressed: () => this.onSubmit(context),
+        onPressed: null,
       );
 
     return RaisedButton(
       color: backgroundColor,
       child: text,
       textColor: textColor,
-      elevation: 4,
+      elevation: elevation,
       shape: shape,
       onPressed: () => this.onSubmit(context),
     );
@@ -55,10 +56,12 @@ class FormSubmitButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, bool>(
       converter: (store) => store.state.userState.loading,
-      builder: (BuildContext context, bool loading) => SizedBox(
-        height: 48,
-        child: getButton(context, loading),
-      ),
+      builder: (BuildContext context, bool loading) {
+        return SizedBox(
+          height: 48,
+          child: getButton(context, loading),
+        );
+      },
     );
   }
 }

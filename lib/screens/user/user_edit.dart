@@ -206,9 +206,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
       width: 96,
       child: CircleAvatar(
         backgroundImage: image,
-        backgroundColor: Theme
-            .of(context)
-            .primaryColor,
+        backgroundColor: Theme.of(context).primaryColor,
         child: UserInitials(color: Colors.white),
       ),
     );
@@ -271,7 +269,6 @@ class _UserEditScreenState extends State<UserEditScreen> {
                 builder: (_, updating) {
                   return LargeButton(
                     child: Text(updating ? 'SALVANDO' : 'SALVAR'),
-                    elevation: 4,
                     onPressed: updating ? null : () => save(user),
                   );
                 },

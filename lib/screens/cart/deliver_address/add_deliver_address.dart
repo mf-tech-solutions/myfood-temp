@@ -149,7 +149,6 @@ class AddDeliverAddressScreen extends StatelessWidget {
                 builder: (context, loadingAddresses) {
                   return LargeButton(
                     child: Text(loadingAddresses ? 'AGUARDE' : 'CONFIRMAR'),
-                    elevation: 4,
                     onPressed:
                         loadingAddresses ? null : () => _confirm(context),
                   );

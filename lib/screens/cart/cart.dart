@@ -15,7 +15,6 @@ import '../../modules/cart/resource.dart';
 import '../../modules/cart/store/action_creators.dart';
 import '../../modules/cart/store/selectors.dart';
 import '../../modules/cart/store/state.dart';
-import '../../modules/navigation/store/actionCreators.dart';
 import '../../routes.dart';
 import '../../store/state.dart';
 
@@ -85,9 +84,7 @@ class CartScreen extends StatelessWidget {
           _goToOrderConfirmationScreen(context);
         }
 
-        final emptyCard = EmptyCard(
-          onBackToMenuButtonTapHandler: () => setCurrentIndex(0),
-        );
+        final emptyCard = EmptyCard();
 
         final orderInfo = SizedBox(
           height: size.height,

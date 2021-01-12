@@ -216,7 +216,6 @@ class AddUserCardScreen extends StatelessWidget {
 
                   return LargeButton(
                     child: buttonChild,
-                    elevation: 4,
                     onPressed: loading ? null : () => _confirm(context),
                   );
                 },

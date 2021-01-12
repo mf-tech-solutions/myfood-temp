@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../../navigation/store/actionCreators.dart';
 import '../../resource.dart';
 
 class EmptyCard extends StatelessWidget {
-  final Function onBackToMenuButtonTapHandler;
-
-  const EmptyCard({
-    Key key,
-    @required this.onBackToMenuButtonTapHandler,
-  }) : super(key: key);
+  const EmptyCard({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +28,10 @@ class EmptyCard extends StatelessWidget {
           SizedBox(height: 12),
           Text(CartResource.emptyCart),
           SizedBox(height: 12),
-          RaisedButton(
-            elevation: 0,
-            textColor: Colors.white,
-            child: Text(CartResource.addToCartTitle),
-            onPressed: onBackToMenuButtonTapHandler,
+          TextButton.icon(
+            icon: Icon(Icons.add_rounded),
+            label: Text(CartResource.addToCartTitle),
+            onPressed: () => setCurrentIndex(0),
           ),
         ],
       ),

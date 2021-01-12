@@ -23,7 +23,7 @@ final authReducer = combineReducers<UserState>([
 
 //region Login
 UserState _loginStart(UserState state, LoginAction action) {
-  return state.copyWith(loading: false);
+  return state.copyWith(loading: true);
 }
 
 UserState _loginSuccess(UserState state, LoginSuccessAction action) {
@@ -37,7 +37,7 @@ UserState _loginFail(UserState state, LoginFailAction action) {
 
 //region SignUp
 UserState _signUpStart(UserState state, SignUpAction action) {
-  return state.copyWith(loading: false);
+  return state.copyWith(loading: true);
 }
 
 UserState _signUpSuccess(UserState state, SignUpSuccessAction action) {

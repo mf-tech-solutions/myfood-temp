@@ -21,7 +21,7 @@ class LargeButton extends StatelessWidget {
     return SizedBox(
       height: height,
       child: RaisedButton(
-        elevation: elevation ?? 0,
+        elevation: elevation ?? 2,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(48),
         ),
