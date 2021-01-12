@@ -1,3 +1,4 @@
+import 'package:MyFood/constants.dart';
 import 'package:flutter/material.dart';
 
 import '../modules/user/components/auth_screen_image.dart';
@@ -61,6 +62,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textColor = Colors.white;
+
     return Scaffold(
       backgroundColor: theme.primaryColor,
       body: Padding(
@@ -86,7 +88,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               height: 56,
               child: RaisedButton.icon(
                 elevation: 4,
-                color: theme.accentColor,
+                color: Constants.accentColor,
                 textColor: textColor,
                 icon: Icon(Icons.send_rounded),
                 label: Text('ENTRAR'),

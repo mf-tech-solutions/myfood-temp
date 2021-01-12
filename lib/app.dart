@@ -25,7 +25,7 @@ class App extends StatelessWidget {
         onGenerateRoute: Routes.generateRoute,
         theme: ThemeData(
           //region Colors
-          accentColor: Constants.accentColor,
+          accentColor: Constants.primaryColor,
           cursorColor: Constants.primaryColor,
           indicatorColor: Constants.primaryColor,
           primaryColor: Constants.primaryColor,
