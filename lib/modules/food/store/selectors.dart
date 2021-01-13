@@ -44,7 +44,7 @@ List<Product> getProducts() {
   return AppStore.store.state.foodState.products;
 }
 
-bool isLoadingFoodItems() {
+bool isLoadingProducts() {
   final state = AppStore.store.state.foodState;
-  return state.loadingCategories || state.loadingProducts;
+  return state.loadingProducts;
 }

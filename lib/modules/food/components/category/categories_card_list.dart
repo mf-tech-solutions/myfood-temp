@@ -7,7 +7,6 @@ import '../../../../screens/food/category_products_screen.dart';
 import '../../../../store/state.dart';
 import '../../../../utils.dart';
 import '../../models/category.dart';
-import '../../store/action_creators.dart';
 import '../../store/state.dart';
 import '../category/category_card.dart';
 
@@ -28,12 +27,8 @@ class CategoriesCardList extends StatelessWidget {
     return StoreConnector<AppState, FoodState>(
       converter: (store) => store.state.foodState,
       builder: (context, state) {
-        if (state.categories.length == 0) {
-          fetchCategories();
-          return Text('Categorias não disponíveis');
-        }
-
         final categories = state.categories;
+
         return SizedBox(
           height: 160,
           child: ListView.separated(

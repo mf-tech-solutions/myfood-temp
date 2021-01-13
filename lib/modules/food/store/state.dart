@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart' show immutable, required;
 
-import '../models/game.dart';
-import '../models/recipe.dart';
-import '../models/product.dart';
 import '../models/category.dart';
+import '../models/game.dart';
+import '../models/product.dart';
+import '../models/recipe.dart';
 
 @immutable
 class FoodState {
   final List<Category> categories;
-  final bool loadingCategories;
 
   final List<Product> products;
   final bool loadingProducts;
@@ -21,7 +20,6 @@ class FoodState {
 
   FoodState({
     @required this.categories,
-    @required this.loadingCategories,
     @required this.products,
     @required this.loadingProducts,
     @required this.recipes,
@@ -32,7 +30,6 @@ class FoodState {
 
   factory FoodState.initial() => FoodState(
         categories: [],
-        loadingCategories: false,
         products: [],
         loadingProducts: false,
         recipes: [],
@@ -43,7 +40,6 @@ class FoodState {
 
   FoodState copyWith({
     List<Category> categories,
-    bool loadingCategories,
     List<Product> products,
     bool loadingProducts,
     List<Recipe> recipes,
@@ -53,7 +49,6 @@ class FoodState {
   }) {
     return FoodState(
       categories: categories ?? this.categories,
-      loadingCategories: loadingCategories ?? this.loadingCategories,
       products: products ?? this.products,
       loadingProducts: loadingProducts ?? this.loadingProducts,
       recipes: recipes ?? this.recipes,

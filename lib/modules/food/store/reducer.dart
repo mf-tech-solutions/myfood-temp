@@ -4,9 +4,6 @@ import 'actions.dart';
 import 'state.dart';
 
 final foodReducer = combineReducers<FoodState>([
-  TypedReducer(_fetchCategoriesStart),
-  TypedReducer(_fetchCategoriesSuccess),
-  TypedReducer(_fetchCategoriesFail),
   TypedReducer(_fetchProductsStart),
   TypedReducer(_fetchProductsSuccess),
   TypedReducer(_fetchProductsFail),
@@ -17,35 +14,6 @@ final foodReducer = combineReducers<FoodState>([
   TypedReducer(_fetchGamesSuccess),
   TypedReducer(_fetchGamesFail),
 ]);
-
-//region Fetch categories
-FoodState _fetchCategoriesStart(
-  FoodState state,
-  FetchCategoriesAction action,
-) {
-  return state.copyWith(
-    loadingCategories: true,
-    loadingProducts: true,
-  );
-}
-
-FoodState _fetchCategoriesSuccess(
-  FoodState state,
-  FetchCategoriesSuccessAction action,
-) {
-  return state.copyWith(
-    categories: action.payload.categories,
-    loadingCategories: false,
-  );
-}
-
-FoodState _fetchCategoriesFail(
-  FoodState state,
-  FetchCategoriesFailAction action,
-) {
-  return state.copyWith(loadingCategories: false);
-}
-//endregion
 
 //region Fetch products
 FoodState _fetchProductsStart(FoodState state, FetchProductsAction action) {
@@ -58,6 +26,7 @@ FoodState _fetchProductsSuccess(
 ) {
   return state.copyWith(
     products: action.payload.products,
+    categories: action.payload.categories,
     loadingProducts: false,
   );
 }

@@ -40,7 +40,8 @@ class _RestaurantMenuScreenState extends State<RestaurantMenuScreen> {
     );
   }
 
-  Widget buildContent(List<Category> categories) {
+  Widget buildContent() {
+    final categories = getCategories();
     return ListView(
       padding: const EdgeInsets.fromLTRB(12, 32, 12, 24),
       children: [
@@ -91,7 +92,6 @@ class _RestaurantMenuScreenState extends State<RestaurantMenuScreen> {
   }
 
   Future<void> _refresh() async {
-    await fetchCategories();
     await fetchProducts();
   }
 
@@ -104,14 +104,13 @@ class _RestaurantMenuScreenState extends State<RestaurantMenuScreen> {
         child: StoreConnector<AppState, FoodState>(
           converter: (store) => store.state.foodState,
           builder: (_, state) {
-            final categories = getCategories();
             final products = getProducts();
-            if (categories.length > 0 && products.length == 0) {
+            if (products.length == 0 && !state.loadingProducts) {
               fetchProducts();
             }
 
-            final content = buildContent(categories);
-            final loading = isLoadingFoodItems();
+            final content = buildContent();
+            final loading = isLoadingProducts();
             return loading ? HomeScreenLoader() : content;
           },
         ),

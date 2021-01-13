@@ -1,44 +1,28 @@
+import 'package:MyFood/modules/food/models/category.dart';
 import 'package:flutter/material.dart' show required;
 
 import '../models/game.dart';
 import '../models/product.dart';
-import '../models/category.dart';
 import '../models/recipe.dart';
-
-//region Fetch categories
-class FetchCategoriesAction {}
-
-class FetchCategoriesSuccessPayload {
-  final List<Category> categories;
-
-  FetchCategoriesSuccessPayload({@required this.categories});
-}
-
-class FetchCategoriesSuccessAction {
-  FetchCategoriesSuccessPayload payload;
-
-  FetchCategoriesSuccessAction({@required List<Category> categories}) {
-    payload = FetchCategoriesSuccessPayload(categories: categories);
-  }
-}
-
-class FetchCategoriesFailAction {}
-//endregion
 
 //region Fetch products
 class FetchProductsAction {}
 
 class FetchProductsSuccessPayload {
   final List<Product> products;
+  final List<Category> categories;
 
-  FetchProductsSuccessPayload({@required this.products});
+  FetchProductsSuccessPayload(this.products, this.categories);
 }
 
 class FetchProductsSuccessAction {
   FetchProductsSuccessPayload payload;
 
-  FetchProductsSuccessAction({@required List<Product> products}) {
-    payload = FetchProductsSuccessPayload(products: products);
+  FetchProductsSuccessAction(
+    List<Product> products,
+    List<Category> categories,
+  ) {
+    payload = FetchProductsSuccessPayload(products, categories);
   }
 }
 

@@ -1,27 +1,16 @@
-import 'actions.dart';
-import '../service.dart';
 import '../../../store/store.dart';
-
-Future<void> fetchCategories() async {
-  AppStore.store.dispatch(FetchCategoriesAction());
-
-  try {
-    final categories = await FoodService.fetchCategories();
-    AppStore.store
-        .dispatch(FetchCategoriesSuccessAction(categories: categories));
-  } catch (e) {
-    AppStore.store.dispatch(FetchCategoriesFailAction());
-  }
-}
+import '../service.dart';
+import 'actions.dart';
 
 Future<void> fetchProducts() async {
   AppStore.store.dispatch(FetchProductsAction());
 
   try {
+    final categories = await FoodService.fetchCategories();
     final products = await FoodService.fetchProducts();
-    AppStore.store.dispatch(FetchProductsSuccessAction(products: products));
+    AppStore.store.dispatch(FetchProductsSuccessAction(products, categories));
   } catch (e) {
-    AppStore.store.dispatch(FetchCategoriesFailAction());
+    AppStore.store.dispatch(FetchProductsFailAction());
   }
 }
 
