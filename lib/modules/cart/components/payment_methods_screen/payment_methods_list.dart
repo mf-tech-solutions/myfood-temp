@@ -37,6 +37,9 @@ class PaymentMethodsList extends StatelessWidget {
         title: Text('Dinheiro'),
         onChanged: (_) => setPaymentMethod(PaymentMethod.money()),
       ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
     );
   }
 
@@ -105,6 +108,9 @@ class PaymentMethodsList extends StatelessWidget {
                       : CrossFadeState.showSecond,
                   duration: Constants.widgetTransitionDuration,
                 ),
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
               ),
             ),
             Divider(height: 32),

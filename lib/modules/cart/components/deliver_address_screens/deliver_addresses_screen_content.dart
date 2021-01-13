@@ -28,37 +28,43 @@ class DeliverAddressesScreenContent extends StatelessWidget {
   }
 
   Widget buildAddressesList(BuildContext context, List<Address> addresses) {
-    return ListView.separated(
-      padding: EdgeInsets.zero,
-      physics: const AlwaysScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: addresses.length,
-      itemBuilder: (_, index) {
-        final address = addresses[index];
-        final formattedAddress = formatAddress(address);
+    return Card(
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 12),
+        child: ListView.separated(
+          padding: EdgeInsets.zero,
+          physics: const AlwaysScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: addresses.length,
+          itemBuilder: (_, index) {
+            final address = addresses[index];
+            final formattedAddress = formatAddress(address);
 
-        return Card(
-          child: MyRadioListTile<int>(
-            groupValue: getDefaultDeliverAddress().addressId,
-            value: address.addressId,
-            title: formattedAddress,
-            subtitle: address.complement != null
-                ? 'Complemento: ${address.complement}'
-                : null,
-            secondary: SmallIconButton(
-              child: Icon(Icons.edit_rounded),
-              onTapCallback: () => Navigator.of(context).pushNamed(
-                deliverAddAddressRoute,
-                arguments: address,
+            return MyRadioListTile<int>(
+              groupValue: getDefaultDeliverAddress().addressId,
+              value: address.addressId,
+              title: formattedAddress,
+              subtitle: address.complement != null
+                  ? 'Complemento: ${address.complement}'
+                  : null,
+              secondary: SmallIconButton(
+                child: Icon(Icons.edit_rounded),
+                onTapCallback: () => Navigator.of(context).pushNamed(
+                  deliverAddAddressRoute,
+                  arguments: address,
+                ),
               ),
-            ),
-            onChanged: (_) => changeDefaultDeliverAddress(address),
-          ),
-        );
-      },
-      separatorBuilder: (_, __) {
-        return SizedBox(height: 12);
-      },
+              onChanged: (_) => changeDefaultDeliverAddress(address),
+            );
+          },
+          separatorBuilder: (_, __) {
+            return Divider(height: 0);
+          },
+        ),
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
     );
   }
 
