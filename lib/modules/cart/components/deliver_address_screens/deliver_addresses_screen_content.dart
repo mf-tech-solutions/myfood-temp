@@ -1,10 +1,10 @@
 import 'package:MyFood/components/screen_icon_avatar.dart';
+import 'package:MyFood/components/small_icon_button.dart';
 import 'package:MyFood/modules/cart/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../constants.dart';
 import '../../../../routes.dart';
 import '../../../../store/state.dart';
 import '../../models/address.dart';
@@ -45,16 +45,9 @@ class DeliverAddressesScreenContent extends StatelessWidget {
             subtitle: address.complement != null
                 ? 'Complemento: ${address.complement}'
                 : null,
-            secondary: InkWell(
-              borderRadius: BorderRadius.circular(32),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.edit,
-                  color: Constants.blackTextColor,
-                ),
-              ),
-              onTap: () => Navigator.of(context).pushNamed(
+            secondary: SmallIconButton(
+              child: Icon(Icons.edit_rounded),
+              onTapCallback: () => Navigator.of(context).pushNamed(
                 deliverAddAddressRoute,
                 arguments: address,
               ),
