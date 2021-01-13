@@ -23,7 +23,6 @@ class CartScreen extends StatelessWidget {
     return TextButton(
       child: Text(
         CartResource.clear,
-        style: TextStyle(color: Colors.white),
       ),
       onPressed: clearCart,
     );
