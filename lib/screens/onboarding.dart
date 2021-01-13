@@ -1,4 +1,3 @@
-import 'package:MyFood/constants.dart';
 import 'package:flutter/material.dart';
 
 import '../modules/user/components/auth_screen_image.dart';
@@ -88,7 +87,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               height: 56,
               child: RaisedButton.icon(
                 elevation: 4,
-                color: Constants.accentColor,
+                color: Colors.amberAccent[700],
                 textColor: textColor,
                 icon: Icon(Icons.send_rounded),
                 label: Text('ENTRAR'),
