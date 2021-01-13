@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 
-import '../../models/category.dart';
 import '../../../../components/with_inkwell.dart';
+import '../../models/category.dart';
 
 class CategoryCard extends StatelessWidget {
   final double _radiusSize = 12;
 
   final Category category;
-  final double size;
+  final double height;
+  final double width;
   final Function onTapCallback;
 
   const CategoryCard({
     Key key,
     @required this.category,
-    this.size = 160,
+    this.height = 192,
+    this.width = 168,
     this.onTapCallback,
   }) : super(key: key);
 
@@ -23,8 +25,8 @@ class CategoryCard extends StatelessWidget {
     final textStyle = theme.textTheme.subtitle1;
 
     final card = SizedBox(
-      width: size,
-      height: size,
+      width: width,
+      height: height,
       child: Card(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

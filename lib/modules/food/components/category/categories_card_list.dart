@@ -30,7 +30,7 @@ class CategoriesCardList extends StatelessWidget {
         final categories = state.categories;
 
         return SizedBox(
-          height: 160,
+          height: 4 * 2 * 22.0,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: categories.length,
