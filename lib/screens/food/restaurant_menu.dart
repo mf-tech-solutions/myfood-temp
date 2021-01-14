@@ -1,4 +1,3 @@
-import 'package:MyFood/modules/food/components/loader/home_screen_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
@@ -6,6 +5,7 @@ import '../../components/app_bar/app_bar.dart';
 import '../../components/search_box.dart';
 import '../../components/with_refresh_indicator.dart';
 import '../../modules/food/components/category/categories_card_list.dart';
+import '../../modules/food/components/loader/home_screen_loader.dart';
 import '../../modules/food/components/product/categories_products_card_list.dart';
 import '../../modules/food/models/category.dart';
 import '../../modules/food/resource.dart';
@@ -102,13 +102,15 @@ class _RestaurantMenuScreenState extends State<RestaurantMenuScreen> {
       floatingActionButton: _floatingActionButton,
       body: WithRefreshIndicator(
         child: StoreConnector<AppState, FoodState>(
-          converter: (store) => store.state.foodState,
-          builder: (_, state) {
-            final products = getProducts();
-            if (products.length == 0 && !state.loadingProducts) {
+          onInitialBuild: (state) {
+            if (state.products.length == 0) {
               fetchProducts();
             }
-
+          },
+          distinct: true,
+          converter: (store) => store.state.foodState,
+          builder: (_, state) {
+            print('build');
             final content = buildContent();
             final loading = isLoadingProducts();
             return loading ? HomeScreenLoader() : content;

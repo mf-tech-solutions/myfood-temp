@@ -57,4 +57,19 @@ class FoodState {
       loadingGames: loadingGames ?? this.loadingGames,
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    final otherState = other as FoodState;
+    return categories.length == otherState.categories.length &&
+        products.length == otherState.products.length &&
+        loadingProducts == otherState.loadingProducts &&
+        recipes.length == otherState.recipes.length &&
+        loadingRecipes == otherState.loadingRecipes &&
+        games.length == otherState.games.length &&
+        loadingGames == otherState.loadingGames;
+  }
+
+  @override
+  int get hashCode => super.hashCode;
 }
