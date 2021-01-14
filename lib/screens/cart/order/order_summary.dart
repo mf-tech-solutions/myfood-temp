@@ -131,7 +131,7 @@ class OrderSummaryScreen extends StatelessWidget {
             child: buildPaymentMethodSection(),
           ),
           Text(
-            order.socialIdInNote != null
+            order.socialIdInNote.isNotEmpty
                 ? 'CPF na nota: ${_socialIdFormatter.maskText(order.socialIdInNote)}'
                 : 'CPF não incluso',
           )
