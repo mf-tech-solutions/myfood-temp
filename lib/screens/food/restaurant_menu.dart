@@ -110,7 +110,6 @@ class _RestaurantMenuScreenState extends State<RestaurantMenuScreen> {
           distinct: true,
           converter: (store) => store.state.foodState,
           builder: (_, state) {
-            print('build');
             final content = buildContent();
             final loading = isLoadingProducts();
             return loading ? HomeScreenLoader() : content;
