@@ -39,10 +39,14 @@ class RecipeList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, FoodState>(
+      onInitialBuild: (state) {
+        if (state.recipes.length == 0) {
+          fetchRecipes();
+        }
+      },
+      distinct: true,
       converter: (store) => store.state.foodState,
       builder: (_, state) {
-        if (state.recipes.length == 0) fetchRecipes();
-
         final loader = ScrollableCenter(
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation(Theme.of(context).primaryColor),

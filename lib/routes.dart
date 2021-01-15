@@ -1,4 +1,3 @@
-import 'package:MyFood/screens/root.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/cart/cart.dart';
@@ -12,12 +11,14 @@ import 'screens/cart/payment_method/payment_methods.dart';
 import 'screens/cart/product_detail.dart';
 import 'screens/cart/set_social_id.dart';
 import 'screens/food/games_screen.dart';
-import 'screens/food/recipes_screen.dart';
+import 'screens/food/recipe/recipe_screen.dart';
+import 'screens/food/recipe/recipes_screen.dart';
 import 'screens/food/search_screen.dart';
 import 'screens/home.dart';
 import 'screens/landing.dart';
 import 'screens/menu.dart';
 import 'screens/onboarding.dart';
+import 'screens/root.dart';
 import 'screens/user/login.dart';
 import 'screens/user/signup.dart';
 import 'screens/user/user.dart';
@@ -81,6 +82,13 @@ class Routes {
       case recipesRoute:
         return Utils.customPageRouteBuilder(RecipesScreen());
 
+      case recipeRoute:
+        return Utils.cupertinoRouteBuilder(
+          RecipeScreen(
+            recipe: settings.arguments,
+          ),
+        );
+
       case rootRoute:
         return Utils.materialPageRouteBuilder(RootScreen());
 
@@ -126,6 +134,7 @@ const String orderSummaryRoute = 'orderSummary';
 const String paymentMethodsRoute = 'paymentMethods';
 const String productDetailRoute = 'productDetails';
 const String recipesRoute = 'recipes';
+const String recipeRoute = 'recipe';
 const String rootRoute = 'root';
 const String searchRoute = 'search';
 const String setSocialIdInNoteRoute = 'setSocialId';
