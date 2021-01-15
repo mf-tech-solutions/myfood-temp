@@ -25,6 +25,9 @@ class ProductCard extends StatelessWidget {
           title: Text(this.product.name),
           subtitle: Text('R\$ ${this.product.unitaryPrice.toStringAsFixed(2)}'),
         ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
       ),
     );
   }
