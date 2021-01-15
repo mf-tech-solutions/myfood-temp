@@ -30,7 +30,6 @@ class CartScreen extends StatelessWidget {
 
   Widget _getConfirmButton(CartState state, BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final padding = 6.0;
     final ordering = isOrdering();
     final enabled = !ordering && state.paymentMethod != null;
     final text = ordering ? CartResource.ordering : CartResource.confirm;
@@ -39,11 +38,11 @@ class CartScreen extends StatelessWidget {
       bottom: 0,
       child: Padding(
         padding: EdgeInsets.symmetric(
-          vertical: 2 * padding,
-          horizontal: padding,
+          vertical: 24,
+          horizontal: 8,
         ),
         child: SizedBox(
-          width: screenWidth - 2 * padding,
+          width: screenWidth - 16,
           child: LargeButton(
             child: Text(text.toUpperCase()),
             onPressed: enabled ? _confirm : null,
