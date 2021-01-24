@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../components/with_inkwell.dart';
 import '../../models/category.dart';
 
 class CategoryCard extends StatelessWidget {
@@ -32,7 +31,6 @@ class CategoryCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              flex: 7,
               child: Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
@@ -45,22 +43,19 @@ class CategoryCard extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(
-              flex: 3,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      category.name,
-                      style: textStyle,
-                      maxLines: 1,
-                      softWrap: false,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
+            Container(
+              padding: EdgeInsets.all(12),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    category.name,
+                    style: textStyle,
+                    maxLines: 1,
+                    softWrap: false,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
               ),
             ),
           ],
@@ -68,12 +63,9 @@ class CategoryCard extends StatelessWidget {
       ),
     );
 
-    return onTapCallback == null
-        ? card
-        : WithInkWell(
-            child: card,
-            borderRadius: BorderRadius.circular(_radiusSize),
-            onTapCallback: onTapCallback,
-          );
+    return GestureDetector(
+      child: card,
+      onTap: onTapCallback,
+    );
   }
 }
