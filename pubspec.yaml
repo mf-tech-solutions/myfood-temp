@@ -24,6 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_native_splash: ^0.2.7
   flutter_redux: ^0.7.0
   flutter_svg: ^0.19.1
   http: ^0.12.2
