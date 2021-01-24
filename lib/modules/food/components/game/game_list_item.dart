@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'game_card_content.dart';
-import '../../models/game.dart';
+import '../../../../routes.dart';
 import '../../../../utils.dart';
+import '../../models/game.dart';
+import 'game_card_content.dart';
 
 class GameListItem extends StatelessWidget {
   final FoodGame game;
@@ -35,7 +36,10 @@ class GameListItem extends StatelessWidget {
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
-        onTap: () => openGameModal(context),
+        onTap: () => Navigator.of(context).pushNamed(
+          gameRoute,
+          arguments: game,
+        ),
       ),
     );
   }

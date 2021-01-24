@@ -10,7 +10,8 @@ import 'screens/cart/payment_method/add_user_card.dart';
 import 'screens/cart/payment_method/payment_methods.dart';
 import 'screens/cart/product_detail.dart';
 import 'screens/cart/set_social_id.dart';
-import 'screens/food/games_screen.dart';
+import 'screens/food/game/game_screen.dart';
+import 'screens/food/game/games_screen.dart';
 import 'screens/food/recipe/recipe_screen.dart';
 import 'screens/food/recipe/recipes_screen.dart';
 import 'screens/food/search_screen.dart';
@@ -47,6 +48,11 @@ class Routes {
 
       case gamesRoute:
         return Utils.customPageRouteBuilder(GamesScreen());
+
+      case gameRoute:
+        return Utils.cupertinoRouteBuilder(GameScreen(
+          game: settings.arguments,
+        ));
 
       case landingRoute:
         return Utils.cupertinoRouteBuilder(LandingScreen());
@@ -123,6 +129,7 @@ const String cartRoute = 'cart';
 const String deliverAddressListRoute = 'userAddressList';
 const String deliverAddAddressRoute = 'userAddressList/new/';
 const String gamesRoute = 'games';
+const String gameRoute = 'game';
 const String homeRoute = 'home';
 const String landingRoute = 'landing';
 const String loginRoute = 'login';
