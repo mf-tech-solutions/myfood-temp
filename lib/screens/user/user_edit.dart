@@ -207,7 +207,7 @@ class _UserEditScreenState extends State<UserEditScreen> {
       child: CircleAvatar(
         backgroundImage: image,
         backgroundColor: Theme.of(context).primaryColor,
-        child: UserInitials(color: Colors.white),
+        child: image == null ? UserInitials(color: Colors.white) : null,
       ),
     );
   }
